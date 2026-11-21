@@ -108,6 +108,9 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   integer :: ncandall, numcores, numthreads, nuserthr
   real :: rms, rmsbad, sq, sumxdt, dtmed, forcedt
 
+! Single pass: the exit main_body statements jump to the decode epilogue.
+! A block construct would express this directly, but gfortran rejects it here
+! (presumably a compiler bug).
 main_body: do
   if(.not.params%newdat .and. params%ntr.gt.ntr0) exit main_body
   ntr0=params%ntr
