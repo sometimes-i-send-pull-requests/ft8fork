@@ -1,6 +1,6 @@
 subroutine get_fst4_bitmetrics2(cd,nss,hmod,nsizes,bitmetrics,s4snr,badsync)
 
-   include 'fst4_params.f90'
+  use fst4_params
    complex cd(0:NN*nss-1)
    complex csymb(nss)
    complex, allocatable, save :: c1(:,:)   ! ideal waveforms, 4 tones

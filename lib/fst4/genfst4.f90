@@ -12,7 +12,7 @@ subroutine genfst4(msg0,ichk,msgsent,msgbits,i4tone,iwspr)
 ! s8 d30 s8 d30 s8 d30 s8 d30 s8
 
    use packjt77
-   include 'fst4_params.f90'
+  use fst4_params
    character*37 msg0
    character*37 message                    !Message to be generated
    character*37 msgsent                    !Message as it will be received

@@ -1,7 +1,7 @@
 subroutine get_fst4_bitmetrics(cd,nss,bitmetrics,s4,nsync_qual,badsync)
 
    use timer_module, only: timer
-   include 'fst4_params.f90'
+  use fst4_params
    complex cd(0:NN*nss-1)
    complex cs(0:3,NN)
    complex csymb(nss)

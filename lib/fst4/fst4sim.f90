@@ -4,7 +4,7 @@ program fst4sim
 
    use wavhdr
    use packjt77
-   include 'fst4_params.f90'               !Set various constants
+  use fst4_params
    type(hdr) h                                !Header for .wav file
    logical*1 wspr_hint
    character arg*12,fname*17

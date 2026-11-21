@@ -38,7 +38,7 @@ contains
       use timer_module, only: timer
       use packjt77
       use, intrinsic :: iso_c_binding
-      include 'fst4/fst4_params.f90'
+  use fst4_params
       integer, parameter :: MAXCAND=100, MAXWCALLS=100
       class(fst4_decoder), intent(inout) :: this
       procedure(fst4_decode_callback) :: callback
@@ -678,7 +678,7 @@ contains
 ! Compute sync power for a complex, downsampled FST4 signal.
 
       use timer_module, only: timer
-      include 'fst4/fst4_params.f90'
+  use fst4_params
       complex cd0(0:np-1)
       complex csync1,csync2,csynct1,csynct2
       complex ctwk(3200)
@@ -958,7 +958,7 @@ contains
 
 ! On "plotspec" special request, compute Doppler spread for a decoded signal
 
-      include 'fst4/fst4_params.f90'
+  use fst4_params
       complex, allocatable :: cwave(:)       !Reconstructed complex signal
       complex, allocatable :: g(:)           !Channel gain, g(t) in QEX paper
       real,allocatable :: ss(:)              !Computed power spectrum of g(t)
