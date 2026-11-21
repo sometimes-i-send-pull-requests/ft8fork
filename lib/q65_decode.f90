@@ -57,12 +57,29 @@ contains
     use prog_args
     use types
  
-    parameter (NMAX=300*12000)  !Max TRperiod is 300 s
-    parameter (MAX_CALLERS=40)  !For multiple q3 decodes in NA VHf Contest mode
+    implicit none
+
+    integer, parameter :: NMAX=300*12000  !Max TRperiod is 300 s
+    integer, parameter :: MAX_CALLERS=40  !For multiple q3 decodes in NA VHf Contest mode
 
     class(q65_decoder), intent(inout) :: this
 
     procedure(q65_decode_callback) :: callback
+
+    ! Dummy arguments
+    integer, intent(in) :: nqd0, nutc, ntrperiod, nsubmode, nfqso, ntol
+    integer, intent(in) :: nfa0, nfb0, max_drift0, nQSOprogress, ncontest
+    integer, intent(inout) :: ndepth
+    integer, intent(out) :: navg0
+    real, intent(in) :: emedelay
+
+    ! Locals
+    integer :: i, j, k, n, ih, im, is
+    integer :: iaptype, iavg, icand, idec, idf, idt, idupe, ipass
+    integer :: jpk0, ndecodes, nfft1, nfft2, nhist2, now, npts, nsec
+    integer :: nsnr, nused, nFadingModel
+    real :: baud, bw, f0, f1, fdiff, fj, hours, snr1, snr2, tdecode, width
+    real :: xdt, xdt1
     character(len=12) :: mycall, hiscall  !Used for AP decoding
     character(len=6) :: hisgrid
     character*37 decoded                  !Decoded message
