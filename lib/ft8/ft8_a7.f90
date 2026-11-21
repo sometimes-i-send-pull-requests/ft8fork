@@ -79,7 +79,7 @@ subroutine ft8_a7d(dd0,newdat,call_1,call_2,grid4,xdt,f1,xbase,nharderrors,dmin,
   use crc
   use timer_module, only: timer
   use packjt77
-  include 'ft8_params.f90'
+  use ft8_params
   parameter(NP2=2812)
   character*37 msg37,msg,msgsent,msgbest
   character*12 call_1,call_2

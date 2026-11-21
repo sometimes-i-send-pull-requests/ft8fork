@@ -5,7 +5,7 @@ program ft8sim_gfsk
 
   use wavhdr
   use packjt77
-  include 'ft8_params.f90'               !Set various constants
+  use ft8_params
   parameter (NWAVE=NN*NSPS)
   type(hdr) h                            !Header for .wav file
   character arg*12,fname*17

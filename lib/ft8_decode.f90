@@ -42,7 +42,7 @@ contains
     use shmem, only: shmem_lock, shmem_unlock
     use ft8_a7
 
-    include 'ft8/ft8_params.f90'
+  use ft8_params
 
     class(ft8_decoder), intent(inout) :: this
     procedure(ft8_decode_callback) :: callback

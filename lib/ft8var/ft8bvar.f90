@@ -19,7 +19,7 @@ subroutine ft8bvar(newdat1,nQSOProgress,nfqso,nftx,napwid,lsubtract,npos,freqsub
        apsymmynsrr73,apsymmyns73,apsymdxstd,apsymdxnsr73,apsymdxns732,ltxing,     &
        apsymmynsrrr,idtonedxcns73,idtonefox73,idtonespec  !ft8md added
 
-  include 'ft8_params.f90'
+  use ft8_params
   character c77*77,msg37*37,msg37_2*37,msgd*37,msgbase37*37,call_a*12,call_b*12
   character callsign*12,grid*12
   character*37 msgsrcvd(130)

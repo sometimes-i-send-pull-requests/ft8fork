@@ -6,7 +6,7 @@ subroutine ft8_a8d(dd,mycall,dxcall,dxgrid,f1a,xdt,fbest,xsnr,plog,msgbest)
   use packjt77
   use ft8_a7
   use timer_module, only: timer
-  include 'ft8_params.f90'           !Set various constants
+  use ft8_params
   parameter (NWAVE=NN*NSPS/NDOWN)    !Length of generated cwave = 2528
   parameter (NZZ=3200)               !Length of downsampled arrays
   parameter (NFFT=NZZ,NH=NFFT/2)     !FFT length

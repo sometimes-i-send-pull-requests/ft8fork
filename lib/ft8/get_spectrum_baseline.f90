@@ -1,6 +1,6 @@
 subroutine get_spectrum_baseline(dd,nfa,nfb,sbase)
 
-  include 'ft8_params.f90'
+  use ft8_params
   parameter(NST=NFFT1/2,NF=93)              !NF=NMAX/NST-1
   real s(NH1,NF)
   real savg(NH1)

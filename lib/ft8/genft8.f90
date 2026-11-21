@@ -3,7 +3,7 @@ subroutine genft8(msg,i3,n3,msgsent,msgbits,itone)
 ! Encode an FT8 message, producing array itone().
   
   use packjt77
-  include 'ft8_params.f90'
+  use ft8_params
   character msg*37,msgsent*37
   character*77 c77
   integer*1 msgbits(77),codeword(174)

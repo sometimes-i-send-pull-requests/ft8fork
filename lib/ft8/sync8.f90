@@ -1,6 +1,6 @@
 subroutine sync8(dd,npts,nfa,nfb,syncmin,nfqso,maxcand,candidate,ncand,sbase)
 
-  include 'ft8_params.f90'
+  use ft8_params
   parameter (MAXPRECAND=1000)
 ! Maximum sync correlation lag +/- 2.5s relative to 0.5s TX start time. 
 ! 2.5s / 0.16s/symbol * 4 samples/symbol = 62.5 lag steps in 2.5s

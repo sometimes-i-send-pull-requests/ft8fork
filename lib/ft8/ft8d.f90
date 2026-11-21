@@ -2,7 +2,7 @@ program ft8d
 
 ! Decode FT8 data read from *.wav files.
 
-  include 'ft8_params.f90'
+  use ft8_params
   character*12 arg
   character infile*80,datetime*13,message*22
   real s(NH1,NHSYM)

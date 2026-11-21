@@ -4,7 +4,7 @@ program ft8_a8_test
 
   use wavhdr
   use ft8_a7
-  include 'ft8_params.f90'           !Set various constants
+  use ft8_params
   type(hdr) h                        !Header for .wav file
   character arg*12,fname*120
   character mycall*12,dxcall*12,dxgrid*6

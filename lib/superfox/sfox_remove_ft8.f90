@@ -1,6 +1,6 @@
 subroutine sfox_remove_ft8(dd,npts)
    use packjt77
-   include 'ft8_params.f90'
+  use ft8_params
    parameter (MAXCAND=100)
    parameter (NP2=2812)
    integer itone(NN)

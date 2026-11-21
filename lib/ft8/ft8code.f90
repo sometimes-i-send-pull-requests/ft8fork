@@ -4,7 +4,7 @@ program ft8code
 ! symbol ordering, and other details of the FT8 protocol.
 
   use packjt77
-  include 'ft8_params.f90'               !Set various constants
+  use ft8_params
   include 'ft8_testmsg.f90'
   parameter (NWAVE=NN*NSPS)
  

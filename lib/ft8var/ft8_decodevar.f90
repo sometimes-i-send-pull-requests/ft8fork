@@ -36,7 +36,7 @@ contains
          oddcq,numcqsig,numdeccq,evenmyc,oddmyc,nummycsig,numdecmyc,lapmyc,     &
          evenqso,oddqso,lqsomsgdcd,hisgrid4
 
-    include 'ft8_params.f90'
+  use ft8_params
 
     class(ft8_decodervar), intent(inout) :: this
     procedure(ft8_decodevar_callback) :: callback
