@@ -4,7 +4,11 @@ subroutine decode9w(nfqso,ntol,nsubmode,ss,id2,sync,nsnr,xdt1,f0,decoded)
 
   use sync9w_mod
 
-  parameter (NSMAX=6827,NZMAX=60*12000)
+  implicit none
+
+  integer, parameter :: NSMAX = 6827, NZMAX = 60*12000
+  integer :: nfqso, ntol, nsubmode, nsnr
+  real :: sync, xdt1, f0
   real ss(184,NSMAX)                     !Symbol spectra at 1/2-symbol steps
   real ccfred(NSMAX)                     !Best sync vs frequency
   real ccfblue(-9:18)                    !Sync vs time at best frequency
@@ -12,6 +16,10 @@ subroutine decode9w(nfqso,ntol,nsubmode,ss,id2,sync,nsnr,xdt1,f0,decoded)
   integer*2 id2(NZMAX)                   !Raw 16-bit data
   integer*1 i1SoftSymbols(207)           !Binary soft symbols
   character*22 decoded                   !Decoded message
+
+  integer :: nsps, npts, limit, ia, ib, lag1, lag2, nhsym, iter, nadd, &
+       ipk, lagpk, ns, nlim, i
+  real :: df, tstep, s, sq, base, rms, xdt0, snrdb
 
   df=12000.0/16384.0                     !Bin spacing in ss()
   nsps=6912                              !Samples per 9-FSK symbol
