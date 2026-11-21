@@ -7,6 +7,10 @@ When giving a file `implicit none`, bare `parameter (...)` statements are
 implicitly typed and must be converted to explicit declarations (e.g.
 `integer, parameter ::`).
 
+## Replace `include`s with module usage
+
+- Survey uses of `include` to determine files that should be converted to modules
+
 ## Replace remaining `go to` flow control
 
 - Replace `go to` in lib/options.f90.
