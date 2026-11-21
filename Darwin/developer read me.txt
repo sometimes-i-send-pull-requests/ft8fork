@@ -3,7 +3,7 @@ Changing the content of the DragNDrop DMG root folder.
 
 The files and links in this folder are populated by the WSJT-X CMake build script. There are install commands which are only run on Apple hosts, this is important because they will get installed at the install root on other platforms, which would be very bad on Linux for example since that is /usr normally!
 
-The symlink to /Applications, the background image (derived from ".../artwork/DragNDrop Background.svg") and, the custom .DS_Store file (".../Darwin/wsjtx_DMG.DS_Store") are all handled specifically by the CPack DragNDrop packager so you don't need to install those.
+The symlink to /Applications and the custom .DS_Store file (".../Darwin/wsjtx_DMG.DS_Store") are handled specifically by the CPack DragNDrop packager so you don't need to install those. No DMG background image is configured.
 
 
 

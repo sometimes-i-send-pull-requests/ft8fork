@@ -216,13 +216,12 @@ jobs:
       - name: Install to AppDir
         run: |
           cmake --install wsjtx-build --prefix "${GITHUB_WORKSPACE}/AppDir/usr"
-          # linuxdeploy's desktop/icon integration needs these exact paths.
+          # linuxdeploy's desktop integration needs this exact path.
           test -x AppDir/usr/bin/wsjtx
           test -x AppDir/usr/bin/jt9
           test -x AppDir/usr/bin/map65
           test -x AppDir/usr/bin/ft8code
           test -f AppDir/usr/share/applications/wsjtx.desktop
-          test -f AppDir/usr/share/pixmaps/wsjtx_icon.png
 
       - name: Package AppImage
         env:
@@ -256,8 +255,7 @@ jobs:
             --appdir AppDir \
             --plugin qt \
             --output appimage \
-            --desktop-file AppDir/usr/share/applications/wsjtx.desktop \
-            --icon-file AppDir/usr/share/pixmaps/wsjtx_icon.png
+            --desktop-file AppDir/usr/share/applications/wsjtx.desktop
 
           ls -lh "$OUTPUT"
           file "$OUTPUT"

@@ -893,9 +893,7 @@ set (all_C_and_CXXSRCS
   )
 
 set (TOP_LEVEL_RESOURCES
-  icons/Darwin/wsjtx.iconset/icon_128x128.png
   contrib/gpl-v3-logo.svg
-  artwork/splash.png
   )
 
 set (PALETTE_FILES
@@ -929,32 +927,6 @@ set (PALETTE_FILES
   Palettes/Yellow2.pal
   Palettes/ZL1FZ.pal
 )
-
-if (APPLE)
-  set (WSJTX_ICON_FILE ${CMAKE_PROJECT_NAME}.icns)
-  set (ICONSRCS
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_16x16.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_16x16@2x.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_32x32.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_32x32@2x.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_128x128.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_128x128@2x.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_256x256.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_256x256@2x.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_512x512.png
-    icons/Darwin/${CMAKE_PROJECT_NAME}.iconset/icon_512x512@2x.png
-    )
-  add_custom_command (
-    OUTPUT ${WSJTX_ICON_FILE}
-    COMMAND iconutil -c icns --output "${CMAKE_BINARY_DIR}/${WSJTX_ICON_FILE}" "${CMAKE_SOURCE_DIR}/icons/Darwin/${CMAKE_PROJECT_NAME}.iconset"
-    DEPENDS ${ICONSRCS}
-    COMMENT "Building Icons"
-    )
-else ()
-  set (WSJTX_ICON_FILE icons/windows-icons/wsjtx.ico)
-endif (APPLE)
-
-set_source_files_properties (${WSJTX_ICON_FILE} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
 # suppress intransigent compiler diagnostics
 set_source_files_properties (lib/decoder.f90 PROPERTIES COMPILE_FLAGS "-Wno-unused-dummy-argument")
@@ -1487,7 +1459,6 @@ add_executable (fmeasure lib/fmeasure.f90)
 generate_version_info (wsprd_VERSION_RESOURCES
   NAME wsprd
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   FILE_DESCRIPTION "WSPR mode decoder"
 )
 # message(STATUS "RC compiler: ${CMAKE_RC_COMPILER}")
@@ -1643,7 +1614,6 @@ target_link_libraries (wsjt_qtmm Qt5::Multimedia)
 generate_version_info (jt9_VERSION_RESOURCES
   NAME jt9
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   FILE_DESCRIPTION "jt9 - FT8Fork slow mode decoder"
   )
 
@@ -1701,7 +1671,6 @@ add_subdirectory (qmap)
 generate_version_info (wsjtx_VERSION_RESOURCES
   NAME wsjtx
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   )
 
 # Embed a Windows application manifest declaring per-monitor V2 DPI
@@ -1724,7 +1693,6 @@ endif (WIN32)
 add_executable (wsjtx MACOSX_BUNDLE
   ${wsjtx_CXXSRCS}
   ${wsjtx_GENUISRCS}
-  ${WSJTX_ICON_FILE}
   ${wsjtx_RESOURCES_RCC}
   ${wsjtx_VERSION_RESOURCES}
   ${wsjtx_PLATFORM_RESOURCES}
@@ -1737,14 +1705,13 @@ endif (WSJT_CREATE_WINMAIN)
 set_target_properties (wsjtx PROPERTIES
   MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Darwin/Info.plist.in"
   MACOSX_BUNDLE_INFO_STRING "${PROJECT_DESCRIPTION}"
-  MACOSX_BUNDLE_ICON_FILE "${WSJTX_ICON_FILE}"
   MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
   MACOSX_BUNDLE_SHORT_VERSION_STRING "v${wsjtx_VERSION}"
   MACOSX_BUNDLE_LONG_VERSION_STRING "Version ${wsjtx_VERSION}"
   MACOSX_BUNDLE_BUNDLE_NAME "${PROJECT_BUNDLE_NAME}"
   MACOSX_BUNDLE_BUNDLE_EXECUTABLE_NAME "${PROJECT_NAME}"
   MACOSX_BUNDLE_COPYRIGHT "${PROJECT_COPYRIGHT}"
-  MACOSX_BUNDLE_GUI_IDENTIFIER "org.k1jt.wsjtx"
+  MACOSX_BUNDLE_GUI_IDENTIFIER "org.ft8fork.FT8Fork"
   )
 
 target_include_directories (wsjtx PRIVATE ${FFTW3_INCLUDE_DIRS})
@@ -1793,7 +1760,6 @@ generate_export_header (wsjtx_udp-static BASE_NAME udp)
 generate_version_info (udp_daemon_VERSION_RESOURCES
   NAME udp_daemon
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   FILE_DESCRIPTION "Example WSJT-X UDP Message Protocol daemon"
   )
 add_executable (udp_daemon UDPExamples/UDPDaemon.cpp ${udp_daemon_VERSION_RESOURCES})
@@ -1802,7 +1768,6 @@ target_link_libraries (udp_daemon wsjtx_udp-static)
 generate_version_info (wsjtx_app_version_VERSION_RESOURCES
   NAME wsjtx_app_version
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   FILE_DESCRIPTION "Display FT8Fork Application Version on console"
   )
 add_executable (wsjtx_app_version AppVersion/AppVersion.cpp ${wsjtx_app_version_VERSION_RESOURCES})
@@ -1811,7 +1776,6 @@ target_link_libraries (wsjtx_app_version wsjt_qt)
 generate_version_info (message_aggregator_VERSION_RESOURCES
   NAME message_aggregator
   BUNDLE ${PROJECT_BUNDLE_NAME}
-  ICON ${WSJTX_ICON_FILE}
   FILE_DESCRIPTION "Example WSJT-X UDP Message Protocol application"
   )
 add_resources (message_aggregator_RESOURCES /qss ${message_aggregator_STYLESHEETS})
@@ -2052,11 +2016,6 @@ if (NOT WIN32 AND NOT APPLE)
   install (
     FILES wsjtx.desktop message_aggregator.desktop
     DESTINATION share/applications
-    #COMPONENT runtime
-    )
-  install (
-    FILES icons/Unix/wsjtx_icon.png
-    DESTINATION share/pixmaps
     #COMPONENT runtime
     )
 endif (NOT WIN32 AND NOT APPLE)

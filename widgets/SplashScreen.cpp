@@ -4,6 +4,8 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <QCoreApplication>
+#include <QApplication>
+#include <QPainter>
 
 #include "revision_utils.hpp"
 #include "pimpl_impl.hpp"
@@ -24,8 +26,23 @@ public:
   QCheckBox checkbox_;
 };
 
+namespace
+{
+  // Plain window-coloured background for the text drawn by QSplashScreen.
+  QPixmap splash_background (QSize const& size)
+  {
+    QPixmap background {size};
+    auto const& palette = QApplication::palette ();
+    background.fill (palette.color (QPalette::Window));
+    QPainter painter {&background};
+    painter.setPen (palette.color (QPalette::Mid));
+    painter.drawRect (background.rect ().adjusted (0, 0, -1, -1));
+    return background;
+  }
+}
+
 SplashScreen::SplashScreen ()
-  : QSplashScreen {QPixmap {":/splash.png"}, Qt::WindowStaysOnTopHint}
+  : QSplashScreen {splash_background ({480, 180}), Qt::WindowStaysOnTopHint}
 {
   setLayout (&m_->main_layout_);
   showMessage ("<h2>" + QString {"FT8Fork v" +
@@ -35,7 +52,6 @@ SplashScreen::SplashScreen ()
     ".wav files where appropriate.  This is an unofficial fork of WSJT-X<br />"
     "and is not supported by the WSJT Development Team.<br /><br />"
     "<b>Open the Help menu and select Release Notes for more details.</b><br />"
-    "<img src=\":/icon_128x128.png\" />"
     "<img src=\":/gpl-v3-logo.svg\" height=\"80\" />", Qt::AlignCenter);
   connect (&m_->checkbox_, &QCheckBox::stateChanged, [this] (int s) {
       if (Qt::Checked == s) Q_EMIT disabled ();

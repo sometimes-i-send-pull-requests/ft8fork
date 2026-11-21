@@ -67,6 +67,12 @@ function(generate_version_info outfiles)
     set (PRODUCT_ICON "${CMAKE_SOURCE_DIR}/icons/windows-icons/${PRODUCT_NAME}.ico")
   endif ()
 
+  if (EXISTS "${PRODUCT_ICON}")
+    set (PRODUCT_ICON_RESOURCE "IDI_ICON1\tICON DISCARDABLE ${PRODUCT_ICON}")
+  else ()
+    set (PRODUCT_ICON_RESOURCE "")
+  endif ()
+
   if (NOT PRODUCT_VERSION_MAJOR)
     if (PROJECT_VERSION_MAJOR)
       set (PRODUCT_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
