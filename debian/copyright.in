@@ -1,7 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: @CMAKE_PROJECT_NAME@
 Upstream-Contact: @PROJECT_CONTACT@
-Source: @PROJECT_HOMEPAGE@
 
 Files: *
 Copyright: @PROJECT_COPYRIGHT@.

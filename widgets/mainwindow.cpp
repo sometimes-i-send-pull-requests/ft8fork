@@ -313,6 +313,16 @@ namespace
   constexpr int default_rx_audio_buffer_frames {-1}; // lets Qt decide
   constexpr int default_tx_audio_buffer_frames {-1}; // lets Qt decide
 
+  // Menu entries that used to open a document from the upstream project
+  // now say that no such document is supplied, rather than sending the
+  // reader to that project's web site.
+  void document_unavailable (QWidget * parent, QString const& title)
+  {
+    MessageBox::information_message (parent, title
+      , QCoreApplication::translate ("MainWindow"
+        , "No copy of this document is included in FT8Fork."));
+  }
+
   bool message_is_73 (int type, QStringList const& msg_parts)
   {
     return type >= 0
@@ -4521,37 +4531,37 @@ void MainWindow::on_pbBandHopping_clicked()
 
 void MainWindow::on_actionRelease_Notes_triggered ()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/Release_Notes.txt"});
+  document_unavailable (this, tr ("Release Notes"));
 }
 
 void MainWindow::on_actionFT8_DXpedition_Mode_User_Guide_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/FT8_DXpedition_Mode.pdf"});
+  document_unavailable (this, tr ("FT8 DXpedition Mode User Guide"));
 }
 
 void MainWindow::on_actionSuperFox_User_Guide_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/SuperFox_User_Guide.pdf"});
+  document_unavailable (this, tr ("SuperFox User Guide"));
 }
 
 void MainWindow::on_actionQSG_FST4_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/FST4_Quick_Start.pdf"});
+  document_unavailable (this, tr ("FST4 Quick Start Guide"));
 }
 
 void MainWindow::on_actionQSG_Q65_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/Q65_Quick_Start.pdf"});
+  document_unavailable (this, tr ("Q65 Quick Start Guide"));
 }
 
 void MainWindow::on_actionQSG_X250_M3_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/WSJTX_2.5.0_MAP65_3.0_Quick_Start.pdf"});
+  document_unavailable (this, tr ("Quick Start Guide to WSJT-X 2.5.0 and MAP65 3.0"));
 }
 
 void MainWindow::on_actionQuick_Start_Guide_to_WSJT_X_2_7_and_QMAP_triggered()
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/Quick_Start_WSJT-X_2.7_QMAP.pdf"});
+  document_unavailable (this, tr ("Quick Start Guide to WSJT-X 2.7 and QMAP"));
 }
 
 void MainWindow::on_actionRecommended_Audio_Settings_triggered()
@@ -4577,7 +4587,7 @@ void MainWindow::on_actionRecommended_Audio_Settings_triggered()
 
 void MainWindow::on_actionOnline_User_Guide_triggered()      //Display manual
 {
-  QDesktopServices::openUrl (QUrl {"https://wsjt.sourceforge.io/wsjtx-main_en.html"});
+  document_unavailable (this, tr ("Online User Guide"));
 }
 
 //Display local copy of manual
@@ -5059,14 +5069,7 @@ void MainWindow::on_actionDelete_all_wav_files_in_SaveDir_triggered()
 
 void MainWindow::on_actionDownload_EME_Ephemeris_Chart_triggered()
 {
-  bool ok{false};
-  qint32 nyear = QInputDialog::getInt(this,tr("EME Chart"),
-       tr("Select Year"),QDate::currentDate().year(),2025,2040,1,&ok);
-  if(ok) {
-    QString URL="https://wsjt.sourceforge.io/EMEchart_2025.pdf";
-    URL.replace("2025",QString::number(nyear));
-    QDesktopServices::openUrl (QUrl {URL});
-  }
+  document_unavailable (this, tr ("EME Ephemeris Chart"));
 }
 
 void MainWindow::on_actionNone_triggered()                    //Save None
