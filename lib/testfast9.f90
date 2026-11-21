@@ -1,5 +1,7 @@
 program testfast9
 
+  use fast9_mod
+
   parameter (NMAX=30*12000)
   integer*2 id2(NMAX)
   integer narg(0:11)

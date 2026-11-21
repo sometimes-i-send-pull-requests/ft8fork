@@ -1,3 +1,7 @@
+module fast9_mod
+
+contains
+
 subroutine fast9(id2,narg,line)
 
 ! Decoder for "fast9" modes, JT9E to JT9H.
@@ -9,7 +13,7 @@ subroutine fast9(id2,narg,line)
   integer, parameter :: NMAX=30*12000, NSAVE=500
   real, external :: db
 
-  integer*2 id2(0:NMAX)
+  integer*2 id2(0:*)
   integer narg(0:14)
   integer*1 i1SoftSymbols(207)
   integer*1 i1save(207,NSAVE)
@@ -197,3 +201,5 @@ subroutine fast9(id2,narg,line)
 
   return
 end subroutine fast9
+
+end module fast9_mod
