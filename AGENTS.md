@@ -2,7 +2,8 @@ You are working on WSJT-X, a weak-signal communication software.
 
 This project is built with CMake.  There is already a cmake build directory at
 `../wsjtx-build`.  You can build the project with `cmake --build
-../wsjtx-build`.
+../wsjtx-build`.  After changing Fortran code that could affect decoding, run
+`tests/decoder_regression.sh` to check the decoder against recorded output.
 
 The project is a mixture of Fortran and C++.  The C++ comprises a Qt GUI and
 related connectivity code.  The Fortran code does signal processing and
