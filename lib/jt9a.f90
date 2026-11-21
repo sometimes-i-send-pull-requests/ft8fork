@@ -1,3 +1,7 @@
+module jt9a_mod
+
+contains
+
 subroutine jt9a()
   use, intrinsic :: iso_c_binding, only: c_f_pointer, c_null_char, c_bool
   use prog_args
@@ -9,11 +13,15 @@ subroutine jt9a()
 
   use jt9com
 
+  implicit none
+
   integer*2 id2a(180000)
 ! Multiple instances:
   type(dec_data), pointer, volatile :: shared_data !also makes target volatile
   type(params_block) :: local_params
   logical(c_bool) :: ok
+  integer :: nbytes, msdelay, nearly, npts1
+  real :: rms
 
   call init_timer (trim(data_dir)//'/timer.out')
 !  open(23,file=trim(data_dir)//'/CALL3.TXT',status='unknown')
@@ -169,3 +177,5 @@ call timer('decoder ',101)
 
   return
 end subroutine jt9a
+
+end module jt9a_mod

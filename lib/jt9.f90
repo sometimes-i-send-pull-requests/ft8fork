@@ -14,6 +14,7 @@ program jt9
   use jt65_mod6, only : dd
 
   use jt9com
+  use jt9a_mod
 
   integer*2 id2a(180000)
   integer(C_INT) iret
