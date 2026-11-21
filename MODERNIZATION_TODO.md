@@ -1,6 +1,7 @@
 # Fortran Modernization TODO
 
 Small, self-contained tasks. Do one per commit, keep the build green.
+Add worthwhile follow-on ideas here as they come up.
 
 ## Replace remaining `go to` flow control
 
