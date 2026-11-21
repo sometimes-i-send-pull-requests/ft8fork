@@ -11,10 +11,6 @@ implicitly typed and must be converted to explicit declarations (e.g.
 
 Shared parameter blocks:
 
-- Turn lib/ft8/ft8_params.f90 into a module (duplicated in lib/ft8var and lib/superfox).
-- Turn lib/ft4/ft4_params.f90 into a module.
-- Turn lib/ft2/ft2_params.f90 into a module.
-- Turn lib/fst4/fst4_params.f90 into a module.
 - Turn lib/wsprd/wspr_params.f90 into a module.
 - Turn lib/ft2/gcom1.f90 into a module.
 
@@ -54,4 +50,3 @@ Test data (used only by test programs):
 
 - Replace the `stop` statements that only silence warnings with proper error handling (lib/jt65_decode.f90, lib/decoder.f90).
 - Revisit the single-pass `do` workaround in lib/decoder.f90 if the gfortran block-construct bug is fixed.
-- Turn lib/ft8/ft8_params.f90, lib/ft4/ft4_params.f90 and lib/fst4/fst4_params.f90 into modules.
