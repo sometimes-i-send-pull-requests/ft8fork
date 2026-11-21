@@ -12,6 +12,7 @@ subroutine jt9a()
   use jt65_mod6, only : dd
 
   use jt9com
+  use decoder_mod
 
   implicit none
 

@@ -1,3 +1,7 @@
+module decoder_mod
+
+contains
+
 subroutine multimode_decoder(ss,id2,params,nfsample)
 
 !$ use omp_lib
@@ -23,6 +27,8 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   use packjt77, only : lcommonft8b,ihash22var,calls12var,calls22var
 
   use jt9com
+
+  implicit none
 
   type, extends(jt4_decoder) :: counting_jt4_decoder
      integer :: decoded
@@ -68,7 +74,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   real ss(184,NSMAX)
   logical baddata,newdat65,newdat9,single_decode,bVHF,bad0,newdat,ex
   logical lprinthash22
-  integer*2 id2(NTMAX*12000)
+  integer*2 id2(*)
   integer nqf(20)
   real*4 dd(NTMAX*12000)
   character(len=20) :: datetime
@@ -86,6 +92,21 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   type(counting_ft4_decoder) :: my_ft4
   type(counting_fst4_decoder) :: my_fst4
   type(counting_q65_decoder) :: my_q65  
+
+  ! Locals that were previously typed by the implicit rules.
+  integer :: nfsample
+  integer :: i, j, k, m, n, jz, ios13, iwspr
+  integer :: nfa, nfb, nfqso, ntol, ntol65, nf1, nf2
+  integer :: nfail, ntrials, ncontest, nsec, nadd, nage, navg0
+  integer :: n30, nwrap, nz, kbad, nindex, nintcount, nsamplesdel
+  integer :: nqd, npts65, ndepth, nft8decd, nsynced, ndecoded
+  integer :: ndec41, ndec46, ndec47, ndec48, ndec49, ndec8, ntr0
+  integer :: nfdelt, nfdelta
+  integer :: nfmid, nfmid1, nfmid2, nfmid3, nfmid4, nfmid5
+  integer :: nfmid6, nfmid7, nfmid8, nfmid9, nfmid10, nfmid11
+  integer :: naz, nel, ndmiles, ndkm, nhotaz, nhotabetter
+  integer :: ncandall, numcores, numthreads, nuserthr
+  real :: rms, rmsbad, sq, sumxdt, dtmed, forcedt
 
   if(.not.params%newdat .and. params%ntr.gt.ntr0) go to 800
   ntr0=params%ntr
@@ -253,7 +274,8 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
            allmessages=""
            allsnrs=0
            allfreq=0.
-           numcores=omp_get_num_procs()
+           numcores=1
+!$         numcores=omp_get_num_procs()
            nuserthr=params%nmt
 
            numthreads=1                                         ! fallback
@@ -278,8 +300,8 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               endif
            endif
 
-           call omp_set_dynamic(.false.)
-           call omp_set_nested(.true.)
+!$         call omp_set_dynamic(.false.)
+!$         call omp_set_nested(.true.)
 
            nfa=params%nfa
            nfb=params%nfb
@@ -353,7 +375,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid+1).gt.nfb) nfmid=nfb-1
 
 !$omp parallel sections num_threads(2) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -378,7 +400,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               nfmid2=nfmid1+nfdelta
               if((nfmid2+1).gt.nfb) nfmid2=nfb-1
 !$omp parallel sections num_threads(3) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
               
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -412,7 +434,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid3+1).gt.nfb) nfmid3=nfb-1
 
 !$omp parallel sections num_threads(4) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -454,7 +476,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid4+1).gt.nfb) nfmid4=nfb-1
 
 !$omp parallel sections num_threads(5) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -504,7 +526,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid5+1).gt.nfb) nfmid5=nfb-1
 
 !$omp parallel sections num_threads(6) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -562,7 +584,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid6+1).gt.nfb) nfmid6=nfb-1
 
 !$omp parallel sections num_threads(7) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -628,7 +650,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid7+1).gt.nfb) nfmid7=nfb-1
 
 !$omp parallel sections num_threads(8) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -702,7 +724,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid8+1).gt.nfb) nfmid8=nfb-1
 
 !$omp parallel sections num_threads(9) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -784,7 +806,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if((nfmid9+1).gt.nfb) nfmid9=nfb-1
 
 !$omp parallel sections num_threads(10) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
               
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -873,7 +895,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               nfmid10=nfmid9+nfdelt
               if((nfmid10+1).gt.nfb) nfmid10=nfb-1
 !$omp parallel sections num_threads(11) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
               
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -970,7 +992,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               nfmid11=nfmid10+nfdelt
               if((nfmid11+1).gt.nfb) nfmid11=nfb-1
 !$omp parallel sections num_threads(12) shared(dd8,nmsg,even,odd,lqsomsgdcd), &
-!$omp& shared(first_osd,gen,ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
+!$omp& shared(ndecodes,allmessages,allsnrs,allfreq) if(.true.) !iif() needed on Mac
 
 !$omp section
               call my_ft8var%decodevar(ft8_decodedvar,params%nQSOProgress,nfqso, &
@@ -1319,7 +1341,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   newdat65=params%newdat
   newdat9=params%newdat
 
-  call omp_set_dynamic(.true.)
+!$ call omp_set_dynamic(.true.)
 
 !$omp parallel sections num_threads(2) shared(ndecoded) if(.true.) !iif() needed on Mac
 
@@ -1953,3 +1975,5 @@ contains
   end subroutine q65_decoded
 
 end subroutine multimode_decoder
+
+end module decoder_mod

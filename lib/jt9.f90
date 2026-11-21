@@ -15,6 +15,7 @@ program jt9
 
   use jt9com
   use jt9a_mod
+  use decoder_mod
 
   integer*2 id2a(180000)
   integer(C_INT) iret
