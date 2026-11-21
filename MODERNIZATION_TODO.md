@@ -30,10 +30,6 @@ Test data (used only by test programs):
 - Replace `go to` in lib/ft8var/cwfilter.f90, lib/ft8var/filbigvar.f90 and lib/ft8var/four2avar.f90.
 - Replace `go to` in the chkfft diagnostic programs (lib/chkfft.f90, lib/chkfft2.f90 and lib/chkfft3.f90).
 
-## Add `implicit none` and declare implicit locals
-
-- Add `implicit none` to lib/extract.f90 and lib/sync65.f90 (decoder helpers that share the JT65 commons).
-
 ## Build hygiene
 
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).

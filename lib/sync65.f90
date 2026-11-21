@@ -1,10 +1,17 @@
 subroutine sync65(nfa,nfb,ntol,nqsym,ca,ncand,nrobust,bVHF)
 
-  parameter (NSZ=3413,NFFT=8192,MAXCAND=300)
+  implicit none
+
+  integer, parameter :: NSZ=3413, NFFT=8192, MAXCAND=300
+  integer nfa,nfb,ntol,nqsym,ncand,nrobust
   real ss(552,NSZ)
   real ccfblue(-32:82)             !CCF with pseudorandom sequence
   real ccfred(NSZ)                  !Peak of ccfblue, as function of freq
+  real thresh0
   logical bVHF
+  integer ia,ib,lag1,lag2,nsym,ipk,i,itry,lagpk0,lagpk
+  real df,fdot,ccfmax,ccf0,flip,freq,xlag,dx2,dtx,xmed
+  real, external :: db
 
   type candidate
      real freq

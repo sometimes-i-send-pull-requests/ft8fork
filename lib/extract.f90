@@ -19,6 +19,8 @@ subroutine extract(s3,nadd,mode65,ntrials,naggressive,ndepth,nflip,     &
   use jt65_mod
   use timer_module, only: timer
 
+  implicit none
+
   real s3(64,63)
   character decoded*22, apmessage*22
   character*12 mycall_12,hiscall_12
@@ -30,6 +32,12 @@ subroutine extract(s3,nadd,mode65,ntrials,naggressive,ndepth,nflip,     &
   integer dat4(12)
   integer mrsym(63),mr2sym(63),mrprob(63),mr2prob(63)
   integer correct(63),tmp(63)
+  integer nadd,mode65,ntrials,naggressive,ndepth,nflip
+  integer nQSOProgress,ncount,nhist,nft
+  integer itype,nbirdie,npct,nfail,ntest,nlow,ipk
+  integer npass,ipass,ntype,ntry
+  integer ncandidates,nhard,nsoft,nerased,ntotal,nd0,i
+  real qual,afac1,base,rtt,r0,qmin
   logical first,ltext,ljt65apon
   common/chansyms65/correct
   data first/.true./
@@ -222,8 +230,12 @@ end subroutine extract
 subroutine getpp(workdat,p)
 
   use jt65_mod
+
+  implicit none
+
   integer workdat(63)
-  integer a(63)
+  integer a(63),i,j
+  real p,psum,x
 
   a(1:63)=workdat(63:1:-1)
   call interleave63(a,1)
