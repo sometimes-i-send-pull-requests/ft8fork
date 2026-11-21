@@ -587,14 +587,6 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
   m_optimizingProgress.setAutoReset (false);
   m_optimizingProgress.setMinimumDuration (15000); // only show after 15s delay
 
-  //Attach or create a memory segment to be shared with QMAP.
-  int memSize=4096;
-  if(!mem_qmap.attach()) mem_qmap.create(memSize);
-  ipc_qmap = (int*)mem_qmap.data();
-  mem_qmap.lock();
-  memset(ipc_qmap,0,memSize);         //Zero all of QMAP shared memory
-  mem_qmap.unlock();
-
   // Closedown.
   connect (ui->actionExit, &QAction::triggered, this, &QMainWindow::close);
 
@@ -1372,7 +1364,33 @@ MainWindow::~MainWindow()
   m_audioThread.quit ();
   m_audioThread.wait ();
   remove_child_from_event_filter (this);
-  memset(ipc_qmap,0,4096);         //Zero all of QMAP shared memory
+  if (ipc_qmap) memset(ipc_qmap,0,4096);         //Zero all of QMAP shared memory
+}
+
+//------------------------------------------------------ ensureQmapSharedMemory()
+bool MainWindow::ensureQmapSharedMemory ()
+{
+  if (ipc_qmap)
+    {
+      return true;
+    }
+
+  int const mem_size {4096};
+  if (!mem_qmap.attach () && !mem_qmap.create (mem_size))
+    {
+      return false;
+    }
+
+  ipc_qmap = reinterpret_cast<int *> (mem_qmap.data ());
+  if (!ipc_qmap)
+    {
+      return false;
+    }
+
+  mem_qmap.lock ();
+  memset (ipc_qmap, 0, mem_size);  // begin the QMAP exchange with no decodes
+  mem_qmap.unlock ();
+  return true;
 }
 
 //-------------------------------------------------------- writeSettings()
@@ -8156,7 +8174,7 @@ void MainWindow::guiUpdate()
   }
   if(m_mode=="Echo" and !m_monitoring and !m_auto and !m_diskData) m_echoRunning=false;
 
-  if(m_mode=="Q65") {
+  if(m_mode=="Q65" && ensureQmapSharedMemory()) {
     mem_qmap.lock();
     int n=0;
     if(m_decoderBusy) n=1;
@@ -14033,6 +14051,7 @@ void MainWindow::write_transmit_entry (QString const& file_name)
 void MainWindow::readWidebandDecodes()
 {
   if(m_ActiveStationsWidget==NULL) return;
+  if(!ensureQmapSharedMemory()) return;
   int nhr=0;
   int nmin=0;
   int nsec=0;

@@ -1037,6 +1037,7 @@ private:
   void rm_tb4(QString houndCall);
   void read_wav_file (QString const& fname);
   void decodeDone ();
+  bool ensureQmapSharedMemory ();
   bool subProcessFailed (QString const& command_line, QByteArray const& standard_error
                          , int exit_code, QProcess::ExitStatus);
   void subProcessError (QString const& command_line, QString const& error_string
