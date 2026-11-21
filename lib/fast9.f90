@@ -2,6 +2,8 @@ subroutine fast9(id2,narg,line)
 
 ! Decoder for "fast9" modes, JT9E to JT9H.
 
+  use sync9f_mod
+
   parameter (NMAX=30*12000,NSAVE=500)
   integer*2 id2(0:NMAX)
   integer narg(0:14)

@@ -1,3 +1,7 @@
+module sync9f_mod
+
+contains
+
 subroutine sync9f(s2,nq,nfa,nfb,ss2,ss3,lagpk,ipk,ccfbest)
   use jt9sync_mod
 
@@ -5,10 +9,16 @@ subroutine sync9f(s2,nq,nfa,nfb,ss2,ss3,lagpk,ipk,ccfbest)
 ! Frequency search extends from nfa to nfb.  Synchronized symbol
 ! spectra are put into ss2() and ss3().
 
+  implicit none
+
+  integer :: nq, nfa, nfb, lagpk, ipk
+  real :: ccfbest
   integer ii4(16)
   real s2(240,340)
   real ss2(0:8,85)
   real ss3(0:7,69)
+  integer :: nfft, ia, ib, i, lag, n, j, j4, i2, m
+  real :: ccf, df, t
 
   ii4=4*ii-3
   ccf=0.
@@ -53,3 +63,5 @@ subroutine sync9f(s2,nq,nfa,nfb,ss2,ss3,lagpk,ipk,ccfbest)
 
   return
 end subroutine sync9f
+
+end module sync9f_mod
