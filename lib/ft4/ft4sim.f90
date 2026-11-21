@@ -4,7 +4,7 @@ program ft4sim
 
   use wavhdr
   use packjt77
-  include 'ft4_params.f90'               !Set various constants
+  use ft4_params
   type(hdr) h                            !Header for .wav file
   character arg*12,fname*17
   character msg37*37,msgsent37*37

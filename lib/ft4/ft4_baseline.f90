@@ -4,8 +4,8 @@ subroutine ft4_baseline(s,nfa,nfb,sbase)
 ! Input:  s(npts)         Linear scale in power
 ! Output: sbase(npts)    Baseline
 
+  use ft4_params
   implicit real*8 (a-h,o-z)
-  include 'ft4_params.f90'
   real*4 s(NH1)
   real*4 sbase(NH1)
   real*4 base

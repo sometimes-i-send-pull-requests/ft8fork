@@ -29,7 +29,7 @@ contains
       nfa,nfb,ndepth,lapcqonly,ncontest,mycall,hiscall)
       use timer_module, only: timer
       use packjt77
-      include 'ft4/ft4_params.f90'
+  use ft4_params
       integer, parameter :: MAXCAND=200
       class(ft4_decoder), intent(inout) :: this
       procedure(ft4_decode_callback) :: callback

@@ -1,7 +1,7 @@
 subroutine getcandidates4(dd,fa,fb,syncmin,nfqso,maxcand,savg,candidate,   &
      ncand,sbase)
 
-  include 'ft4_params.f90'
+  use ft4_params
   real s(NH1,NHSYM)
   real savg(NH1),savsm(NH1)
   real sbase(NH1)

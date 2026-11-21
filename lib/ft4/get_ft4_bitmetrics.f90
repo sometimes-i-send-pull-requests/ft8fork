@@ -1,6 +1,6 @@
 subroutine get_ft4_bitmetrics(cd,bitmetrics,badsync)
 
-   include 'ft4_params.f90'
+  use ft4_params
    parameter (NSS=NSPS/NDOWN,NDMAX=NMAX/NDOWN)
    complex cd(0:NN*NSS-1)
    complex cs(0:3,NN)

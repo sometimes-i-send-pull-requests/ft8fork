@@ -4,7 +4,7 @@ program ft4sim_mult
 
   use wavhdr
   use packjt77
-  include 'ft4_params.f90'               !FT4 protocol constants
+  use ft4_params
   parameter (NWAVE=NN*NSPS)
   parameter (NZZ=72576)                  !Length of .wav file (21*3456)
   type(hdr) h                            !Header for .wav file

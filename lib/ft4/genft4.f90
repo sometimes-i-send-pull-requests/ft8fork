@@ -16,7 +16,7 @@ subroutine genft4(msg0,ichk,msgsent,msgbits,i4tone)
 ! use iso_c_binding, only: c_loc,c_size_t
 
   use packjt77
-  include 'ft4_params.f90'  
+  use ft4_params
   character*37 msg0
   character*37 message                    !Message to be generated
   character*37 msgsent                    !Message as it will be received

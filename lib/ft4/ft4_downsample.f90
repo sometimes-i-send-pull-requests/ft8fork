@@ -1,6 +1,6 @@
 subroutine ft4_downsample(dd,newdata,f0,c)
 
-   include 'ft4_params.f90'
+  use ft4_params
    parameter (NFFT2=NMAX/NDOWN)
    real dd(NMAX)
    complex c(0:NMAX/NDOWN-1)

@@ -2,7 +2,7 @@ subroutine sync4d(cd0,i0,ctwk,itwk,sync)
 
 ! Compute sync power for a complex, downsampled FT4 signal.
 
-  include 'ft4_params.f90'
+  use ft4_params
   parameter(NP=NMAX/NDOWN,NSS=NSPS/NDOWN)
   complex cd0(0:NP-1)
   complex csynca(2*NSS),csyncb(2*NSS),csyncc(2*NSS),csyncd(2*NSS)
