@@ -10,8 +10,6 @@ program jt9
   use timer_module, only: timer
   use timer_impl, only: init_timer, fini_timer
   use readwav
-  use ft8_mod1, only : dd8
-  use jt65_mod6, only : dd
 
   use jt9com
   use jt9a_mod
@@ -19,10 +17,10 @@ program jt9
   use decode_msk144_mod
   use symspec_mod
   use decoder_mod
+  use jt9_session_mod, only: jt9_decode_once
 
   implicit none
 
-  integer*2 id2a(180000)
   integer(C_INT) iret
   type(wav_header) wav
   real*4 s(NSMAX)
@@ -41,7 +39,7 @@ program jt9
        have_ntol = .false.,multift8 = .false.,hidedupes = .false.,           &
        lft8lowth = .true.,lft8subpass = .true.,lwidedxcsearch = .true.
   logical(c_bool) :: bLowSidelobes = .false.
-  integer :: i, i1, iarg, iblk, ihsym, ingain, k, kstep, nearly,          &
+  integer :: i, i1, iarg, iblk, ihsym, ingain, k, kstep,                  &
        nflatten, nfsample, nhsym, nhsym0, nminw, npts, npts8, nsps,       &
        nsubmode, ntol, nutc
   real(c_float) :: df3, pxdb, pxdbmax
@@ -431,76 +429,15 @@ program jt9
      datetime="2013-Apr-16 15:13" !### Temp
      shared_data%params%datetime=transfer(datetime,shared_data%params%datetime)
      if(mode.eq.9 .and. fsplit.ne.2700) shared_data%params%nfa=fsplit
-     nearly=50
-     if(mode.eq.8 .and. .not.  shared_data%params%lmultift8) then
-! "Early" decoding pass, FT8 only, when jt9 reads data from disk
-        nearly=41
-        shared_data%params%nzhsym=nearly
-        id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-        id2a(nearly*3456+1:)=0
-        call multimode_decoder(shared_data%ss,id2a,      &
-             shared_data%params,nfsample)
-        nearly=47
-        shared_data%params%nzhsym=nearly
-        id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-        id2a(nearly*3456+1:)=0
-        call multimode_decoder(shared_data%ss,id2a,      &
-             shared_data%params,nfsample)
-        id2a(nearly*3456+1:50*3456)=shared_data%id2(nearly*3456+1:50*3456)
-        id2a(50*3456+1:)=0
-        shared_data%params%nzhsym=50
-        call multimode_decoder(shared_data%ss,id2a,      &
-             shared_data%params,nfsample)
-        cycle
-     else if(mode.eq.8 .and. shared_data%params%lmultift8) then
-        if(shared_data%params%ndecoderstart.lt.2) then
-           nearly=41
-           shared_data%params%lmultift8=.false.
-           shared_data%params%nzhsym=nearly
-           id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           id2a(nearly*3456+1:)=0
-           call multimode_decoder(shared_data%ss,id2a,      &
-                shared_data%params,nfsample)
-           if(shared_data%params%ndecoderstart.lt.2) then
-              nearly=46
-              shared_data%params%lmultift8=.false.
-              shared_data%params%nzhsym=nearly
-              id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-              id2a(nearly*3456+1:)=0
-              call multimode_decoder(shared_data%ss,id2a,      &
-                   shared_data%params,nfsample)
-           endif
-           if(shared_data%params%ndecoderstart.eq.0) nearly=49
-           if(shared_data%params%ndecoderstart.eq.1) nearly=50
-           shared_data%params%lmultift8=.true.
-           shared_data%params%nzhsym=nearly
-           id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           id2a(nearly*3456+1:)=0
-           dd(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           dd(nearly*3456+1:)=0
-           dd8(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           dd8(nearly*3456+1:)=0
-        else
-           if(shared_data%params%ndecoderstart.eq.2) nearly=48
-           if(shared_data%params%ndecoderstart.eq.3) nearly=49
-           if(shared_data%params%ndecoderstart.eq.4) nearly=50
-           shared_data%params%nzhsym=nearly
-           id2a(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           id2a(nearly*3456+1:)=0
-           dd(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           dd(nearly*3456+1:)=0
-           dd8(1:nearly*3456)=shared_data%id2(1:nearly*3456)
-           dd8(nearly*3456+1:)=0
-        endif
-
-     ! MSK144        
-     else if (mode .eq. 144) then
+     if (mode .eq. 144) then
+        ! MSK144 is decoded separately; the general decoder still reports
+        ! completion for the caller.
         call decode_msk144(shared_data%id2, shared_data%params, data_dir)
+        call multimode_decoder(shared_data%ss, shared_data%id2, &
+             shared_data%params, nfsample)
+     else
+        call jt9_decode_once(shared_data, nfsample)
      endif
-
-! Normal decoding pass
-     call multimode_decoder(shared_data%ss,shared_data%id2, &
-          shared_data%params,nfsample)
   enddo
 
   call timer('jt9     ',1)
