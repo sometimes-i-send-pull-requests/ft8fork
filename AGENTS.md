@@ -13,6 +13,10 @@ user.name=... -c user.email=...` flags to Git.  For example,
 
 `git -c user.name="DeepSeek R1" -c user.email=deepseek-r1@deepseek.com commit ...`
 
+In commit messages, stick to high level goals.  It can sometimes be appropriate
+to describe nontrivial design choices.  But it is inappropriate to itemize
+changes that would be reasonably obvious by looking at the diff.
+
 When writing code, take care not to introduce persistent artifacts in the code
 (e.g. comments) that reference information that is only present within the
 context of a single agent session.  For example, if you are implementing
