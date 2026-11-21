@@ -1895,7 +1895,15 @@ install (TARGETS ft8code jt65code jt9code jt4code msk144code
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
   BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
   )
-endif(WSJT_BUILD_UTILS)  
+endif(WSJT_BUILD_UTILS)
+
+if (APPLE AND WSJT_BUILD_UTILS)
+  # Command-line utilities that the macOS bundle carries alongside the app.
+  install (TARGETS wsprcode encode77 ft4sim jt4sim jt65sim cwsim sfoxsim
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
+    BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtime
+    )
+endif ()
 
 install (PROGRAMS
   ${RIGCTL_EXE}

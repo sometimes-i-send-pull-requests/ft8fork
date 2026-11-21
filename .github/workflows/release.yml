@@ -246,11 +246,8 @@ jobs:
         run: |
           TAG="${GITHUB_REF_NAME}"
           # Filter to user-facing release assets. `find artifacts -type f`
-          # without filtering pulls in 5× ctest-results.xml (one per
-          # platform) and per-binary tarballs from individual-binaries-*
-          # that collide on basename across architectures — `gh release
-          # create` uses basenames as asset names and duplicates cause
-          # upload failures.
+          # without filtering pulls in the per-platform ctest-results.xml
+          # files as well as the installers.
           mapfile -t files < <(find artifacts -maxdepth 2 -type f \
             \( -name "*.pkg" -o -name "*.AppImage" -o -name "*.deb" \
                -o -name "*.exe" -o -name "*.tar.gz" -o -name "*.rpm" \))
