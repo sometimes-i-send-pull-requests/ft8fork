@@ -1,5 +1,5 @@
-  parameter (NZ=339)                     !Total number of prefixes
-  parameter (NZ2=12)                     !Total number of suffixes
+  integer, parameter :: NZ=339                     !Total number of prefixes
+  integer, parameter :: NZ2=12                     !Total number of suffixes
   character*1 sfx(NZ2)
   character*5 pfx(NZ)
 

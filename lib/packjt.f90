@@ -1,9 +1,11 @@
 module packjt
 
+  implicit none
+
 ! These variables are accessible from outside via "use packjt":
   integer jt_itype,jt_nc1,jt_nc2,jt_ng,jt_k1,jt_k2
   character*6 jt_c1,jt_c2,jt_c3
-  
+
   contains
 
 subroutine packbits(dbits,nsymd,m0,sym)
@@ -13,6 +15,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
    integer sym(:)
    integer*1 dbits(:)
+   integer :: nsymd,m0,k,i,j,n,m
 
    k=0
    do i=1,nsymd
@@ -36,6 +39,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
    integer sym(:)
    integer*1 dbits(:)
+   integer :: nsymd,m0,k,i,j,mask
 
    k=0
    do i=1,nsymd
@@ -55,9 +59,10 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  ! Pack a valid callsign into a 28-bit integer.
 
-   parameter (NBASE=37*36*10*27*27*27)
+   integer, parameter :: NBASE=37*36*10*27*27*27
    character callsign*6,c*1,tmp*6
    logical text
+   integer :: ncall,nfreq,i,n1,n2,n3,n4,n5,n6
 
    text=.false.
 
@@ -137,8 +142,9 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine unpackcall(ncall,word,iv2,psfx)
 
-   parameter (NBASE=37*36*10*27*27*27)
+   integer, parameter :: NBASE=37*36*10*27*27*27
    character word*12,c*37,psfx*4
+   integer :: ncall,iv2,n,i
 
    data c/'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ '/
 
@@ -275,10 +281,12 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine packgrid(grid,ng,text)
 
-   parameter (NGBASE=180*180)
+   integer, parameter :: NGBASE=180*180
    character*4 grid
    character*1 c1
    logical text
+   integer :: ng,ios,n,long,lat
+   real :: dlong,dlat
 
    text=.false.
    if(grid.eq.'    ') then
@@ -352,8 +360,10 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine unpackgrid(ng,grid)
 
-   parameter (NGBASE=180*180)
+   integer, parameter :: NGBASE=180*180
    character grid*4,grid6*6
+   integer :: ng,n
+   real :: dlat,dlong
 
    grid='    '
    if(ng.lt.32400) then
@@ -409,14 +419,15 @@ subroutine packbits(dbits,nsymd,m0,sym)
  !   6   Free text
  !  -1   Does not decode correctly
 
-   parameter (NBASE=37*36*10*27*27*27)
-   parameter (NBASE2=262178562)
+   integer, parameter :: NBASE=37*36*10*27*27*27
+   integer, parameter :: NBASE2=262178562
    character*22 msg0,msg
    integer dat(:)
    character*12 c1,c2
    character*4 c3
    character*6 grid6
    logical text1,text2,text3,ltext
+   integer :: itype,iz,ia,ib,ic,i,k1,k2,nv2a,nv2b,nc1,nc2,ng,k
 
    itype=1
    msg=msg0
@@ -567,11 +578,12 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine unpackmsg(dat,msg)
 
-   parameter (NBASE=37*36*10*27*27*27)
-   parameter (NGBASE=180*180)
+   integer, parameter :: NBASE=37*36*10*27*27*27
+   integer, parameter :: NGBASE=180*180
    integer dat(:)
    character c1*12,c2*12,grid*4,msg*22,grid6*6,psfx*4,junk2*4
    logical cqnnn,lblank
+   integer :: nc1,nc2,ng,iv2,nfreq,junk1,i,n1,n2,k,j
 
    cqnnn=.false.
    nc1=ishft(dat(1),22) + ishft(dat(2),16) + ishft(dat(3),10)+         &
@@ -699,10 +711,11 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine packtext(msg,nc1,nc2,nc3)
 
-   parameter (MASK28=2**28 - 1)
+   integer, parameter :: MASK28=2**28 - 1
    character*22 msg
    character*42 c
    data c/'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ +-./?'/
+   integer :: nc1,nc2,nc3,i,j,jj
 
    nc1=0
    nc2=0
@@ -756,6 +769,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
    character*22 msg
    character*44 c
    data c/'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ +-./?'/
+   integer :: nc1a,nc2a,nc3a,nc1,nc2,nc3,i,j
 
    nc1=nc1a
    nc2=nc2a
@@ -795,6 +809,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
    logical ispfx,issfx,invalid
    common/pfxcom/addpfx
    include 'pfx.f90'
+   integer :: k,nv2,iz,islash,i,llof,lrof
 
    callsign0=callsign
    nv2=1
@@ -891,6 +906,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
    include 'pfx.f90'
    character addpfx*8
    common/pfxcom/addpfx
+   integer :: k0,k,iz
 
    k=k0
    if(k.gt.450) k=k-450
@@ -912,6 +928,8 @@ subroutine packbits(dbits,nsymd,m0,sym)
  subroutine grid2k(grid,k)
 
    character*6 grid
+   integer :: k,nlong,nlat
+   real :: xlong,xlat
 
    call grid2deg(grid//'55',xlong,xlat)
    nlong=nint(xlong)
@@ -924,6 +942,8 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine k2grid(k,grid)
    character grid*6
+   integer :: k,nlong,nlat
+   real :: dlat,dlong
 
    nlong=2*mod((k-1)/5,90)-179
    if(k.gt.450) nlong=nlong+180
@@ -937,6 +957,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine grid2n(grid,n)
    character*4 grid
+   integer :: n,i1,i2,i
 
    i1=ichar(grid(1:1))-ichar('A')
    i2=ichar(grid(3:3))-ichar('0')
@@ -948,6 +969,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine n2grid(n,grid)
    character*4 grid
+   integer :: n,i,i1,i2
 
    if(n.gt.-31 .or. n.lt.-70) stop 'Error in n2grid'
    i=-(n+31)                           !NB: 0 <= i <= 39
@@ -961,11 +983,12 @@ subroutine packbits(dbits,nsymd,m0,sym)
    return
  end subroutine n2grid
 
- function nchar(c)
+ integer function nchar(c)
 
  ! Convert ascii number, letter, or space to 0-36 for callsign packing.
 
    character c*1
+   integer :: n
 
    n=0                                    !Silence compiler warning
    if(c.ge.'0' .and. c.le.'9') then
@@ -988,6 +1011,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
  subroutine pack50(n1,n2,dat)
 
    integer*1 dat(:),i1
+   integer :: n1,n2
 
    i1=iand(ishft(n1,-20),255)                !8 bits
    dat(1)=i1
@@ -1016,6 +1040,7 @@ subroutine packpfx(call1,n1,ng,nadd)
   character*12 call1,call0
   character*3 pfx
   logical text
+  integer :: n1,ng,nadd,i1,nc,n,i
 
   i1=index(call1,'/')
   if(call1(i1+2:i1+2).eq.' ') then
