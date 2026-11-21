@@ -6,6 +6,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
 
 !$ use omp_lib
   use prog_args
+  use line_output, only: emit_line
   use timer_module, only: timer
   use jt4_decode
   use jt65_decode
@@ -81,6 +82,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   !character(len=12) :: mycall, hiscall  !ft8md
   character(len=6) :: mygrid!, hisgrid   !ft8md
   character*60 line
+  character(len=80) :: emit_buffer
   character*37 msg37
   data ndec8/0/,ntr0/-1/
   save
@@ -153,7 +155,7 @@ main_body: do
            read(39,'(a60)',iostat=ios) line
            if(ios.ne.0) exit
            if(line(1:1).eq.' ' .or. line(1:1).eq.'-') exit main_body
-           write(*,'(a)') trim(line)
+           call emit_line(line)
         enddo
         close(39)
      endif
@@ -315,7 +317,8 @@ main_body: do
 
            if(params%nagainfil) then
               if(nfqso.lt.nfa .or. nfqso.gt.nfb) then
-                 write(*,64) nutc,'nfqso is out of bandwidth','d'
+                 write(emit_buffer,64) nutc,'nfqso is out of bandwidth','d'
+                 call emit_line(emit_buffer)
 64               format(i6.6,2x,a25,16x,a1)
                  exit main_body
               endif
@@ -1428,7 +1431,10 @@ ndecoded = my_jt4%decoded + my_jt65%decoded + my_jt9%decoded +          &
   if(params%nmode.ne.8 .or. params%nzhsym.eq.50 .or. &
        (params%lmultift8 .and. params%nmode.eq.8 .and. params%nzhsym.gt.45) .or. &
        .not.params%ndiskdat) then !ft8md
-     if(.not.lquiet) write(*,1010) nsynced,ndecoded,navg0
+     if(.not.lquiet) then
+        write(emit_buffer,1010) nsynced,ndecoded,navg0
+        call emit_line(emit_buffer)
+     endif
 1010 format('<DecodeFinished>',2i4,i9)
      call flush(6)
   endif
@@ -1443,6 +1449,7 @@ contains
        decoded0,qual,ich,is_average,ave)
     implicit none
     class(jt4_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     integer, intent(in) :: snr
     real, intent(in) :: dt
     integer, intent(in) :: freq
@@ -1476,10 +1483,12 @@ contains
              if(cflags(1:1).eq.'f') cflags=cflags(1:1)//cflags(3:3)//' '
           endif
        endif
-       write(*,1000) params%nutc,snr,dt,freq,sync,decoded,cflags
+       write(emit_buffer,1000) params%nutc,snr,dt,freq,sync,decoded,cflags
+       call emit_line(emit_buffer)
 1000   format(i4.4,i4,f5.1,i5,1x,'$',a1,1x,a22,1x,a3)
     else
-       write(*,1000) params%nutc,snr,dt,freq
+       write(emit_buffer,1000) params%nutc,snr,dt,freq
+       call emit_line(emit_buffer)
     end if
 
     select type(this)
@@ -1514,6 +1523,7 @@ contains
     implicit none
 
     class(jt65_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     real, intent(in) :: sync
     integer, intent(in) :: snr
     real, intent(in) :: dt
@@ -1538,7 +1548,8 @@ contains
     is_deep=ft.eq.2
 
     if(ft.eq.0 .and. minsync.ge.0 .and. int(sync).lt.minsync) then
-       write(*,1010) params%nutc,snr,dt,freq
+       write(emit_buffer,1010) params%nutc,snr,dt,freq
+       call emit_line(emit_buffer)
     else
        is_average=nsum.ge.2
        if(bVHF .and. ft.gt.0) then
@@ -1581,7 +1592,8 @@ contains
           cflags(2:2)=cflags(3:3)
           cflags(3:3)=' '
        endif
-       write(*,1010) params%nutc,snr,dt,freq,csync,decoded,cflags
+       write(emit_buffer,1010) params%nutc,snr,dt,freq,csync,decoded,cflags
+       call emit_line(emit_buffer)
 1010   format(i4.4,i4,f5.1,i5,1x,a2,1x,a22,1x,a3)
     endif
     if(ios13.eq.0) write(13,1012) params%nutc,nint(sync),snr,dt,    &
@@ -1601,6 +1613,7 @@ contains
     implicit none
 
     class(jt9_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     real, intent(in) :: sync
     integer, intent(in) :: snr
     real, intent(in) :: dt
@@ -1610,7 +1623,8 @@ contains
 
     !$omp critical(decode_results)
 
-    write(*,1000) params%nutc,snr,dt,nint(freq),decoded
+    write(emit_buffer,1000) params%nutc,snr,dt,nint(freq),decoded
+    call emit_line(emit_buffer)
 1000 format(i4.4,i4,f5.1,i5,1x,'@ ',1x,a22)
     if(ios13.eq.0) write(13,1002) params%nutc,nint(sync),snr,dt,freq,  &
          drift,decoded
@@ -1628,6 +1642,7 @@ contains
     implicit none
 
     class(ft8_decodervar), intent(inout) :: this
+    character(len=80) :: emit_buffer
     integer, intent(in) :: snr
     real, intent(in) :: dt
     real, intent(in) :: freq
@@ -1676,7 +1691,8 @@ contains
        if(qual.lt.0.17) decoded0(37:37)='?'
     endif
 
-    write(*,1000) params%nutc,snr,dt,nint(freq),decoded0,annot
+    write(emit_buffer,1000) params%nutc,snr,dt,nint(freq),decoded0,annot
+    call emit_line(emit_buffer)
 1000 format(i6.6,i4,f5.1,i5,' ~ ',1x,a37,1x,a2)
     
     if(ncontest.eq.6) then
@@ -1729,6 +1745,7 @@ contains
     implicit none
 
     class(ft8_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     real, intent(in) :: sync
     integer, intent(in) :: snr
     real, intent(in) :: dt
@@ -1777,9 +1794,15 @@ contains
   ! to decide how many chars to print?
   !TEMP
     i0=1
-    if(i0.le.0) write(*,1000) params%nutc,snr,dt,nint(freq),decoded0(1:22),annot
+    if(i0.le.0) then
+       write(emit_buffer,1000) params%nutc,snr,dt,nint(freq),decoded0(1:22),annot
+       call emit_line(emit_buffer)
+    endif
 1000 format(i6.6,i4,f5.1,i5,' ~ ',1x,a22,1x,a2)
-    if(i0.gt.0) write(*,1001) params%nutc,snr,dt,nint(freq),decoded0,annot
+    if(i0.gt.0) then
+       write(emit_buffer,1001) params%nutc,snr,dt,nint(freq),decoded0,annot
+       call emit_line(emit_buffer)
+    endif
 1001 format(i6.6,i4,f5.1,i5,' ~ ',1x,a37,1x,a2)
     if(ios13.eq.0) write(13,1002) params%nutc,nint(sync),snr,dt,freq,0,decoded0
 1002 format(i6.6,i4,i5,f6.1,f8.0,i4,3x,a37,' FT8')
@@ -1834,6 +1857,7 @@ contains
     implicit none
 
     class(ft4_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     real, intent(in) :: sync
     integer, intent(in) :: snr
     real, intent(in) :: dt
@@ -1853,7 +1877,8 @@ contains
        if(qual.lt.0.17) decoded0(37:37)='?'
     endif
 
-    write(*,1001) params%nutc,snr,dt,nint(freq),decoded0,annot
+    write(emit_buffer,1001) params%nutc,snr,dt,nint(freq),decoded0,annot
+    call emit_line(emit_buffer)
 1001 format(i6.6,i4,f5.1,i5,' + ',1x,a37,1x,a2)
 
     if(ios13.eq.0) then
@@ -1919,8 +1944,7 @@ contains
        if(w50.ge.0.95) write(line(65:70),'(f6.2)') w50
     endif
 
-    write(*,1005) line
-1005 format(a70)
+    call emit_line(line)
 
     call flush(6)
     if(ios13.eq.0) call flush(13)
@@ -1940,6 +1964,7 @@ contains
     implicit none
 
     class(q65_decoder), intent(inout) :: this
+    character(len=80) :: emit_buffer
     integer, intent(in) :: nutc
     real, intent(in) :: snr1
     integer, intent(in) :: nsnr
@@ -1959,12 +1984,14 @@ contains
     endif
 
     if(ntrperiod.lt.60) then
-       write(*,1001) nutc,nsnr,dt,nint(freq),decoded,cflags
+       write(emit_buffer,1001) nutc,nsnr,dt,nint(freq),decoded,cflags
+       call emit_line(emit_buffer)
 1001   format(i6.6,i4,f5.1,i5,' : ',1x,a37,1x,a3)
        if(ios13.eq.0) write(13,1002) nutc,nint(snr1),nsnr,dt,freq,0,decoded
 1002   format(i6.6,i4,i5,f6.1,f8.0,i4,3x,a37,' Q65')
     else
-       write(*,1003) nutc,nsnr,dt,nint(freq),decoded,cflags
+       write(emit_buffer,1003) nutc,nsnr,dt,nint(freq),decoded,cflags
+       call emit_line(emit_buffer)
 1003   format(i4.4,i4,f5.1,i5,' : ',1x,a37,1x,a3)
        if(ios13.eq.0) write(13,1004) nutc,nint(snr1),nsnr,dt,freq,0,decoded
 1004   format(i4.4,i4,i5,f6.1,f8.0,i4,3x,a37,' Q65')

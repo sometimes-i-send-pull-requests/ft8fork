@@ -5,6 +5,7 @@ contains
 subroutine decode_msk144(audio_samples, params, data_dir)
   use jt9com
   use mskrtd_mod
+  use line_output, only: emit_line
 
   implicit none
 
@@ -50,14 +51,14 @@ subroutine decode_msk144(audio_samples, params, data_dir)
 
     if (line(1:1) .ne. char(0)) then
       line = line(1:index(line, char(0))-1)
-      write(*, 1001) line
-      1001 format(a80)
+      call emit_line(line)
       message_count = message_count + 1;
     end if
   end do
 
   if (.not. params%ndiskdat) then
-    write(*, 1002) 0, message_count, 0
+    write(line, 1002) 0, message_count, 0
+    call emit_line(line)
     1002 format('<DecodeFinished>', 2i4, i9)
   end if
 
