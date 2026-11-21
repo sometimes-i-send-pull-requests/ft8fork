@@ -34,7 +34,6 @@ Test data (used only by test programs):
 
 - Add `implicit none` to module packjt77 and type its bare `parameter` statements.
 - Turn lib/downsam9.f90, lib/sync9.f90 and lib/sync9w.f90 into modules with `implicit none`.
-- Turn lib/hspec.f90 into a module with `implicit none`.
 - Add `implicit none` to lib/extract.f90 and lib/sync65.f90 (decoder helpers that share the JT65 commons).
 
 ## Build hygiene

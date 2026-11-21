@@ -20,7 +20,9 @@ subroutine hspec(id2,k,nutc0,ntrpdepth,nrxfreq,ntol,bmsk144,             &
 
   use mskrtd_mod
 
-  parameter (JZ=703)
+  implicit none
+
+  integer, parameter :: JZ = 703
   character*(*) line1
   character*80  line0
   character*(*) datadir
@@ -32,6 +34,9 @@ subroutine hspec(id2,k,nutc0,ntrpdepth,nrxfreq,ntol,bmsk144,             &
   real x(512)
   real*8 pcoeffs(5)
   complex cx(0:256)
+  integer :: k,nutc0,ntrpdepth,nrxfreq,ntol,ingain,jh
+  integer :: ndepth,ntrperiod,nfft,nstep,nblks,iblk,i,j,jb,ja,k0
+  real :: pxmax,dbNoGain,rms,rms0,rms2,gain,sq,xmax,xmin,df,fac,sx,tsec,tt1,tt2
   data rms/999.0/,k0/99999999/
   equivalence (x,cx)
   save ja,rms0
