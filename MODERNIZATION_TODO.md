@@ -11,7 +11,6 @@ Add worthwhile follow-on ideas here as they come up.
 
 - Add `implicit none` to module packjt and declare its implicit locals.
 - Turn lib/mskrtd.f90 into a module with `implicit none` (and remove its `go to`s).
-- Add `implicit none` to the q65_decode module scope (its few module variables are already typed).
 
 ## Other control-flow / robustness cleanups
 

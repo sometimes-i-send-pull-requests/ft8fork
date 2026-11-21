@@ -1,5 +1,7 @@
 module q65_decode
 
+  implicit none
+
   integer nsnr0,nfreq0
   real xdt0
   character msg0*37,cq0*3
