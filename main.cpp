@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
       std::locale::global (std::locale::classic ());
 
       // Override programs executable basename as application name.
-      a.setApplicationName ("WSJT-X");
+      a.setApplicationName ("FT8Fork");
       a.setApplicationVersion (version ());
 
       QCommandLineParser parser;

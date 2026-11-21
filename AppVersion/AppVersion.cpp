@@ -1,5 +1,5 @@
 //
-// wsjtx_app_version - a console application that outputs WSJT-X
+// wsjtx_app_version - a console application that outputs FT8Fork
 //                     application version
 //
 // This application is only provided as a simple console application
@@ -21,7 +21,7 @@ int main (int argc, char * argv[])
   QCoreApplication app {argc, argv};
   try
     {
-      app.setApplicationName ("WSJT-X");
+      app.setApplicationName ("FT8Fork");
       app.setApplicationVersion (version());
 
       QCommandLineParser parser;

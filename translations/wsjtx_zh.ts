@@ -70,8 +70,8 @@
     </message>
     <message>
         <location filename="../widgets/activeStations.ui" line="207"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click on a line to call that station. &lt;/p&gt;&lt;p&gt;When using QMAP, single click to transfer QSO data and sked frequency to WSJT-X, and double click to call that station.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;单击一行呼叫该电台. &lt;/p&gt;&lt;p&gt;使用QMAP时, 单击将通联数据和sked频率传输到WSJT-X, 双击呼叫该电台.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click on a line to call that station. &lt;/p&gt;&lt;p&gt;When using QMAP, single click to transfer QSO data and sked frequency to FT8Fork, and double click to call that station.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;单击一行呼叫该电台. &lt;/p&gt;&lt;p&gt;使用QMAP时, 单击将通联数据和sked频率传输到FT8Fork, 双击呼叫该电台.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/activeStations.ui" line="92"/>
@@ -321,8 +321,8 @@
     <name>CAboutDlg</name>
     <message>
         <location filename="../widgets/about.ui" line="9"/>
-        <source>About WSJT-X</source>
-        <translation>关于 WSJT-X</translation>
+        <source>About FT8Fork</source>
+        <translation>关于 FT8Fork</translation>
     </message>
     <message>
         <location filename="../widgets/about.ui" line="60"/>
@@ -704,8 +704,8 @@ Format:
     </message>
     <message>
         <location filename="../Configuration.cpp" line="3801"/>
-        <source>WSJT-X Decoded Text Font Chooser</source>
-        <translation>WSJT-X 解码文本字体选择</translation>
+        <source>FT8Fork Decoded Text Font Chooser</source>
+        <translation>FT8Fork 解码文本字体选择</translation>
     </message>
     <message>
         <location filename="../Configuration.cpp" line="3838"/>
@@ -2521,8 +2521,8 @@ Error: %2 - %3</source>
     <name>MainWindow</name>
     <message>
         <location filename="../widgets/mainwindow.ui" line="20"/>
-        <source>WSJT-X   by K1JT</source>
-        <translation>WSJT-X   by K1JT</translation>
+        <source>FT8Fork   by K1JT</source>
+        <translation>FT8Fork   by K1JT</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="52"/>
@@ -2783,8 +2783,8 @@ Error: %2 - %3</source>
         <translation type="vanished">写入 ALL.TXT</translation>
     </message>
     <message>
-        <source>Copy main text window to WSJT-X.txt</source>
-        <translation type="vanished">将主文字视窗複製到 WSJT-X.txt</translation>
+        <source>Copy main text window to FT8Fork.txt</source>
+        <translation type="vanished">将主文字视窗複製到 FT8Fork.txt</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5569"/>
@@ -4649,8 +4649,8 @@ Double-click to reset to the standard 73 message</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="4967"/>
-        <source>About WSJT-X</source>
-        <translation>关于 WSJT-X</translation>
+        <source>About FT8Fork</source>
+        <translation>关于 FT8Fork</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="4975"/>
@@ -4928,8 +4928,8 @@ Double-click to reset to the standard 73 message</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5548"/>
-        <source>Quick-Start Guide to WSJT-X 2.7 and QMAP</source>
-        <translation>WSJT-X 2.7 和 QMAP 快速入门指南</translation>
+        <source>Quick-Start Guide to FT8Fork 2.7 and QMAP</source>
+        <translation>FT8Fork 2.7 和 QMAP 快速入门指南</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5535"/>
@@ -4953,23 +4953,23 @@ Double-click to reset to the standard 73 message</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5553"/>
-        <source>WSJT-X_improved Home Page</source>
-        <translation>WSJT-X _改进版主页</translation>
+        <source>FT8Fork_improved Home Page</source>
+        <translation>FT8Fork _改进版主页</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5561"/>
         <source>The additional features of wsjt-x_improved</source>
-        <translation>WSJT-X _改进版的附加功能</translation>
+        <translation>FT8Fork _改进版的附加功能</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5564"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Overview on the additional features of wsjt-x_improved.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;概述 WSJT-X _改进版的附加功能.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;概述 FT8Fork _改进版的附加功能.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5556"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Go to the wsjt-x_improved home page.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;转到 WSJT-X _改进版主页.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;转到 FT8Fork _改进版主页.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5585"/>
@@ -5248,8 +5248,8 @@ Double-click to reset to the standard 73 message</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5449"/>
-        <source>Quick-Start Guide to WSJT-X 2.5.0 and MAP65 3.0</source>
-        <translation>WSJT-X 2.5.0和MAP65 3.0快速入门指南</translation>
+        <source>Quick-Start Guide to FT8Fork 2.5.0 and MAP65 3.0</source>
+        <translation>FT8Fork 2.5.0和MAP65 3.0快速入门指南</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="348"/>
@@ -5532,12 +5532,12 @@ to ensure the signal is clean and not distorted.</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="4646"/>
-        <source>If you make fair use of any part of WSJT-X under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
+        <source>If you make fair use of any part of FT8Fork under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
 
-&quot;The algorithms, source code, look-and-feel of WSJT-X and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2025 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
-        <translation>如果您根据GNU通用公共许可证的条款合理使用WSJT-X的任何部分, 您必须在您的衍生作品中突出显示以下版权声明:
+&quot;The algorithms, source code, look-and-feel of FT8Fork and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2025 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
+        <translation>如果您根据GNU通用公共许可证的条款合理使用FT8Fork的任何部分, 您必须在您的衍生作品中突出显示以下版权声明:
 
-&quot;WSJT-X和相关程序的算法 源代码 外观和感觉, 以及模式的协议规范 FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144  版权所有(C) 2001-2024是由以下一个或多个作者拥有: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; 和WSJT发展小组的其他成员.&quot;</translation>
+&quot;FT8Fork和相关程序的算法 源代码 外观和感觉, 以及模式的协议规范 FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144  版权所有(C) 2001-2024是由以下一个或多个作者拥有: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; 和WSJT发展小组的其他成员.&quot;</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="5027"/>
@@ -5564,7 +5564,7 @@ to ensure the signal is clean and not distorted.</source>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5612,7 +5612,7 @@ to ensure the signal is clean and not distorted.</source>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;停止发送,中止通联,清除下一个呼叫序列&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;线上用户指南  (Alt: 发送 Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;版权声明&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;关于 WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;关于 FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;开启设定视窗 (Alt: 发送 Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;显示键盘快速键  (Alt: 发送 Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;清除DX呼号, DX网格, 发送讯息 1-4 (Alt: 发送 Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5662,7 +5662,7 @@ to ensure the signal is clean and not distorted.</source>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5712,7 +5712,7 @@ to ensure the signal is clean and not distorted.</source>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;停止发送,中止通联,清除下一个呼叫序列&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;线上用户指南  (Alt: 发送 Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;版权声明&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;关于 WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;关于 FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;开启设定视窗 (Alt: 发送 Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;显示键盘快速键  (Alt: 发送 Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;清除DX呼号, DX网格, 发送讯息 1-4 (Alt: 发送 Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -6002,8 +6002,8 @@ to ensure the signal is clean and not distorted.</source>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7598"/>
-        <source>Please choose another Tx frequency. WSJT-X will not knowingly transmit another mode in the WSPR sub-band on 30m.</source>
-        <translation>请选择另一个发射频率. WSJT-X 不会故意在 30m 的 WSPR 子频段中传输另一种模式.</translation>
+        <source>Please choose another Tx frequency. FT8Fork will not knowingly transmit another mode in the WSPR sub-band on 30m.</source>
+        <translation>请选择另一个发射频率. FT8Fork 不会故意在 30m 的 WSPR 子频段中传输另一种模式.</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7602"/>
@@ -6019,11 +6019,11 @@ to ensure the signal is clean and not distorted.</source>
         <location filename="../widgets/mainwindow.cpp" line="7616"/>
         <source>Please choose another dial frequency.
 Must be 3Khz away from %1.
-WSJT-X will not operate in Fox mode
+FT8Fork will not operate in Fox mode
 overlapping the standard FT8 sub-bands.</source>
         <translation>请选择另一个频率.
 必须 3Khz 距离 %1.
-WSJT-X不会以狐狸模式工作
+FT8Fork不会以狐狸模式工作
 重叠标准FT8子频带.</translation>
     </message>
     <message>
@@ -6035,10 +6035,10 @@ WSJT-X不会以狐狸模式工作
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7634"/>
         <source>Please choose another dial frequency.
-WSJT-X will not operate in Fox mode
+FT8Fork will not operate in Fox mode
 overlapping the WSPR sub-bands.</source>
         <translation>请选择其他频率.
-WSJT-X 不会操作在Fox模式下
+FT8Fork 不会操作在Fox模式下
 与WSPR子带重叠.</translation>
     </message>
     <message>
@@ -6047,12 +6047,12 @@ WSJT-X 不会操作在Fox模式下
         <translation>最后发射: %1</translation>
     </message>
     <message>
-        <source>If you make fair use of any part of WSJT-X under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
+        <source>If you make fair use of any part of FT8Fork under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
 
-&quot;The algorithms, source code, look-and-feel of WSJT-X and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2024 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
-        <translation type="vanished">如果您根据GNU通用公共许可证的条款合理使用WSJT-X的任何部分, 您必须在您的衍生作品中突出显示以下版权声明:
+&quot;The algorithms, source code, look-and-feel of FT8Fork and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2024 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
+        <translation type="vanished">如果您根据GNU通用公共许可证的条款合理使用FT8Fork的任何部分, 您必须在您的衍生作品中突出显示以下版权声明:
 
-&quot;WSJT-X和相关程序的算法 源代码 外观和感觉, 以及模式的协议规范 FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144  版权所有(C) 2001-2024是由以下一个或多个作者拥有的: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; 和WSJT发展小组的其他成员.&quot;</translation>
+&quot;FT8Fork和相关程序的算法 源代码 外观和感觉, 以及模式的协议规范 FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144  版权所有(C) 2001-2024是由以下一个或多个作者拥有的: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; 和WSJT发展小组的其他成员.&quot;</translation>
     </message>
     <message>
         <source>&lt;table cellpadding=5&gt;
@@ -6828,8 +6828,8 @@ UDP 服务器 %2:%3</translation>
     <name>QSYMessage</name>
     <message>
         <location filename="../widgets/QSYMessage.ui" line="26"/>
-        <source>WSJT-X Popup</source>
-        <translation>WSJT-X 弹出</translation>
+        <source>FT8Fork Popup</source>
+        <translation>FT8Fork 弹出</translation>
     </message>
     <message>
         <location filename="../widgets/QSYMessage.ui" line="44"/>
@@ -8895,8 +8895,8 @@ transmitting periods.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2407"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that WSJT-X should send updates to. If this is zero no updates will be sent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入WSJT-X应该向其发送更新的UDP服务器的服务端口号. 如果该值为零则不会发送任何更新.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that FT8Fork should send updates to. If this is zero no updates will be sent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入FT8Fork应该向其发送更新的UDP服务器的服务端口号. 如果该值为零则不会发送任何更新.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2417"/>
@@ -8905,8 +8905,8 @@ transmitting periods.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2427"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When sending updates to a multicast group address it is necessary to specify which network interface(s) to send them to. If the loop-back interface is multicast capable then at least that one will be selected.&lt;/p&gt;&lt;p&gt;For most users the loop-back interface is all that is needed, that will allow multiple other applications on the same machine to interoperate with WSJT-X. If applications running on other hosts are to receive status updates then a suitable network interface should be used.&lt;/p&gt;&lt;p&gt;On some Linux systems it may be necessary to enable multicast on the loop-back network interface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;向多播组地址发送更新时需要指定将更新发送到哪个网络接口. 如果环回接口支持多播那么将至少选择该接口.&lt;/p&gt;&lt;p&gt;对于大多数用户来说环回接口是他们所需要的, 这将允许同一台机器上的多个其他应用程序与WSJT-X进行互操作. 如果运行在其他主机上的应用程序要接收状态更新则应使用合适的网络接口.&lt;/p&gt;&lt;p&gt;在某些Linux系统上可能需要在环回网络接口上启用多播.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When sending updates to a multicast group address it is necessary to specify which network interface(s) to send them to. If the loop-back interface is multicast capable then at least that one will be selected.&lt;/p&gt;&lt;p&gt;For most users the loop-back interface is all that is needed, that will allow multiple other applications on the same machine to interoperate with FT8Fork. If applications running on other hosts are to receive status updates then a suitable network interface should be used.&lt;/p&gt;&lt;p&gt;On some Linux systems it may be necessary to enable multicast on the loop-back network interface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;向多播组地址发送更新时需要指定将更新发送到哪个网络接口. 如果环回接口支持多播那么将至少选择该接口.&lt;/p&gt;&lt;p&gt;对于大多数用户来说环回接口是他们所需要的, 这将允许同一台机器上的多个其他应用程序与FT8Fork进行互操作. 如果运行在其他主机上的应用程序要接收状态更新则应使用合适的网络接口.&lt;/p&gt;&lt;p&gt;在某些Linux系统上可能需要在环回网络接口上启用多播.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2444"/>
@@ -8920,7 +8920,7 @@ transmitting periods.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2795"/>
-        <source>Reset Highlighting to WSJT-X default</source>
+        <source>Reset Highlighting to FT8Fork default</source>
         <translation>将高亮显示重置为 wsjt-x 默认值</translation>
     </message>
     <message>
@@ -9343,8 +9343,8 @@ and DX Grid fields when a 73 or free text message is sent.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2307"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Some logging programs will not accept WSJT-X mode names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;某些日志记录程序不接受 WSJT-X 模式名称.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Some logging programs will not accept FT8Fork mode names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;某些日志记录程序不接受 FT8Fork 模式名称.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2310"/>
@@ -9521,8 +9521,8 @@ and DX Grid fields when a 73 or free text message is sent.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2461"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this enabled WSJT-X will accept certain requests back from a UDP server that receives decode messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;启用此功能后，WSJT-X 将接受来自接收解码消息的 UDP 服务器的某些请求.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this enabled FT8Fork will accept certain requests back from a UDP server that receives decode messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;启用此功能后，FT8Fork 将接受来自接收解码消息的 UDP 服务器的某些请求.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2464"/>
@@ -9556,8 +9556,8 @@ and DX Grid fields when a 73 or free text message is sent.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2502"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked, WSJT-X will broadcast a logged contact in ADIF format to the configured hostname and port. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;选中后，WSJT-X 将以 ADIF 格式将记录的联系广播到配置的主机名和端口. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked, FT8Fork will broadcast a logged contact in ADIF format to the configured hostname and port. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;选中后，FT8Fork 将以 ADIF 格式将记录的联系广播到配置的主机名和端口. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2505"/>
@@ -9581,8 +9581,8 @@ and DX Grid fields when a 73 or free text message is sent.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2539"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the port number that WSJT-X should use for UDP broadcasts of ADIF log information. For N1MM Logger+, this value should be 2333. If this is zero,  no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入 WSJT-X 应用于 ADIF 日志信息的 UDP 广播的端口号. 对于 N1MM Logger+, 此值应为 2333. 如果为零, 将不会广播任何更新.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the port number that FT8Fork should use for UDP broadcasts of ADIF log information. For N1MM Logger+, this value should be 2333. If this is zero,  no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入 FT8Fork 应用于 ADIF 日志信息的 UDP 广播的端口号. 对于 N1MM Logger+, 此值应为 2333. 如果为零, 将不会广播任何更新.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2566"/>
@@ -9596,8 +9596,8 @@ and DX Grid fields when a 73 or free text message is sent.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2575"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;See &amp;quot;Frequency Calibration&amp;quot; in the WSJT-X User Guide for details of how to determine these parameters for your radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;阅读 &amp;quot;频率校准&amp;quot; 在 WSJT-X 用户指南中, 有关如何确定无线电的这些参数的详细信息.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;See &amp;quot;Frequency Calibration&amp;quot; in the FT8Fork User Guide for details of how to determine these parameters for your radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;阅读 &amp;quot;频率校准&amp;quot; 在 FT8Fork 用户指南中, 有关如何确定无线电的这些参数的详细信息.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2578"/>
@@ -9658,7 +9658,7 @@ Right click for insert and delete options.</source>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2802"/>
-        <source>Reset Highlighting to WSJT-X Improved default</source>
+        <source>Reset Highlighting to FT8Fork Improved default</source>
         <translation>将高亮显示重置为 wsjt-x_improved 默认值</translation>
     </message>
     <message>

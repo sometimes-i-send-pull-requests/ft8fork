@@ -6,7 +6,7 @@ on:
 
 jobs:
   # ── Derive the version string once from the pushed tag ────────────
-  # Strips the "build/v" prefix so artifacts are named "wsjtx-3.0.1-rc1-*"
+  # Strips the "build/v" prefix so artifacts are named "ft8fork-3.0.1-rc1-*"
   # rather than "wsjtx-build/v3.0.1-rc1-*". RC/beta suffixes (e.g.
   # build/v3.0.1-rc1 → 3.0.1-rc1) are preserved so pre-release artifacts
   # are distinguishable from GA. All downstream jobs consume this
@@ -172,10 +172,10 @@ jobs:
           # does not recurse into submodules on its own.
           git archive \
             --format=tar.gz \
-            --prefix="wsjtx-${VERSION}/" \
-            -o "artifacts/wsjtx-${VERSION}-src.tar.gz" \
+            --prefix="ft8fork-${VERSION}/" \
+            -o "artifacts/ft8fork-${VERSION}-src.tar.gz" \
             "${GITHUB_REF_NAME}"
-          ls -lh "artifacts/wsjtx-${VERSION}-src.tar.gz"
+          ls -lh "artifacts/ft8fork-${VERSION}-src.tar.gz"
 
       - name: List artifacts
         run: find artifacts -type f | sort
@@ -192,11 +192,11 @@ jobs:
       #
       # Expected artifact layout (one installer per platform, per the
       # five build-*.yml upload-artifact steps):
-      #   artifacts/wsjtx-<ver>-arm64-macOS.pkg/*.pkg
-      #   artifacts/wsjtx-<ver>-x86_64-macOS.pkg/*.pkg
-      #   artifacts/wsjtx-<ver>-linux-x86_64-AppImage/*.AppImage
-      #   artifacts/wsjtx-<ver>-linux-aarch64-AppImage/*.AppImage
-      #   artifacts/wsjtx-<ver>-windows-x86_64-installer/*.exe
+      #   artifacts/ft8fork-<ver>-arm64-macOS.pkg/*.pkg
+      #   artifacts/ft8fork-<ver>-x86_64-macOS.pkg/*.pkg
+      #   artifacts/ft8fork-<ver>-linux-x86_64-AppImage/*.AppImage
+      #   artifacts/ft8fork-<ver>-linux-aarch64-AppImage/*.AppImage
+      #   artifacts/ft8fork-<ver>-windows-x86_64-installer/*.exe
       #
       # Policy: publish only when all five platforms have produced an
       # installer-grade artifact. Adjust or remove this step if the
@@ -214,11 +214,11 @@ jobs:
             "Windows x86_64 .exe"
           )
           patterns=(
-            "artifacts/wsjtx-${VERSION}-arm64-macOS.pkg/*.pkg"
-            "artifacts/wsjtx-${VERSION}-x86_64-macOS.pkg/*.pkg"
-            "artifacts/wsjtx-${VERSION}-linux-x86_64-AppImage/*.AppImage"
-            "artifacts/wsjtx-${VERSION}-linux-aarch64-AppImage/*.AppImage"
-            "artifacts/wsjtx-${VERSION}-windows-x86_64-installer/*.exe"
+            "artifacts/ft8fork-${VERSION}-arm64-macOS.pkg/*.pkg"
+            "artifacts/ft8fork-${VERSION}-x86_64-macOS.pkg/*.pkg"
+            "artifacts/ft8fork-${VERSION}-linux-x86_64-AppImage/*.AppImage"
+            "artifacts/ft8fork-${VERSION}-linux-aarch64-AppImage/*.AppImage"
+            "artifacts/ft8fork-${VERSION}-windows-x86_64-installer/*.exe"
           )
           missing=0
           echo "Installer-grade artifact gate — checking 5 platforms…"

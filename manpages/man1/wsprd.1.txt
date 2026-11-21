@@ -16,7 +16,7 @@ wsprd - is a decoder for K1JT's Weak Signal Propagation Reporter (WSPR) mode.
 
 *wsprd* - The program is written in C and is a command-line program that reads
 from a .c2 FILE or .wav FILE and writes output to the console. It is used by
-WSJT-X for wspr-mode decoding. 
+FT8Fork for wspr-mode decoding. 
 
 
 == OPTIONS

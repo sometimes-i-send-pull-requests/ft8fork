@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {VERSION}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = fst4sim(1)
 
 == NAME
@@ -72,7 +72,7 @@ QRA64 sub-mode designator.
  '1' as 50-bit (FST4W).
 
 Generated files are 12000 Hz sample rate, 16-bit unsigned format, mono
-PCM .WAV files suitable for replay using WSJT-X either vie the GUI
+PCM .WAV files suitable for replay using FT8Fork either vie the GUI
 *wsjtx*(1) or using the command line slow mode decoder *jt9*(1). Files
 are named 000000_nnnnnn.wav (000000_nnnn.wav for QRA64), where
 'nnnnnn' or 'nnnn' increments from zero.
@@ -84,7 +84,7 @@ Joe Taylor, K1JT.
 == COPYING
 
 *fcal* is Copyright (C) 2001 - 2019 by Joseph H.  Taylor, Jr., K1JT,
-with contributions from additional authors.  WSJT-X is Open Source
+with contributions from additional authors.  FT8Fork is Open Source
 software, licensed under the GNU General Public License (GPLv3).
 
 This program is distributed in the hope that it will be useful, but

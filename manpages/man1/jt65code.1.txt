@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {VERSION}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = jt65code(1)
 
 == NAME
@@ -157,9 +157,9 @@ Channel symbols (79 tones):
 .....
 
 
-WSJT-X home page:: https://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
+FT8Fork home page:: https://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
 
-WSJT-X User's Guide::
+FT8Fork User's Guide::
 https://www.physics.princeton.edu/pulsar/K1JT/wsjtx-doc/wsjtx-main-{VERSION}.html
 
 == AUTHOR
@@ -170,7 +170,7 @@ Joe Taylor, K1JT.
 
 *jt65code*, *jt9code*, *jt4code*, and *ft8code* are Copyright (C) 2001
 - 2020 by Joseph H. Taylor, Jr., K1JT, with contributions from
-additional authors.  WSJT-X is Open Source software, licensed under
+additional authors.  FT8Fork is Open Source software, licensed under
 the GNU General Public License (GPLv3).
 
 These programs are distributed in the hope that they will be useful,

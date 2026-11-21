@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
-Name=wsjtx
-Comment=Amateur Radio Weak Signal Operating
+Name=FT8Fork
+Comment=Amateur Radio Weak Signal Operating (unofficial WSJT-X fork)
 Exec=wsjtx
 Icon=wsjtx_icon
 Terminal=false

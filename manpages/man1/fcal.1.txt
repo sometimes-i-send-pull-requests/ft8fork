@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {VERSION}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = fcal(1)
 
 == NAME
@@ -17,8 +17,8 @@ fcal - Calculates a best-fit straight line for calibration data
 *fcal* is one of suite of command line tools designed to aid frequency
 measurement. These tools are aimed at those taking part in the ARRL
 FMT, but are also useful for general frequency measurement and
-calibration. They are included within the *WSJT-X* package for use
-with the FreqCal mode of WSJT-X.
+calibration. They are included within the *FT8Fork* package for use
+with the FreqCal mode of FT8Fork.
 
 The input FILE is normally the output of the *fmtavg*(1) tool, after
 adjusting to remove bad sources.
@@ -33,7 +33,7 @@ Joe Taylor, K1JT.
 == COPYING
 
 *fcal* is Copyright (C) 2001 - 2019 by Joseph H.  Taylor, Jr., K1JT,
-with contributions from additional authors.  WSJT-X is Open Source
+with contributions from additional authors.  FT8Fork is Open Source
 software, licensed under the GNU General Public License (GPLv3).
 
 This program is distributed in the hope that it will be useful, but

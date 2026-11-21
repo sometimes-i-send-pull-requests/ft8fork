@@ -28,11 +28,12 @@ SplashScreen::SplashScreen ()
   : QSplashScreen {QPixmap {":/splash.png"}, Qt::WindowStaysOnTopHint}
 {
   setLayout (&m_->main_layout_);
-  showMessage ("<h2>" + QString {"WSJT-X v" +
+  showMessage ("<h2>" + QString {"FT8Fork v" +
         QCoreApplication::applicationVersion() + " " +
         revision ()}.simplified () + "</h2>"
-    "Send issue reports to https://wsjtx.groups.io, and be sure to save .wav<br />"
-    "files where appropriate.<br /><br />"
+    "Send issue reports to this project's issue tracker, and be sure to save<br />"
+    ".wav files where appropriate.  This is an unofficial fork of WSJT-X<br />"
+    "and is not supported by the WSJT Development Team.<br /><br />"
     "<b>Open the Help menu and select Release Notes for more details.</b><br />"
     "<img src=\":/icon_128x128.png\" />"
     "<img src=\":/gpl-v3-logo.svg\" height=\"80\" />", Qt::AlignCenter);

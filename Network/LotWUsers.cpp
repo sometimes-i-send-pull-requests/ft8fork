@@ -64,7 +64,7 @@ public:
       lotw_downloader_.configure(network_manager_,
                                  url,
                                  csv_file_name,
-                                 "WSJT-X LotW User Downloader");
+                                 "FT8Fork LotW User Downloader");
       if (!connected_)
       {
         connect(&lotw_downloader_, &FileDownload::complete, [this, csv_file_name] {

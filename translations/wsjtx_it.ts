@@ -71,8 +71,8 @@
     </message>
     <message>
         <location filename="../widgets/activeStations.ui" line="207"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click on a line to call that station. &lt;/p&gt;&lt;p&gt;When using QMAP, single click to transfer QSO data and sked frequency to WSJT-X, and double click to call that station.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clicca su una riga per chiamare la stazione corrispondente. &lt;/p&gt;&lt;p&gt;Quando si utilizza QMAP, fare clic una volta per trasferire i dati QSO e la frequenza sked al WSJT-X e fare doppio clic per chiamare quella stazione.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click on a line to call that station. &lt;/p&gt;&lt;p&gt;When using QMAP, single click to transfer QSO data and sked frequency to FT8Fork, and double click to call that station.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clicca su una riga per chiamare la stazione corrispondente. &lt;/p&gt;&lt;p&gt;Quando si utilizza QMAP, fare clic una volta per trasferire i dati QSO e la frequenza sked al FT8Fork e fare doppio clic per chiamare quella stazione.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/activeStations.ui" line="92"/>
@@ -338,8 +338,8 @@
     <name>CAboutDlg</name>
     <message>
         <location filename="../widgets/about.ui" line="9"/>
-        <source>About WSJT-X</source>
-        <translation>Informazioni su WSJT-X</translation>
+        <source>About FT8Fork</source>
+        <translation>Informazioni su FT8Fork</translation>
     </message>
     <message>
         <location filename="../widgets/about.ui" line="60"/>
@@ -728,8 +728,8 @@ Formato:
     </message>
     <message>
         <location filename="../Configuration.cpp" line="3801"/>
-        <source>WSJT-X Decoded Text Font Chooser</source>
-        <translation>Selezionatore font testo decodificato WSJT-X</translation>
+        <source>FT8Fork Decoded Text Font Chooser</source>
+        <translation>Selezionatore font testo decodificato FT8Fork</translation>
     </message>
     <message>
         <location filename="../Configuration.cpp" line="3838"/>
@@ -2682,8 +2682,8 @@ Errore (%2):%3</translation>
     <name>MainWindow</name>
     <message>
         <location filename="../widgets/mainwindow.ui" line="20"/>
-        <source>WSJT-X   by K1JT</source>
-        <translation>WSJT-X   di K1JT</translation>
+        <source>FT8Fork   by K1JT</source>
+        <translation>FT8Fork   di K1JT</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="52"/>
@@ -2851,8 +2851,8 @@ Errore (%2):%3</translation>
     <message>
         <location filename="../widgets/mainwindow.ui" line="1502"/>
         <source>Decode other Hounds calling above 1000 Hz audio offset</source>
-        <translatorcomment>Nota che in modo Hound, WSJT-X è normalmente configurato per ignorare i segnali sopra 1000 Hz. Se vuoi decodificare i segnali oltre la gamma totale del waterfall, per mantenere un tracciamento più vicino del pileup, spunta la casella Rx All Freqs</translatorcomment>
-        <translation>Decodifica altri Hounds che chiamano con offset audio superiore a 1000 Hz Nota che in modo Hound, WSJT-X è normalmente configurato per ignorare i segnali sopra 1000 Hz. Se vuoi decodificare i segnali oltre la gamma totale del waterfall, per mantenereun tracciamento più vicino del pileup, spunta la casella Rx All Freqs</translation>
+        <translatorcomment>Nota che in modo Hound, FT8Fork è normalmente configurato per ignorare i segnali sopra 1000 Hz. Se vuoi decodificare i segnali oltre la gamma totale del waterfall, per mantenere un tracciamento più vicino del pileup, spunta la casella Rx All Freqs</translatorcomment>
+        <translation>Decodifica altri Hounds che chiamano con offset audio superiore a 1000 Hz Nota che in modo Hound, FT8Fork è normalmente configurato per ignorare i segnali sopra 1000 Hz. Se vuoi decodificare i segnali oltre la gamma totale del waterfall, per mantenereun tracciamento più vicino del pileup, spunta la casella Rx All Freqs</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="1551"/>
@@ -3264,8 +3264,8 @@ Errore (%2):%3</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5449"/>
-        <source>Quick-Start Guide to WSJT-X 2.5.0 and MAP65 3.0</source>
-        <translation>Guida rapida a WSJT-X 2.5.0 e MAP65 3.0</translation>
+        <source>Quick-Start Guide to FT8Fork 2.5.0 and MAP65 3.0</source>
+        <translation>Guida rapida a FT8Fork 2.5.0 e MAP65 3.0</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5460"/>
@@ -4813,8 +4813,8 @@ elenco. L&apos;elenco può essere gestito in Impostazioni (F2).</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="4967"/>
-        <source>About WSJT-X</source>
-        <translation>Informazioni su WSJT-X</translation>
+        <source>About FT8Fork</source>
+        <translation>Informazioni su FT8Fork</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="4975"/>
@@ -4929,13 +4929,13 @@ elenco. L&apos;elenco può essere gestito in Impostazioni (F2).</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5548"/>
-        <source>Quick-Start Guide to WSJT-X 2.7 and QMAP</source>
-        <translation>Guida rapida a WSJT-X 2.7 e QMAP</translation>
+        <source>Quick-Start Guide to FT8Fork 2.7 and QMAP</source>
+        <translation>Guida rapida a FT8Fork 2.7 e QMAP</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5553"/>
-        <source>WSJT-X_improved Home Page</source>
-        <translation>Pagina iniziale di WSJT-X.migliorato</translation>
+        <source>FT8Fork_improved Home Page</source>
+        <translation>Pagina iniziale di FT8Fork.migliorato</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.ui" line="5556"/>
@@ -5725,19 +5725,19 @@ per assicurarti che il segnale sia pulito e non distorto.</translation>
         <translation>Il file &quot;fmt.all&quot; verrà rinominato come &quot;fmt.bak&quot;</translation>
     </message>
     <message>
-        <source>If you make fair use of any part of WSJT-X under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
+        <source>If you make fair use of any part of FT8Fork under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
 
-&quot;The algorithms, source code, look-and-feel of WSJT-X and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2022 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Chester Fennell, KG4IYS; Uwe Risse, DG2YCB; and other members of the WSJT Development Group.&quot;</source>
-        <translation type="vanished">Se fai un uso corretto di qualsiasi parte di WSJT-X in base ai termini della GNU General Public License, devi esporre la seguente nota di copyright in modo ben visibile nel tuo lavoro derivato:
+&quot;The algorithms, source code, look-and-feel of FT8Fork and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2022 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Chester Fennell, KG4IYS; Uwe Risse, DG2YCB; and other members of the WSJT Development Group.&quot;</source>
+        <translation type="vanished">Se fai un uso corretto di qualsiasi parte di FT8Fork in base ai termini della GNU General Public License, devi esporre la seguente nota di copyright in modo ben visibile nel tuo lavoro derivato:
 
-&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto di WSJT-X e dei relativi programmi e le specifiche del protocollo per le modalità FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 sono Copyright ( C) 2001-2022 di uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Chester Fennell, KG4IYS; Uwe Risse, DG2YCB; e altri membri del WSJT Development Group.&quot;</translation>
+&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto di FT8Fork e dei relativi programmi e le specifiche del protocollo per le modalità FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 sono Copyright ( C) 2001-2022 di uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Chester Fennell, KG4IYS; Uwe Risse, DG2YCB; e altri membri del WSJT Development Group.&quot;</translation>
     </message>
     <message>
         <source>&lt;table cellspacing=1&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5783,7 +5783,7 @@ per assicurarti che il segnale sia pulito e non distorto.</translation>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Interrompi Tx, annulla QSO, cancella la coda della chiamata successiva&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Guida dell&apos;utente in linea (Alt: trasmettere Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Maiusc+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Avviso sul copyright&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Informazioni su WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Informazioni su FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Apri la finestra delle impostazioni (Alt: trasmette Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Visualizza le scorciatoie da tastiera (Alt: trasmette Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Cancella chiamata DX, griglia DX, messaggi Tx 1-4 (Alt: trasmettere Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5829,11 +5829,11 @@ per assicurarti che il segnale sia pulito e non distorto.</translation>
         <location filename="../widgets/mainwindow.cpp" line="7616"/>
         <source>Please choose another dial frequency.
 Must be 3Khz away from %1.
-WSJT-X will not operate in Fox mode
+FT8Fork will not operate in Fox mode
 overlapping the standard FT8 sub-bands.</source>
         <translation>Scegli un&apos;altra frequenza di composizione.
 Deve essere distante 3Khz da %1.
-WSJT-X non opera in modalità Fox
+FT8Fork non opera in modalità Fox
 sulle sottobande standard di FT8.</translation>
     </message>
     <message>
@@ -5843,12 +5843,12 @@ sulle sottobande standard di FT8.</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="4646"/>
-        <source>If you make fair use of any part of WSJT-X under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
+        <source>If you make fair use of any part of FT8Fork under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
 
-&quot;The algorithms, source code, look-and-feel of WSJT-X and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2025 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
-        <translation>Se si fa un uso corretto di qualsiasi parte di WSJT-X secondo i termini della GNU General Public License, è necessario esporre la seguente nota di copyright in modo ben visibile nel proprio lavoro derivato:
+&quot;The algorithms, source code, look-and-feel of FT8Fork and related programs, and protocol specifications for the modes FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 are Copyright (C) 2001-2025 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; and other members of the WSJT Development Group.&quot;</source>
+        <translation>Se si fa un uso corretto di qualsiasi parte di FT8Fork secondo i termini della GNU General Public License, è necessario esporre la seguente nota di copyright in modo ben visibile nel proprio lavoro derivato:
 
-&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto grafico di WSJT-X e dei programmi correlati, e le specifiche di protocollo per le modalità FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 sono protetti da Copyright (C) 2001-2025 da uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; e altri membri del Gruppo di Sviluppo WSJT.&quot;</translation>
+&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto grafico di FT8Fork e dei programmi correlati, e le specifiche di protocollo per le modalità FSK441, FST4, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, Q65, MSK144 sono protetti da Copyright (C) 2001-2025 da uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; Uwe Risse, DG2YCB; Brian Moran, N9ADG; e altri membri del Gruppo di Sviluppo WSJT.&quot;</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="5034"/>
@@ -5871,7 +5871,7 @@ sulle sottobande standard di FT8.</translation>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -5921,7 +5921,7 @@ sulle sottobande standard di FT8.</translation>
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Interrompi trasmissione, annulla QSO, cancella coda chiamata successiva&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Guida utente online (Alt: trasmetti Tx6)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;Maiusc+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Informativa sul copyright&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Informazioni su WSJT-X&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Informazioni su FT8Fork&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Apri finestra impostazioni (Alt: trasmetti Tx2)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Visualizza scorciatoie da tastiera (Alt: trasmetti Tx3)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4 &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Cancella chiamata DX, griglia DX, messaggi Tx 1-4 (Alt: trasmette Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -6051,8 +6051,8 @@ sulle sottobande standard di FT8.</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7598"/>
-        <source>Please choose another Tx frequency. WSJT-X will not knowingly transmit another mode in the WSPR sub-band on 30m.</source>
-        <translation>Scegli un&apos;altra frequenza Tx. WSJT-X non trasmetterà consapevolmente un&apos;altra modalità nella sottobanda WSPR a 30 m.</translation>
+        <source>Please choose another Tx frequency. FT8Fork will not knowingly transmit another mode in the WSPR sub-band on 30m.</source>
+        <translation>Scegli un&apos;altra frequenza Tx. FT8Fork non trasmetterà consapevolmente un&apos;altra modalità nella sottobanda WSPR a 30 m.</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7602"/>
@@ -6060,8 +6060,8 @@ sulle sottobande standard di FT8.</translation>
         <translation>Banda di guardia WSPR</translation>
     </message>
     <message>
-        <source>Please choose another dial frequency. WSJT-X will not operate in Fox mode in the standard FT8 sub-bands.</source>
-        <translation type="vanished">Scegli un&apos;altra frequenza di composizione. WSJT-X non funzionerà in modalità Fox nelle sottobande FT8 standard.</translation>
+        <source>Please choose another dial frequency. FT8Fork will not operate in Fox mode in the standard FT8 sub-bands.</source>
+        <translation type="vanished">Scegli un&apos;altra frequenza di composizione. FT8Fork non funzionerà in modalità Fox nelle sottobande FT8 standard.</translation>
     </message>
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7621"/>
@@ -6317,10 +6317,10 @@ Se è selezionato &lt;b&gt;Comportamento alternativo del pulsante Cancella&lt;/b
     <message>
         <location filename="../widgets/mainwindow.cpp" line="7634"/>
         <source>Please choose another dial frequency.
-WSJT-X will not operate in Fox mode
+FT8Fork will not operate in Fox mode
 overlapping the WSPR sub-bands.</source>
         <translation>Si prega di selezionare un&apos;altra frequenza di selezione.
-WSJT-X non funzionerà in modalità Fox
+FT8Fork non funzionerà in modalità Fox
 sovrapponendosi alle sottobande WSPR.</translation>
     </message>
     <message>
@@ -6826,8 +6826,8 @@ Server UDP%2:%3</translation>
         <translation type="vanished">Log del Contest</translation>
     </message>
     <message>
-        <source>Quick-Start Guide to WSJT-X 2.0</source>
-        <translation type="vanished">Guida rapida per WSJT-X 2.0</translation>
+        <source>Quick-Start Guide to FT8Fork 2.0</source>
+        <translation type="vanished">Guida rapida per FT8Fork 2.0</translation>
     </message>
     <message>
         <source>%1 (%2 sec) audio frames dropped</source>
@@ -6846,19 +6846,19 @@ Server UDP%2:%3</translation>
         <translation type="vanished">Eccessivi campioni persi - %1 (%2 sec) frames audio ignorate</translation>
     </message>
     <message>
-        <source>If you make fair use of any part of WSJT-X under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
+        <source>If you make fair use of any part of FT8Fork under terms of the GNU General Public License, you must display the following copyright notice prominently in your derivative work:
 
-&quot;The algorithms, source code, look-and-feel of WSJT-X and related programs, and protocol specifications for the modes FSK441, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, ISCAT, MSK144 are Copyright (C) 2001-2021 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; and other members of the WSJT Development Group.&quot;</source>
-        <translation type="vanished">Se si utilizza in modo equo qualsiasi parte di WSJT-X in base ai termini della GNU General Public License, è necessario visualizzare in modo evidente la seguente nota sul copyright nell&apos;opera derivata:
+&quot;The algorithms, source code, look-and-feel of FT8Fork and related programs, and protocol specifications for the modes FSK441, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, ISCAT, MSK144 are Copyright (C) 2001-2021 by one or more of the following authors: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q; and other members of the WSJT Development Group.&quot;</source>
+        <translation type="vanished">Se si utilizza in modo equo qualsiasi parte di FT8Fork in base ai termini della GNU General Public License, è necessario visualizzare in modo evidente la seguente nota sul copyright nell&apos;opera derivata:
 
-&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto di WSJT-X e dei relativi programmi e le specifiche del protocollo per le modalità FSK441, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, ISCAT, MSK144 sono Copyright (C) 2001-2021 di uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q e altri membri del WSJT Development Group. &quot;</translation>
+&quot;Gli algoritmi, il codice sorgente, l&apos;aspetto di FT8Fork e dei relativi programmi e le specifiche del protocollo per le modalità FSK441, FT8, JT4, JT6M, JT9, JT65, JTMS, QRA64, ISCAT, MSK144 sono Copyright (C) 2001-2021 di uno o più dei seguenti autori: Joseph Taylor, K1JT; Bill Somerville, G4WJS; Steven Franke, K9AN; Nico Palermo, IV3NWV; Greg Beam, KI7MT; Michael Black, W9MDB; Edson Pereira, PY2SDR; Philip Karn, KA9Q e altri membri del WSJT Development Group. &quot;</translation>
     </message>
     <message>
         <source>&lt;table cellspacing=1&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -6907,7 +6907,7 @@ Server UDP%2:%3</translation>
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Esc      &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Stop Tx, abort QSO, clear next-call queue&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F1       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Online User&apos;s Guide (Alt: transmit Tx6)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;Shift+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Copyright Notice&lt;/td&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About WSJT-X&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;&lt;b&gt;Ctrl+F1  &lt;/b&gt;&lt;/td&gt;&lt;td&gt;About FT8Fork&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F2       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Open settings window (Alt: transmit Tx2)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F3       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Display keyboard shortcuts (Alt: transmit Tx3)&lt;/td&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;&lt;b&gt;F4       &lt;/b&gt;&lt;/td&gt;&lt;td&gt;Clear DX Call, DX Grid, Tx messages 1-4 (Alt: transmit Tx4)&lt;/td&gt;&lt;/tr&gt;
@@ -6954,7 +6954,7 @@ Server UDP%2:%3</translation>
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; Esc &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Ferma Tx, interrompi QSO, cancella la coda della chiamata successiva &lt;/td&gt; &lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; F1 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Guida in linea dell&apos;utente (Alt: trasmissione Tx6) &lt;/td&gt; &lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; Maiusc + F1 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Avviso sul copyright &lt;/td&gt; &lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt; &lt;b&gt; Ctrl + F1 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Informazioni su WSJT-X &lt;/td&gt; &lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt; &lt;b&gt; Ctrl + F1 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Informazioni su FT8Fork &lt;/td&gt; &lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; F2 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Apri la finestra delle impostazioni (Alt: trasmissione Tx2) &lt;/td&gt; &lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; F3 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Visualizza scorciatoie da tastiera (Alt: trasmissione Tx3) &lt;/td&gt; &lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt; &lt;b&gt; F4 &lt;/b&gt;&lt;/td&gt; &lt;td&gt; Cancella chiamata DX, Griglia DX, messaggi Tx 1-4 (Alt: trasmissione Tx4) &lt;/td&gt; &lt;/tr&gt;
@@ -7207,8 +7207,8 @@ Server UDP%2:%3</translation>
     <name>QSYMessage</name>
     <message>
         <location filename="../widgets/QSYMessage.ui" line="26"/>
-        <source>WSJT-X Popup</source>
-        <translation>Popup WSJT-X</translation>
+        <source>FT8Fork Popup</source>
+        <translation>Popup FT8Fork</translation>
     </message>
     <message>
         <location filename="../widgets/QSYMessage.ui" line="44"/>
@@ -9250,8 +9250,8 @@ periodi di trasmissione.</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2407"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that WSJT-X should send updates to. If this is zero no updates will be sent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta del servizio del server UDP a cui WSJT-X deve inviare gli aggiornamenti. Se questo è zero non verrà inviato alcun aggiornamento.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that FT8Fork should send updates to. If this is zero no updates will be sent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta del servizio del server UDP a cui FT8Fork deve inviare gli aggiornamenti. Se questo è zero non verrà inviato alcun aggiornamento.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2417"/>
@@ -9260,8 +9260,8 @@ periodi di trasmissione.</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2427"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When sending updates to a multicast group address it is necessary to specify which network interface(s) to send them to. If the loop-back interface is multicast capable then at least that one will be selected.&lt;/p&gt;&lt;p&gt;For most users the loop-back interface is all that is needed, that will allow multiple other applications on the same machine to interoperate with WSJT-X. If applications running on other hosts are to receive status updates then a suitable network interface should be used.&lt;/p&gt;&lt;p&gt;On some Linux systems it may be necessary to enable multicast on the loop-back network interface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quando si inviano aggiornamenti a un indirizzo di gruppo multicast, è necessario specificare a quale interfaccia di rete inviarli. Se l&apos;interfaccia di loop-back è compatibile con il multicast, verrà selezionata almeno quella. &lt;/p&gt; &lt;p&gt; Per la maggior parte degli utenti l&apos;interfaccia di loop-back è tutto ciò che è necessario, ciò consentirà a più altre applicazioni sulla stessa macchina di interoperare con WSJT-X. Se le applicazioni in esecuzione su altri host devono ricevere gli aggiornamenti di stato, è necessario utilizzare un&apos;interfaccia di rete adatta. &lt;/p&gt; &lt;p&gt; Su alcuni sistemi Linux potrebbe essere necessario abilitare il multicast sull&apos;interfaccia di rete loop-back.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When sending updates to a multicast group address it is necessary to specify which network interface(s) to send them to. If the loop-back interface is multicast capable then at least that one will be selected.&lt;/p&gt;&lt;p&gt;For most users the loop-back interface is all that is needed, that will allow multiple other applications on the same machine to interoperate with FT8Fork. If applications running on other hosts are to receive status updates then a suitable network interface should be used.&lt;/p&gt;&lt;p&gt;On some Linux systems it may be necessary to enable multicast on the loop-back network interface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quando si inviano aggiornamenti a un indirizzo di gruppo multicast, è necessario specificare a quale interfaccia di rete inviarli. Se l&apos;interfaccia di loop-back è compatibile con il multicast, verrà selezionata almeno quella. &lt;/p&gt; &lt;p&gt; Per la maggior parte degli utenti l&apos;interfaccia di loop-back è tutto ciò che è necessario, ciò consentirà a più altre applicazioni sulla stessa macchina di interoperare con FT8Fork. Se le applicazioni in esecuzione su altri host devono ricevere gli aggiornamenti di stato, è necessario utilizzare un&apos;interfaccia di rete adatta. &lt;/p&gt; &lt;p&gt; Su alcuni sistemi Linux potrebbe essere necessario abilitare il multicast sull&apos;interfaccia di rete loop-back.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2444"/>
@@ -9785,9 +9785,9 @@ e i campi della Griglia DX quando viene inviato un messaggio di testo libero o 7
     </message>
     <message>
         <location filename="../Configuration.ui" line="2307"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Some logging programs will not accept WSJT-X mode names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Some logging programs will not accept FT8Fork mode names.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translatorcomment>(Registrazione=Log)</translatorcomment>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alcuni programmi di registrazione non accettano i nomi della modalità WSJT-X.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alcuni programmi di registrazione non accettano i nomi della modalità FT8Fork.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2310"/>
@@ -9856,8 +9856,8 @@ e i campi della Griglia DX quando viene inviato un messaggio di testo libero o 7
     </message>
     <message>
         <location filename="../Configuration.ui" line="2461"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this enabled WSJT-X will accept certain requests back from a UDP server that receives decode messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Con questo abilitato WSJT-X accetterà alcune richieste di ritorno da un server UDP che riceve messaggi di decodifica.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;With this enabled FT8Fork will accept certain requests back from a UDP server that receives decode messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Con questo abilitato FT8Fork accetterà alcune richieste di ritorno da un server UDP che riceve messaggi di decodifica.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2464"/>
@@ -9891,8 +9891,8 @@ e i campi della Griglia DX quando viene inviato un messaggio di testo libero o 7
     </message>
     <message>
         <location filename="../Configuration.ui" line="2502"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked, WSJT-X will broadcast a logged contact in ADIF format to the configured hostname and port. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Se selezionato, WSJT-X trasmetterà un contatto registrato in formato ADIF al nome host e alla porta configurati.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked, FT8Fork will broadcast a logged contact in ADIF format to the configured hostname and port. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Se selezionato, FT8Fork trasmetterà un contatto registrato in formato ADIF al nome host e alla porta configurati.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2505"/>
@@ -9916,8 +9916,8 @@ e i campi della Griglia DX quando viene inviato un messaggio di testo libero o 7
     </message>
     <message>
         <location filename="../Configuration.ui" line="2539"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the port number that WSJT-X should use for UDP broadcasts of ADIF log information. For N1MM Logger+, this value should be 2333. If this is zero,  no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta che WSJT-X deve utilizzare per le trasmissioni UDP delle informazioni del registro ADIF. Per N1MM Logger +, questo valore dovrebbe essere 2333. Se questo è zero, non verrà trasmesso alcun aggiornamento.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the port number that FT8Fork should use for UDP broadcasts of ADIF log information. For N1MM Logger+, this value should be 2333. If this is zero,  no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta che FT8Fork deve utilizzare per le trasmissioni UDP delle informazioni del registro ADIF. Per N1MM Logger +, questo valore dovrebbe essere 2333. Se questo è zero, non verrà trasmesso alcun aggiornamento.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2566"/>
@@ -9931,8 +9931,8 @@ e i campi della Griglia DX quando viene inviato un messaggio di testo libero o 7
     </message>
     <message>
         <location filename="../Configuration.ui" line="2575"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;See &amp;quot;Frequency Calibration&amp;quot; in the WSJT-X User Guide for details of how to determine these parameters for your radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vedere &amp;quot;Calibrazione di Frequenza&amp;quot;nella Guida dell&apos;utente WSJT-X per i dettagli su come determinare questi parametri per la radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;See &amp;quot;Frequency Calibration&amp;quot; in the FT8Fork User Guide for details of how to determine these parameters for your radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vedere &amp;quot;Calibrazione di Frequenza&amp;quot;nella Guida dell&apos;utente FT8Fork per i dettagli su come determinare questi parametri per la radio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2578"/>
@@ -9993,13 +9993,13 @@ Fare clic con il tasto destro per inserire ed eliminare le opzioni.</translation
     </message>
     <message>
         <location filename="../Configuration.ui" line="2795"/>
-        <source>Reset Highlighting to WSJT-X default</source>
-        <translation>Ripristina l&apos;evidenziazione al valore predefinito WSJT-X</translation>
+        <source>Reset Highlighting to FT8Fork default</source>
+        <translation>Ripristina l&apos;evidenziazione al valore predefinito FT8Fork</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2802"/>
-        <source>Reset Highlighting to WSJT-X Improved default</source>
-        <translation>Ripristina l&apos;evidenziazione predefinita su WSJT-X migliorato</translation>
+        <source>Reset Highlighting to FT8Fork Improved default</source>
+        <translation>Ripristina l&apos;evidenziazione predefinita su FT8Fork migliorato</translation>
     </message>
     <message>
         <location filename="../Configuration.ui" line="2809"/>
@@ -10910,8 +10910,8 @@ Questo è usato per l&apos;analisi del beacon inverso che è molto utile
 per valutare la propagazione e le prestazioni del sistema.</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that WSJT-X should send updates to. If this is zero no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta del servizio del server UDP a cui WSJT-X deve inviare gli aggiornamenti. Se questo è zero, non verranno trasmessi aggiornamenti.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the service port number of the UDP server that FT8Fork should send updates to. If this is zero no updates will be broadcast.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Immettere il numero di porta del servizio del server UDP a cui FT8Fork deve inviare gli aggiornamenti. Se questo è zero, non verranno trasmessi aggiornamenti.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Special operating activity:  Generation of FT4, FT8, and MSK144 messages</source>

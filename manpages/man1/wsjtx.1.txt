@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {VERSION}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = wsjtx(1)
 
 == NAME
@@ -17,9 +17,9 @@ wsjtx, jt9 - Weak signal communications program.
 *wsjtx* is a weak signal communications program supporting several operating
 modes: JT65, JT9, JT4 and WSPR (*wsjtx* version 1 supported JT9 only).
 
-WSJT-X home page:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
+FT8Fork home page:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
 
-WSJT-X User's Guide::
+FT8Fork User's Guide::
 http://www.physics.princeton.edu/pulsar/K1JT/wsjtx-doc/wsjtx-main-{VERSION}.html
 
 An alternative JT65 decoder executable *kvasd* for i386 Ubuntu is
@@ -49,53 +49,53 @@ with caution**.
 == FILES
 
 Most of the following files are in a directory path containing the
-directory name *WSJT-X[ - RIGNAME]* which indicates the value of the
+directory name *FT8Fork[ - RIGNAME]* which indicates the value of the
 command line option *--rig-name=RIGNAME* to indicate multiple instances of
 *wsjtx* running concurrently. All writable files listed below are
 therefore unique to each concurrent instance of *wsjtx*. If the
 *--rig-name* command line option is not supplied or the *RIGNAME* argument
 is not supplied then the directory paths below will have the directory
-*WSJT-X*.
+*FT8Fork*.
 
-~/.config/WSJT-X[ - RIGNAME].ini::
+~/.config/FT8Fork[ - RIGNAME].ini::
 
 This file stores the application
 configuration settings.
 
-~/.local/share/WSJT-X[ - RIGNAME]/ALL.txt::
+~/.local/share/FT8Fork[ - RIGNAME]/ALL.txt::
 
 *ALL.txt* contains a record of transmitted and received messages and
 other activity such as frequency or band changes.
 
-~/.local/share/WSJT-X[ - RIGNAME]/save/::
+~/.local/share/FT8Fork[ - RIGNAME]/save/::
 
 Is the default location for saved .WAV files recorded by the
 application.  The .WAV file save location may be changed in the
 applications settings dialog.
 
-~/.local/share/WSJT-X[ - RIGNAME]/save/samples/::
+~/.local/share/FT8Fork[ - RIGNAME]/save/samples/::
 
 Sample .WAV files supplied with the application are found in this
 directory, they may be played back in the application and are referred
 to in the user guide tutorial sections.
 
-~/.local/share/WSJT-X[ -RIGNAME]/timer.out::
+~/.local/share/FT8Fork[ -RIGNAME]/timer.out::
 
 This is a diagnostic file that records decode performance profiling
 information.
 
-~/.local/share/WSJT-X[ - RIGNAME]/cty.dat::
+~/.local/share/FT8Fork[ - RIGNAME]/cty.dat::
 
 This file is not required as a version of it is embedded in the
 application, but if you wish an updated version can be placed here.
 If present that version will be used in preference to the embedded
 version.
 
-~/.local/share/WSJT-X[ - RIGNAME]/wsjtx.log::
+~/.local/share/FT8Fork[ - RIGNAME]/wsjtx.log::
 
 This is a plain text CSV record of logged QSOs.
 
-~/.local/share/WSJT-X[ - RIGNAME]/wsjtx_log.adi::
+~/.local/share/FT8Fork[ - RIGNAME]/wsjtx_log.adi::
 
 This is a record of QSOs logged in the ADIF format which is suitable
 for import into many Ham Radio logging programs.
@@ -107,7 +107,7 @@ Joe Taylor, K1JT.
 == COPYING
 
 *wsjtx* is Copyright (C) 2001 - 2025 by Joseph H. Taylor, Jr., K1JT,
-with contributions from additional authors.  WSJT-X is Open Source
+with contributions from additional authors.  FT8Fork is Open Source
 software, licensed under the GNU General Public License (GPLv3).
 
 *wsjtx* includes the ``**Hamlib - Ham Radio Control Libraries**''

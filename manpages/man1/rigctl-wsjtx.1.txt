@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {revnumber}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = rigctl-wsjtx(1)
 
 == NAME
@@ -21,9 +21,9 @@ rigctl-wsjtx - Hamlib 4 rigctld server.
  special version of the *rigctl* client should be used since that too
  has the modified *hamlib* code embedded with it.
 
-WSJT-X home page:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
+FT8Fork home page:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx.html
 
-WSJT-X User's Guide:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx-doc/wsjtx-main-toc2.html
+FT8Fork User's Guide:: http://www.physics.princeton.edu/pulsar/K1JT/wsjtx-doc/wsjtx-main-toc2.html
 
 == OPTIONS
 Refer to the *hamlib* documentation.

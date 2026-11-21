@@ -12,7 +12,7 @@ private Q_SLOTS:
   {
     auto const user_agent = http_user_agent ();
 
-    QVERIFY (user_agent.startsWith ("WSJT-X/"));
+    QVERIFY (user_agent.startsWith ("FT8Fork/"));
     QVERIFY (user_agent.contains (version ()));
 
     auto const build_revision = revision ();

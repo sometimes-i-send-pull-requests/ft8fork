@@ -980,7 +980,7 @@ Function .onInit
     Pop $0
     ${If} $0 == "0"
       MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION \
-        "WSJT-X is currently running. $\n$\nPlease close it before installing or upgrading." \
+        "FT8Fork is currently running. $\n$\nPlease close it before installing or upgrading." \
         /SD IDCANCEL IDRETRY wsjtx_running_check
       Abort
     ${EndIf}

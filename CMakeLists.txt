@@ -64,7 +64,7 @@ project (wsjtx
   VERSION 3.0.2.0
   LANGUAGES C CXX Fortran
   )
-set (PROJECT_DESCRIPTION "WSJT-X: Digital Modes for Weak Signal Communications in Amateur Radio")
+set (PROJECT_DESCRIPTION "FT8Fork: Digital Modes for Weak Signal Communications in Amateur Radio")
 set (CMAKE_PROJECT_DESCRIPTION ${PROJECT_DESCRIPTION})
 set (CMAKE_AUTOUIC ON)
 
@@ -114,8 +114,8 @@ set (wsjtx_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_
 #
 # project information
 #
-set (PROJECT_BUNDLE_NAME "WSJT-X")
-set (PROJECT_VENDOR "WSJT Development Group")
+set (PROJECT_BUNDLE_NAME "FT8Fork")
+set (PROJECT_VENDOR "FT8Fork contributors")
 set (PROJECT_CONTACT "joe@princetion.edu")
 set (PROJECT_COPYRIGHT "Copyright (C) 2001-2026 by Joe Taylor, K1JT")
 set (PROJECT_HOMEPAGE https://wsjt.sourceforge.io/wsjtx.html)
@@ -1644,7 +1644,7 @@ generate_version_info (jt9_VERSION_RESOURCES
   NAME jt9
   BUNDLE ${PROJECT_BUNDLE_NAME}
   ICON ${WSJTX_ICON_FILE}
-  FILE_DESCRIPTION "jt9 - WSJT-X slow mode decoder"
+  FILE_DESCRIPTION "jt9 - FT8Fork slow mode decoder"
   )
 
 add_executable (record_time_signal Audio/tools/record_time_signal.cpp)
@@ -1803,7 +1803,7 @@ generate_version_info (wsjtx_app_version_VERSION_RESOURCES
   NAME wsjtx_app_version
   BUNDLE ${PROJECT_BUNDLE_NAME}
   ICON ${WSJTX_ICON_FILE}
-  FILE_DESCRIPTION "Display WSJT-X Application Version on console"
+  FILE_DESCRIPTION "Display FT8Fork Application Version on console"
   )
 add_executable (wsjtx_app_version AppVersion/AppVersion.cpp ${wsjtx_app_version_VERSION_RESOURCES})
 target_link_libraries (wsjtx_app_version wsjt_qt)
@@ -2089,7 +2089,7 @@ endif ()
 #
 set (CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_SOURCE_DIR}/package_description.txt")
 set (CPACK_MONOLITHIC_INSTALL 1)
-set (CPACK_PACKAGE_NAME "${CMAKE_PROJECT_NAME}")
+set (CPACK_PACKAGE_NAME "ft8fork")
 set (CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set (CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set (CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}${BUILD_TYPE_REVISION}")
@@ -2132,9 +2132,9 @@ set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 # `wsjtx-doc`, `wsjtx-improved-data`, and `wsjtx-improved-doc` binary packages
 # so installing this .deb on a system carrying any of them doesn't fail with a
 # file conflict and doesn't cascade-remove `js8call` or other consumers.
-set (CPACK_DEBIAN_PACKAGE_PROVIDES "wsjtx-data (= ${wsjtx_VERSION}), wsjtx-doc (= ${wsjtx_VERSION}), wsjtx-improved-data (= ${wsjtx_VERSION}), wsjtx-improved-doc (= ${wsjtx_VERSION})")
-set (CPACK_DEBIAN_PACKAGE_REPLACES "wsjtx-data, wsjtx-doc, wsjtx-improved-data, wsjtx-improved-doc")
-set (CPACK_DEBIAN_PACKAGE_CONFLICTS "wsjtx-data (<< ${wsjtx_VERSION}), wsjtx-doc (<< ${wsjtx_VERSION}), wsjtx-improved-data (<< ${wsjtx_VERSION}), wsjtx-improved-doc (<< ${wsjtx_VERSION})")
+set (CPACK_DEBIAN_PACKAGE_PROVIDES "ft8fork-data (= ${wsjtx_VERSION}), ft8fork-doc (= ${wsjtx_VERSION})")
+set (CPACK_DEBIAN_PACKAGE_REPLACES "ft8fork-data, ft8fork-doc")
+set (CPACK_DEBIAN_PACKAGE_CONFLICTS "ft8fork-data (<< ${wsjtx_VERSION}), ft8fork-doc (<< ${wsjtx_VERSION})")
 
 set (CPACK_RPM_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 set (CPACK_RPM_PACKAGE_REQUIRES "qt5-qtbase >= 5.9, qt5-qtserialport >= 5.9, qt5-qtmultimedia >= 5.9, qt5-qtwebsockets >= 5.9, qt5-qtsvg >= 5.9, libusbx >= 1.0.22, libgfortran >= 7, libgomp >= 7, fftw-libs-single >= 3.3, boost-log >= 1.62")

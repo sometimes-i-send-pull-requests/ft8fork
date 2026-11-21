@@ -387,7 +387,7 @@ jobs:
         id: collect
         run: |
           BUILD=wsjtx-build
-          STAGE=stage/wsjtx-${{ inputs.version }}-${{ inputs.arch }}
+          STAGE=stage/ft8fork-${{ inputs.version }}-${{ inputs.arch }}
 
           cmake --install "${BUILD}" --prefix "${STAGE}"
 
@@ -763,7 +763,7 @@ jobs:
           STAGE="${{ steps.collect.outputs.stage_dir }}"
           ditto -c -k --sequesterRsrc --keepParent \
             "${STAGE}/wsjtx.app" \
-            "wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip"
+            "ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip"
 
       # ALWAYS runs. productbuild signs with the Developer ID Installer
       # cert when secrets are present; produces an unsigned .pkg
@@ -793,7 +793,7 @@ jobs:
             --install-location / \
             "$RUNNER_TEMP/wsjtx-component.pkg"
 
-          PKG_OUT="wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg"
+          PKG_OUT="ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg"
           if [ "${{ steps.check_secrets.outputs.signing_enabled }}" = "true" ]; then
             INST_IDENTITY="${{ steps.keychain.outputs.installer_identity }}"
             productbuild \
@@ -879,7 +879,7 @@ jobs:
             xcrun stapler staple "$file"
           }
 
-          notarize_and_staple "wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg"
+          notarize_and_staple "ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg"
 
       - name: Clean up keychain
         if: always() && steps.check_secrets.outputs.signing_enabled == 'true'
@@ -888,11 +888,11 @@ jobs:
       - name: Upload pkg
         uses: actions/upload-artifact@v7
         with:
-          name: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
-          path: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
+          name: ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
+          path: ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
 
       - name: Upload app bundle zip
         uses: actions/upload-artifact@v7
         with:
-          name: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip
-          path: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip
+          name: ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip
+          path: ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip

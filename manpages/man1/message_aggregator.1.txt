@@ -1,7 +1,7 @@
 :doctype: manpage
 :man source: AsciiDoc
 :man version: {VERSION}
-:man manual: WSJT-X Manual
+:man manual: FT8Fork Manual
 = wsjtx(1)
 
 == NAME
@@ -15,11 +15,11 @@ message_aggregator - Reference example UDP server
 == DESCRIPTION
 
 *message_aggregator* does not serve any useful purpose other than to
- demonstrate the UDP message features of *WSJT-X*. It is a small GUI
- application that interacts with any running *WSJT-X* instances.
+ demonstrate the UDP message features of *FT8Fork*. It is a small GUI
+ application that interacts with any running *FT8Fork* instances.
 
 Developers writing add on applications may find the source code of
-message_aggregator contained in the *WSJT-X* code repository
+message_aggregator contained in the *FT8Fork* code repository
 useful. The files NetworkMessage.hpp, MessageServer.hpp,
 MessageClient.hpp and their associated implementations along with the
 application source MessageAggregator.cpp should cover all the required
@@ -30,7 +30,7 @@ https://sourceforge.net/p/wsjt/wsjt/HEAD/tree/branches/wsjtx/
 *message_aggregator* may also be used as a multi-cast UDP server which
 allows multiple instances of *message_aggregator* to be run
 concurrently, to do this simply use a suitable multi-cast group
-address in *message_aggregator* and in *WSJT-X* in the
+address in *message_aggregator* and in *FT8Fork* in the
 "*Settings->Reporting->UDP Server*" pane e.g. 239.255.0.1 or ff03::1
 for a local scope group.
 

@@ -113,5 +113,5 @@ QString http_user_agent ()
     + QSysInfo::currentCpuArchitecture () + "; "
     + QString {"rv:%1"}.arg (QSysInfo::kernelVersion ()) + ")"};
 
-  return QString {"WSJT-X/" + version () + "_" + revision ()}.simplified () + " " + platform;
+  return QString {"FT8Fork/" + version () + "_" + revision ()}.simplified () + " " + platform;
 }
