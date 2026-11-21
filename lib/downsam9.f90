@@ -1,3 +1,7 @@
+module downsam9_mod
+
+contains
+
 subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
 
 !Downsample from id2() into c2() so as to yield nspsd samples per symbol, 
@@ -9,9 +13,13 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
 
   use constants
   use decode_globals
-  integer(C_SIZE_T) NMAX1
-  parameter (NMAX1=653184)
-  parameter (NFFT1=653184,NFFT2=1512)
+
+  implicit none
+
+  integer(C_SIZE_T), parameter :: NMAX1=653184
+  integer, parameter :: NFFT1=653184,NFFT2=1512
+  integer :: npts8, nsps8, nspsd
+  real :: fpk
   type(C_PTR) :: plan                        !Pointers plan for big FFT
   integer*2 id2(0:8*npts8-1)
   logical, intent(inout) :: newdat
@@ -20,6 +28,8 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
   complex c2(0:NFFT2-1)
   real s(5000)
   logical first
+  integer :: npts, nflags, i, j, n, nadd, ndown, nh2, nf, i0, nw, ia, ib
+  real :: df1, avenoise, fac
   data first/.true./
   save plan,first,c1,s,x1
 
@@ -86,3 +96,5 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
 
   return
 end subroutine downsam9
+
+end module downsam9_mod

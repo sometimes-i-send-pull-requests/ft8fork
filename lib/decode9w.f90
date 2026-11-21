@@ -2,6 +2,8 @@ subroutine decode9w(nfqso,ntol,nsubmode,ss,id2,sync,nsnr,xdt1,f0,decoded)
 
 ! Decode a weak signal in a wide/slow JT9 submode.
 
+  use sync9w_mod
+
   parameter (NSMAX=6827,NZMAX=60*12000)
   real ss(184,NSMAX)                     !Symbol spectra at 1/2-symbol steps
   real ccfred(NSMAX)                     !Best sync vs frequency

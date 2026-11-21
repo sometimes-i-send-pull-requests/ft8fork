@@ -1,12 +1,22 @@
+module sync9w_mod
+
+contains
+
 subroutine sync9w(ss,nzhsym,lag1,lag2,ia,ib,ccfred,ccfblue,ipkbest,lagpk,nadd)
 
   use constants
   use jt9sync_mod
+
+  implicit none
+
+  integer :: nzhsym, lag1, lag2, ia, ib, ipkbest, lagpk, nadd
   real ss(184,NSMAX)
   real ss1(184),ss1save(184)
   real ccfred(NSMAX)
   real ccfblue(-9:18)
   real sa(NSMAX),sb(NSMAX)
+  integer :: i, j, lag, k, nsum, ipk
+  real :: sbest, df, xmed, smax, sum1
 
 ! Smooth the symbol spectra (by an amount consistent with measured width??)
   do j=1,nzhsym
@@ -79,3 +89,5 @@ subroutine sync9w(ss,nzhsym,lag1,lag2,ia,ib,ccfred,ccfblue,ipkbest,lagpk,nadd)
 
   return
 end subroutine sync9w
+
+end module sync9w_mod

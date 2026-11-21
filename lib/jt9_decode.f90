@@ -29,6 +29,7 @@ contains
 
     use constants
     use decode_globals
+    use sync9_mod
     class(jt9_decoder), intent(inout) :: this
     procedure(jt9_decode_callback) :: callback
     real ss(184,NSMAX)

@@ -1,12 +1,14 @@
 subroutine softsym(id2,npts8,nsps8,newdat,fpk,syncpk,snrdb,xdt,        &
      freq,drift,a3,schk,i1SoftSymbols)
   use jt9sync_mod
+  use downsam9_mod
 
 ! Compute the soft symbols
 
   use timer_module, only: timer
 
   parameter (NZ2=1512,NZ3=1360)
+  integer*2 id2(*)
   logical, intent(inout) :: newdat
   complex c2(0:NZ2-1)
   complex c3(0:NZ3-1)

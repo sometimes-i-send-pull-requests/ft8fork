@@ -1,7 +1,15 @@
+module sync9_mod
+
+contains
+
 subroutine sync9(ss,nzhsym,lag1,lag2,ia,ib,ccfred,red2,ipkbest)
 
   use constants
   use jt9sync_mod
+
+  implicit none
+
+  integer :: nzhsym, lag1, lag2, ia, ib, ipkbest
   real ss(184,NSMAX)
   real ss1(184)
   real ccfred(NSMAX)
@@ -11,6 +19,8 @@ subroutine sync9(ss,nzhsym,lag1,lag2,ia,ib,ccfred,red2,ipkbest)
   real sq(NSMAX)
   real red2(NSMAX)
   character*27 cr
+  integer :: i, j, lag, k, nsum, ipk
+  real :: sbest, xmed, sbase, sq0, rms, smax, sum1, sq2, sm, ref
   data cr/'(C) 2016, Joe Taylor - K1JT'/
 
   ipk=0
@@ -94,3 +104,5 @@ subroutine sync9(ss,nzhsym,lag1,lag2,ia,ib,ccfred,red2,ipkbest)
 
   return
 end subroutine sync9
+
+end module sync9_mod
