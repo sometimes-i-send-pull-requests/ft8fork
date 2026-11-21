@@ -1,3 +1,6 @@
+module ldpc_128_90_generator_mod
+  implicit none
+
 character*23 g(38)
 
 data g/                      &
@@ -39,3 +42,5 @@ data g/                      &
   "4a3e9b7d08b6807f8619fac", &
   "45e8030f68997bb68544424", &
   "7e79362c16773efc6482e30"/
+
+end module ldpc_128_90_generator_mod

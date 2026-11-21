@@ -1,3 +1,11 @@
+module ldpc_128_90_b_reordered_parity_mod
+  implicit none
+
+  integer :: Mn(4,128)
+  integer :: Nm(12,38)
+  integer :: nrw(38)
+  integer :: ncw(128)
+
 data Mn/   &
   10,  25,  37,   0, &
    1,  19,  20,   0, &
@@ -182,3 +190,5 @@ data ncw/    &
 4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3, &
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3, &
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3/
+
+end module ldpc_128_90_b_reordered_parity_mod

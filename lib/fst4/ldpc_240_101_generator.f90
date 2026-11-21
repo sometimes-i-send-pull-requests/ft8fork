@@ -1,3 +1,6 @@
+module ldpc_240_101_generator_mod
+  implicit none
+
 character*26 g(139)
 
 data g/    &
@@ -140,3 +143,5 @@ data g/    &
   "1312231ffa04426a34a8fab038", &
   "db5f6f0455d24b8358d1cbc3d8", &
   "d559e31b34d21f48e1f501af30"/
+
+end module ldpc_240_101_generator_mod

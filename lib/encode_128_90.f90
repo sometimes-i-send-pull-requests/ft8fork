@@ -1,4 +1,5 @@
 subroutine encode_128_90(message77,codeword)
+  use ldpc_128_90_generator_mod
 !
 ! Add a 13-bit CRC to a 77-bit message and return a 128-bit codeword
 !
@@ -13,7 +14,6 @@ integer*1 gen(M,K)
 integer*1 message77(77),message(K)
 integer*1 pchecks(M)
 integer*1, target :: i1MsgBytes(12)
-include "ldpc_128_90_generator.f90"
 logical first
 data first/.true./
 save first,gen

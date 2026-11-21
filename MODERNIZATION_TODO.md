@@ -9,10 +9,6 @@ implicitly typed and must be converted to explicit declarations (e.g.
 
 ## Replace `include`s with module usage
 
-Shared data tables:
-
-- Turn the ldpc_*_parity, ldpc_*_generator and ldpc_*_params include files into modules.
-
 Test data (used only by test programs):
 
 - Turn testmsg.f90, ft8_testmsg.f90, ft4_testmsg.f90 and msk144_testmsg.f90 into modules.
@@ -34,6 +30,7 @@ Test data (used only by test programs):
 
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
 - Decide whether to build or remove the legacy SuperFox programs lib/superfox/sfrx.f90 and lib/superfox/sftx.f90 (not currently in CMake).
+- Decide whether to remove the unused ldpc_128_90_b_* tables and ldpc_174_91_c_colorder.f90 (no current consumers).
 
 ## Other control-flow / robustness cleanups
 

@@ -1,4 +1,5 @@
 subroutine bpdecode240_101(llr,apmask,maxiterations,message101,cw,nharderror,iter,ncheck)
+  use ldpc_240_101_parity_mod
 !
 ! A log-domain belief propagation decoder for the (240,101) code.
 !
@@ -6,9 +7,6 @@ subroutine bpdecode240_101(llr,apmask,maxiterations,message101,cw,nharderror,ite
    integer*1 cw(N),apmask(N)
    integer*1 decoded(K)
    integer*1 message101(101)
-   integer nrw(M),ncw
-   integer Nm(6,M)
-   integer Mn(3,N)  ! 3 checks per bit
    integer synd(M)
    real tov(3,N)
    real toc(6,M)
@@ -17,7 +15,6 @@ subroutine bpdecode240_101(llr,apmask,maxiterations,message101,cw,nharderror,ite
    real llr(N)
    real Tmn
 
-   include "ldpc_240_101_parity.f90"
 
    decoded=0
    toc=0

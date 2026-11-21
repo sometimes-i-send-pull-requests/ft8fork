@@ -1,4 +1,5 @@
 subroutine bpdecode174_91(llr,apmask,maxiterations,message77,cw,nharderror,iter,ncheck)
+  use ldpc_174_91_c_parity_mod
 !
 ! A log-domain belief propagation decoder for the (174,91) code.
 !
@@ -8,9 +9,6 @@ integer, parameter:: N=174, K=91, M=N-K
 integer*1 cw(N),apmask(N)
 integer*1 decoded(K)
 integer*1 message77(77)
-integer nrw(M),ncw
-integer Nm(7,M)   
-integer Mn(3,N)  ! 3 checks per bit
 integer synd(M)
 real tov(3,N)
 real toc(7,M)
@@ -19,7 +17,6 @@ real zn(N)
 real llr(N)
 real Tmn
 
-include "ldpc_174_91_c_parity.f90"
 
 decoded=0
 toc=0

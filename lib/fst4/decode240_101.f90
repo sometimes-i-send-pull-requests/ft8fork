@@ -1,4 +1,5 @@
 subroutine decode240_101(llr,Keff,maxosd,norder,apmask,message101,cw,ntype,nharderror,dmin)
+  use ldpc_240_101_parity_mod
 !
 ! A hybrid bp/osd decoder for the (240,101) code.
 !
@@ -11,9 +12,6 @@ subroutine decode240_101(llr,Keff,maxosd,norder,apmask,message101,cw,ntype,nhard
    integer*1 cw(N),apmask(N)
    integer*1 nxor(N),hdec(N)
    integer*1 message101(101),m101(101)
-   integer nrw(M),ncw
-   integer Nm(6,M)
-   integer Mn(3,N)  ! 3 checks per bit
    integer synd(M)
    real tov(3,N)
    real toc(6,M)
@@ -22,7 +20,6 @@ subroutine decode240_101(llr,Keff,maxosd,norder,apmask,message101,cw,ntype,nhard
    real llr(N)
    real Tmn
 
-   include "ldpc_240_101_parity.f90"
 
    maxiterations=30
    nosd=0

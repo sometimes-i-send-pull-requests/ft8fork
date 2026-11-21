@@ -1,3 +1,6 @@
+module ldpc_240_74_generator_mod
+  implicit none
+
 character*19 g(166)
 
 data g/                  &
@@ -168,3 +171,5 @@ data g/                  &
   "9bdcd4ce2563e560b74", &
   "b19fcd7111a335c52ec"/ 
 
+
+end module ldpc_240_74_generator_mod

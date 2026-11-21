@@ -1,3 +1,11 @@
+module ldpc_240_101_parity_mod
+  implicit none
+
+  integer :: Mn(3,240)
+  integer :: Nm(6,139)
+  integer :: nrw(139)
+  integer, parameter :: ncw = 3
+
 data Mn/   &
   57, 100, 134, &
   56,  99, 136, &
@@ -390,4 +398,4 @@ data nrw/    &
 5,5,5,6,5,5,5,5,5,5,6,5,5,5,5,5,5,5,5,5,  &
 5,5,5,5,5,5,5,6,5,5,6,5,5,5,5,5,5,5,5/
 
-ncw=3
+end module ldpc_240_101_parity_mod

@@ -432,6 +432,19 @@ set (wsjt_FSRCS
   lib/superfox/qpc/qpc_mod.f90
   lib/ft8var/ft8_decodevar.f90
 
+  lib/ldpc_128_90_generator.f90
+  lib/ldpc_128_90_b_generator.f90
+  lib/ldpc_128_90_reordered_parity.f90
+  lib/ldpc_128_90_b_reordered_parity.f90
+  lib/fst4/ldpc_240_101_generator.f90
+  lib/fst4/ldpc_240_101_parity.f90
+  lib/fst4/ldpc_240_74_generator.f90
+  lib/fst4/ldpc_240_74_parity.f90
+  lib/ft8/ldpc_174_87_params.f90
+  lib/ft8/ldpc_174_91_c_generator.f90
+  lib/ft8/ldpc_174_91_c_parity.f90
+  lib/ft8var/ldpc_174_91_c_reordered_parity.f90
+
   # remaining non-module sources
   lib/addit.f90
   lib/afc65b.f90

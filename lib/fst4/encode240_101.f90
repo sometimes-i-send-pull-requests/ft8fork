@@ -1,4 +1,5 @@
 subroutine encode240_101(message,codeword)
+  use ldpc_240_101_generator_mod
    use, intrinsic :: iso_c_binding
    use iso_c_binding, only: c_loc,c_size_t
    use crc
@@ -8,7 +9,6 @@ subroutine encode240_101(message,codeword)
    integer*1 gen(M,K)
    integer*1 message(K)
    integer*1 pchecks(M)
-   include "ldpc_240_101_generator.f90"
    logical first
    data first/.true./
    save first,gen

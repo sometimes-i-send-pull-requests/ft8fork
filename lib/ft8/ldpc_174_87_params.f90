@@ -1,3 +1,6 @@
+module ldpc_174_87_params_mod
+  implicit none
+
 integer, parameter:: N=174, K=87, M=N-K
 character*22 g(87)
 integer colorder(N)
@@ -100,3 +103,5 @@ data colorder/            &
  140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,&
  160,161,162,163,164,165,166,167,168,169,170,171,172,173/
 
+
+end module ldpc_174_87_params_mod

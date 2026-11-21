@@ -1,9 +1,9 @@
 
 subroutine osd174var(llr,apmask,ndeep,decoded,cw,nhardmin,dmin,nthr)
+  use ldpc_174_87_params_mod
 !
 ! An ordered-statistics decoder for the (174,87) code.
 ! 
-include "ldpc_174_87_params.f90"
 
 integer*1 apmask(N),apmaskr(N)
 integer*1 gen(K,N)

@@ -1,4 +1,5 @@
 subroutine decode240_74(llr,Keff,maxosd,norder,apmask,message74,cw,ntype,nharderror,dmin)
+  use ldpc_240_74_parity_mod
 !
 ! A hybrid bp/osd decoder for the (240,74) code.
 !
@@ -11,9 +12,6 @@ subroutine decode240_74(llr,Keff,maxosd,norder,apmask,message74,cw,ntype,nharder
    integer*1 cw(N),apmask(N)
    integer*1 nxor(N),hdec(N)
    integer*1 message74(74),m74(74)
-   integer nrw(M),ncw
-   integer Nm(5,M)
-   integer Mn(3,N)  ! 3 checks per bit
    integer synd(M)
    real tov(3,N)
    real toc(5,M)
@@ -22,7 +20,6 @@ subroutine decode240_74(llr,Keff,maxosd,norder,apmask,message74,cw,ntype,nharder
    real llr(N)
    real Tmn
 
-   include "ldpc_240_74_parity.f90"
 
    maxiterations=30
    if(Keff.eq.50) maxiterations=1

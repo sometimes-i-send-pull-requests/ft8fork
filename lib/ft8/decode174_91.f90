@@ -1,4 +1,5 @@
 subroutine decode174_91(llr,Keff,maxosd,norder,apmask,message91,cw,ntype,nharderror,dmin)
+  use ldpc_174_91_c_parity_mod
 !
 ! A hybrid bp/osd decoder for the (174,91) code.
 !
@@ -11,9 +12,6 @@ subroutine decode174_91(llr,Keff,maxosd,norder,apmask,message91,cw,ntype,nharder
    integer*1 cw(N),apmask(N)
    integer*1 nxor(N),hdec(N)
    integer*1 message91(91),m96(96)
-   integer nrw(M),ncw
-   integer Nm(7,M)
-   integer Mn(3,N)  ! 3 checks per bit
    integer synd(M)
    real tov(3,N)
    real toc(7,M)
@@ -22,7 +20,6 @@ subroutine decode174_91(llr,Keff,maxosd,norder,apmask,message91,cw,ntype,nharder
    real llr(N)
    real Tmn
 
-   include "ldpc_174_91_c_parity.f90"
 
    maxiterations=30
    nosd=0

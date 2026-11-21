@@ -1,4 +1,5 @@
 subroutine encode174(message,codeword)
+  use ldpc_174_87_params_mod
 ! Encode an 87-bit message and return a 174-bit codeword. 
 ! The generator matrix has dimensions (87,87). 
 ! The code is a (174,87) regular ldpc code with column weight 3.
@@ -7,7 +8,6 @@ subroutine encode174(message,codeword)
 ! "colorder" to make the codeword compatible with the parity-check matrix 
 !
 
-include "ldpc_174_87_params.f90"
 
 integer*1 codeword(N)
 integer*1 gen(M,K)

@@ -1,3 +1,6 @@
+module ldpc_174_91_c_generator_mod
+  implicit none
+
 character*23 g(83)
 
 data g/                      &
@@ -84,3 +87,5 @@ data g/                      &
   "7bb38b2f0186d46643ae962", &
   "2644ebadeb44b9467d1f42c", &
   "608cc857594bfbb55d69600"/
+
+end module ldpc_174_91_c_generator_mod

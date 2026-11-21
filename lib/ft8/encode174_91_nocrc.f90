@@ -1,4 +1,5 @@
 subroutine encode174_91_nocrc(message,codeword)
+  use ldpc_174_91_c_generator_mod
 !
 ! Encode a 91-bit message and return a 174-bit codeword.
 !
@@ -11,7 +12,6 @@ subroutine encode174_91_nocrc(message,codeword)
    integer*1 gen(M,K)
    integer*1 message(K)
    integer*1 pchecks(M)
-   include "ldpc_174_91_c_generator.f90"
    logical first
    data first/.true./
    save first,gen

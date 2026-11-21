@@ -1,4 +1,5 @@
 subroutine bpdecode128_90(llr,apmask,maxiterations,message77,cw,nharderror,iter)
+  use ldpc_128_90_reordered_parity_mod
 !
 ! A log-domain belief propagation decoder for the (128,90) code.
 !
@@ -8,9 +9,6 @@ subroutine bpdecode128_90(llr,apmask,maxiterations,message77,cw,nharderror,iter)
   integer*1 cw(N),apmask(N)
   integer*1 decoded(K)
   integer*1 message77(77)
-  integer Nm(11,M)   
-  integer Mn(3,N) 
-  integer nrw(M)
   integer synd(M)
   real tov(4,N)
   real toc(11,M)
@@ -19,7 +17,6 @@ subroutine bpdecode128_90(llr,apmask,maxiterations,message77,cw,nharderror,iter)
   real llr(N)
   real Tmn
 
-  include "ldpc_128_90_reordered_parity.f90"
 
   decoded=0
   toc=0

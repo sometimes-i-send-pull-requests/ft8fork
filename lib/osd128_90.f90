@@ -1,4 +1,5 @@
 subroutine osd128_90(llr,apmask,ndeep,message77,cw,nhardmin,dmin)
+  use ldpc_128_90_generator_mod
 
 ! Ordered-statistics decoder for the (128,90) code.
 
@@ -15,7 +16,6 @@ subroutine osd128_90(llr,apmask,ndeep,message77,cw,nhardmin,dmin)
   integer indx(N)
   real llr(N),rx(N),absrx(N)
 
-  include "ldpc_128_90_generator.f90"
 
   logical first,reset
   data first/.true./

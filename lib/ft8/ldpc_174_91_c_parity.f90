@@ -1,3 +1,11 @@
+module ldpc_174_91_c_parity_mod
+  implicit none
+
+  integer :: Mn(3,174)
+  integer :: Nm(7,83)
+  integer :: nrw(83)
+  integer, parameter :: ncw = 3
+
 data Mn/   &
   16,  45,  73, &
   25,  51,  62, &
@@ -267,4 +275,4 @@ data nrw/                           &
 6,6,6,7,7,6,6,7,6,6,6,6,6,6,6,7,    &
 6,6,6/
 
-ncw=3
+end module ldpc_174_91_c_parity_mod
