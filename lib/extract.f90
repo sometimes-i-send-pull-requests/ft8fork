@@ -14,7 +14,7 @@ subroutine extract(s3,nadd,mode65,ntrials,naggressive,ndepth,nflip,     &
 !   ltext    true if decoded message is free text
 !   nft      0=no decode; 1=FT decode; 2=hinted decode
 
-  use prog_args                       !shm_key, exe_dir, data_dir
+  use prog_args                       !exe_dir, data_dir
   use packjt
   use jt65_mod
   use timer_module, only: timer

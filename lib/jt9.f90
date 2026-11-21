@@ -12,7 +12,6 @@ program jt9
   use readwav
 
   use jt9com
-  use jt9a_mod
   use decode_globals
   use decode_msk144_mod
   use symspec_mod
@@ -34,7 +33,7 @@ program jt9
   integer :: arglen,stat,offset,remain,mode=0,flow=200,fsplit=2700,          &
        fhigh=4000,nrxfreq=1500,ndepth=1,nexp_decode=0,nQSOProg=0,ncycles=3,  &
        nft8rxfsens=3,nmt=0,nmtft8decsens=3,ndecoderstart=3
-  logical :: read_files = .true., tx9 = .false., display_help = .false.,     &
+  logical :: tx9 = .false., display_help = .false.,                          &
        nexp_decode_set = .false.,                                            &
        have_ntol = .false.,multift8 = .false.,hidedupes = .false.,           &
        lft8lowth = .true.,lft8subpass = .true.,lwidedxcsearch = .true.
@@ -44,9 +43,8 @@ program jt9
        nsubmode, ntol, nutc
   real(c_float) :: df3, pxdb, pxdbmax
   complex :: a(MAXFFT3)
-  type (option) :: long_options(41) = [                                      &
+  type (option) :: long_options(40) = [                                      &
     option ('help', .false., 'h', 'Display this help message', ''),          &
-    option ('shmem',.true.,'s','Use shared memory for sample data','KEY'),   &
     option ('tr-period', .true., 'p', 'Tx/Rx period, default SECONDS=60',    &
         'SECONDS'),                                                          &
     option ('executable-path', .true., 'e',                                  &
@@ -128,7 +126,7 @@ program jt9
   TRperiod=60.d0
 
   do
-     call getopt('hs:e:a:b:r:m:p:d:f:F:w:t:9876543WYqkTMUSZL:S:H:c:G:x:g:X:Q:C:R:N:E:D:',     &
+     call getopt('he:a:b:r:m:p:d:f:F:w:t:9876543WYqkTMUSZL:S:H:c:G:x:g:X:Q:C:R:N:E:D:',     &
           long_options,c,optarg,arglen,stat,offset,remain,.true.)
      if (stat .ne. 0) then
         exit
@@ -136,9 +134,6 @@ program jt9
      select case (c)
         case ('h')
            display_help = .true.
-        case ('s')
-           read_files = .false.
-           shm_key = optarg(:arglen)
         case ('e')
            exe_dir = optarg(:arglen)
         case ('a')
@@ -224,15 +219,10 @@ program jt9
      end select
   end do
   
-  if (display_help .or. stat .lt. 0                      &
-       .or. (.not. read_files .and. remain .gt. 0)       &
-       .or. (read_files .and. remain .lt. 1)) then
+  if (display_help .or. stat .lt. 0 .or. remain .lt. 1) then
 
      print *, 'Usage: jt9 [OPTIONS] file1 [file2 ...]'
      print *, '       Reads data from *.wav files.'
-     print *, ''
-     print *, '       jt9 -s <key> [-w patience] [-m threads] [-e path] [-a path] [-t path] [-r path]'
-     print *, '       Gets data from shared memory region with key==<key>'
      print *, ''
      print *, 'OPTIONS:'
      print *, ''
@@ -257,11 +247,6 @@ program jt9
   n65b=0
   num9=0
   numfano=0
-
-  if (.not. read_files) then
-     call jt9a()          !We're running under control of WSJT-X
-     go to 999
-  endif
 
   if(mycall.eq.'b') mycall='            '
   if(hiscall.eq.'b') then
@@ -442,8 +427,6 @@ program jt9
 
   call timer('jt9     ',1)
   call timer('jt9     ',101)
-
-999 continue
 
 ! Output decoder statistics
   call fini_timer ()
