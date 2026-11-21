@@ -999,7 +999,7 @@ jobs:
 
           PAYLOAD="$RUNNER_TEMP/pkg-payload"
           SCRIPTS="$RUNNER_TEMP/pkg-scripts"
-          mkdir -p "${PAYLOAD}/Applications" "${PAYLOAD}/Library/LaunchDaemons" "${SCRIPTS}"
+          mkdir -p "${PAYLOAD}/Applications" "${SCRIPTS}"
 
           cp -R "${STAGE}/wsjtx.app" "${PAYLOAD}/Applications/"
 
@@ -1009,12 +1009,8 @@ jobs:
           done
           [ -d "${STAGE}/lib" ] && cp -R "${STAGE}/lib/"* "${PAYLOAD}/usr/local/wsjtx/lib/"
 
-          cp "Darwin/com.wsjtx.sysctl.plist" "${PAYLOAD}/Library/LaunchDaemons/"
-
           cat > "${SCRIPTS}/postinstall" << 'SCRIPT'
           #!/bin/bash
-          /bin/launchctl load /Library/LaunchDaemons/com.wsjtx.sysctl.plist 2>/dev/null || true
-          /usr/sbin/sysctl kern.sysv.shmmax=52428800 kern.sysv.shmall=25600 2>/dev/null || true
           mkdir -p /usr/local/bin
           for bin in /usr/local/wsjtx/*; do
             [ -f "$bin" ] && [ -x "$bin" ] && ln -sf "$bin" "/usr/local/bin/$(basename "$bin")"
