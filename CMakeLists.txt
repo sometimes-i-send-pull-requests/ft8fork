@@ -232,6 +232,7 @@ set (wsjt_qt_CXXSRCS
   Radio.cpp
   RadioMetaType.cpp
   NonInheritingProcess.cpp
+  Jt9Process.cpp
   models/IARURegions.cpp
   models/Bands.cpp
   models/Modes.cpp

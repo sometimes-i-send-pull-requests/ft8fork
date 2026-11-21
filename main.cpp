@@ -9,7 +9,6 @@
 #include <fftw3.h>
 
 #include <QApplication>
-#include <QSharedMemory>
 #include <QProcessEnvironment>
 #include <QTemporaryFile>
 #include <QDateTime>
@@ -46,7 +45,6 @@
 #include "WSJTXLogging.hpp"
 #include "MultiSettings.hpp"
 #include "widgets/mainwindow.h"
-#include "commons.h"
 #include "lib/init_random_seed.h"
 #include "Radio.hpp"
 #include "models/FrequencyList.hpp"
@@ -110,9 +108,6 @@ int main(int argc, char *argv[])
   // make the Qt type magic happen
   Radio::register_types ();
   register_types ();
-
-  // Multiple instances communicate with jt9 via this
-  QSharedMemory mem_jt9;
 
   // Read optional file to disable highDPI scaling
   QFile f("DisableHighDpiScaling");
@@ -373,50 +368,6 @@ int main(int argc, char *argv[])
               sys_lg.push_record (boost::move (rec));
             }
 
-          // Create and initialize shared memory segment
-          // Multiple instances: use rig_name as shared memory key
-          mem_jt9.setKey(a.applicationName ());
-
-          // try and shut down any orphaned jt9 process
-          for (int i = 3; i; --i) // three tries to close old jt9
-            {
-              if (mem_jt9.attach ()) // shared memory presence implies
-                                     // orphaned jt9 sub-process
-                {
-                  dec_data_t * dd = reinterpret_cast<dec_data_t *> (mem_jt9.data());
-                  mem_jt9.lock ();
-                  dd->ipc[1] = 999; // tell jt9 to shut down
-                  mem_jt9.unlock ();
-                  mem_jt9.detach (); // start again
-                }
-              else
-                {
-                  break;        // good to go
-                }
-              QThread::sleep (1); // wait for jt9 to end
-            }
-          if (!mem_jt9.attach ())
-            {
-              if (!mem_jt9.create (sizeof (dec_data)))
-              {
-                splash.hide ();
-                MessageBox::critical_message (nullptr, a.translate ("main", "Shared memory error"),
-                                              a.translate ("main", "Unable to create shared memory segment"));
-                throw std::runtime_error {"Shared memory error"};
-              }
-              LOG_INFO ("shmem size: " << mem_jt9.size ());
-            }
-          else
-            {
-              splash.hide ();
-              MessageBox::critical_message (nullptr, a.translate ("main", "Sub-process error"),
-                                            a.translate ("main", "Failed to close orphaned jt9 process"));
-              throw std::runtime_error {"Sub-process error"};
-            }
-          mem_jt9.lock ();
-          memset(mem_jt9.data(),0,sizeof(struct dec_data)); //Zero all decoding params in shared memory
-          mem_jt9.unlock ();
-
           unsigned downSampleFactor;
           {
             SettingsGroup {multi_settings.settings (), "Tune"};
@@ -441,7 +392,7 @@ int main(int argc, char *argv[])
           QDir::setCurrent(qApp->applicationDirPath()); //This helps to find the SF executables
 
           // run the application UI
-          MainWindow w(temp_dir, multiple, &multi_settings, &mem_jt9, downSampleFactor, &splash, env);
+          MainWindow w(temp_dir, multiple, &multi_settings, downSampleFactor, &splash, env);
           w.show();
           splash.raise ();
           QObject::connect (&a, SIGNAL (lastWindowClosed()), &a, SLOT (quit()));

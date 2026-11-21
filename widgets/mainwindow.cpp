@@ -1,5 +1,6 @@
 //---------------------------------------------------------- MainWindow
 #include "mainwindow.h"
+#include "Jt9Process.hpp"
 
 #include <QAudio>
 #include <QAudioOutput>
@@ -327,11 +328,26 @@ namespace
     auto second = time.second ();
     return now.msecsTo (now.addSecs (second > 30 ? 60 - second : -second)) - time.msec ();
   }
+
+  // Format a process invocation for display in error messages.
+  QString process_command_line (QString const & program, QStringList const & arguments)
+  {
+    QStringList quoted;
+    for (auto argument : arguments)
+      {
+        if (argument.contains (' '))
+          {
+            argument = '"' + argument + '"';
+          }
+        quoted << argument;
+      }
+    return program + ' ' + quoted.join (' ');
+  }
 }
 
 //--------------------------------------------------- MainWindow constructor
 MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
-                       MultiSettings * multi_settings, QSharedMemory *shdmem,
+                       MultiSettings * multi_settings,
                        unsigned downSampleFactor,
                        QSplashScreen * splash, QProcessEnvironment const& env, QWidget *parent) :
   MultiGeometryWidget {parent},
@@ -528,7 +544,7 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
       "ZK1S", "ZK2", "ZK3", "ZL", "ZL7", "ZL8", "ZL9", "ZP", "ZS", "ZS8"
       },
   m_sfx {"P",  "0",  "1",  "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "A"},
-  mem_jt9 {shdmem},
+  m_jt9 {new Jt9Process {QApplication::applicationName ()}},
   m_downSampleFactor (downSampleFactor),
   m_audioThreadPriority (QThread::HighPriority),
   m_bandEdited {false},
@@ -847,20 +863,15 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
 
   setWindowTitle (program_title ());
 
-  connect(&proc_jt9, &QProcess::readyReadStandardOutput, this, &MainWindow::readFromStdout);
-#if QT_VERSION < QT_VERSION_CHECK (5, 6, 0)
-  connect(&proc_jt9, static_cast<void (QProcess::*) (QProcess::ProcessError)> (&QProcess::error),
+  connect(m_jt9.get(), &Jt9Process::readyRead, this, &MainWindow::readFromStdout);
+  connect(m_jt9.get(), &Jt9Process::errorOccurred,
           [this] (QProcess::ProcessError error) {
-            subProcessError (&proc_jt9, error);
+            subProcessError (m_jt9->commandLine (), m_jt9->errorString (), error);
           });
-#else
-  connect(&proc_jt9, &QProcess::errorOccurred, [this] (QProcess::ProcessError error) {
-                                                 subProcessError (&proc_jt9, error);
-                                               });
-#endif
-  connect(&proc_jt9, static_cast<void (QProcess::*) (int, QProcess::ExitStatus)> (&QProcess::finished),
+  connect(m_jt9.get(), &Jt9Process::finished,
           [this] (int exitCode, QProcess::ExitStatus status) {
-            if (subProcessFailed (&proc_jt9, exitCode, status))
+            if (subProcessFailed (m_jt9->commandLine (), m_jt9->readAllStandardError ()
+                                  , exitCode, status))
               {
                 m_valid = false;          // ensures exit if still
                                           // constructing
@@ -874,16 +885,16 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
 #if QT_VERSION < QT_VERSION_CHECK (5, 6, 0)
   connect(&p1, static_cast<void (QProcess::*) (QProcess::ProcessError)> (&QProcess::error),
           [this] (QProcess::ProcessError error) {
-            subProcessError (&p1, error);
+            subProcessError (process_command_line (p1.program (), p1.arguments ()), p1.errorString (), error);
           });
 #else
   connect(&p1, &QProcess::errorOccurred, [this] (QProcess::ProcessError error) {
-                                           subProcessError (&p1, error);
+                                           subProcessError (process_command_line (p1.program (), p1.arguments ()), p1.errorString (), error);
                                          });
 #endif
   connect(&p1, static_cast<void (QProcess::*) (int, QProcess::ExitStatus)> (&QProcess::finished),
           [this] (int exitCode, QProcess::ExitStatus status) {
-            if (subProcessFailed (&p1, exitCode, status))
+            if (subProcessFailed (process_command_line (p1.program (), p1.arguments ()), p1.readAllStandardError (), exitCode, status))
               {
                 m_valid = false;          // ensures exit if still
                                           // constructing
@@ -903,7 +914,7 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
                                            if (QProcess::Crashed != error)
 #endif
                                              {
-                                               subProcessError (&p3, error);
+                                               subProcessError (process_command_line (p3.program (), p3.arguments ()), p3.errorString (), error);
                                              }
                                          });
   connect(&p3, &QProcess::started, [this] () {
@@ -925,7 +936,7 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
             if (exitCode != 127)  // /bin/sh couldn't find file to execute
 #endif
               {
-                subProcessFailed (&p3, exitCode, status);
+                subProcessFailed (process_command_line (p3.program (), p3.arguments ()), p3.readAllStandardError (), exitCode, status);
               }
           });
 
@@ -1107,8 +1118,6 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
       }
   }
 
-  to_jt9(0,0,0);     //initialize IPC variables
-
   QStringList jt9_args {
     "-s", QApplication::applicationName () // shared memory key,
                                            // includes rig
@@ -1134,9 +1143,13 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
       };
   QProcessEnvironment new_env {m_env};
   new_env.insert ("OMP_STACKSIZE", "10M");
-  proc_jt9.setProcessEnvironment (new_env);
-  proc_jt9.start(QDir::toNativeSeparators (m_appDir) + QDir::separator () +
-          "jt9", jt9_args, QIODevice::ReadWrite | QIODevice::Unbuffered);
+  if (!m_jt9->start (QDir::toNativeSeparators (m_appDir) + QDir::separator () + "jt9"
+                     , jt9_args, new_env))
+    {
+      if (m_splash && m_splash->isVisible ()) m_splash->hide ();
+      MessageBox::critical_message (this, tr ("Sub-process error"), m_jt9->failureReason ());
+      m_valid = false;
+    }
 
   auto fname {QDir::toNativeSeparators(m_config.writeable_data_dir ().absoluteFilePath ("wsjtx_wisdom.dat"))};
   fftwf_import_wisdom_from_filename (fname.toLocal8Bit ());
@@ -2335,7 +2348,7 @@ void MainWindow::dataSink(qint64 frames)
   }
 
   if(m_mode=="FT8") {
-    to_jt9(m_ihsym,-1,-1);     //Allow jt9 to bail out early, if necessary
+    m_jt9->requestEarlyExit(m_ihsym);     //Allow jt9 to bail out early, if necessary
     if(m_ihsym==40 and m_decoderBusy) {
       qDebug() << "Clearing hung decoder status";
       decodeDone();  //Clear a hung decoder status
@@ -4450,43 +4463,33 @@ void MainWindow::setup_status_bar (bool vhf)
   }
 }
 
-bool MainWindow::subProcessFailed (QProcess * process, int exit_code, QProcess::ExitStatus status)
+bool MainWindow::subProcessFailed (QString const& command_line, QByteArray const& standard_error
+                                   , int exit_code, QProcess::ExitStatus status)
 {
   if (m_valid && (exit_code || QProcess::NormalExit != status))
     {
-      QStringList arguments;
-      for (auto argument: process->arguments ())
-        {
-          if (argument.contains (' ')) argument = '"' + argument + '"';
-          arguments << argument;
-        }
       if (m_splash && m_splash->isVisible ()) m_splash->hide ();
       MessageBox::critical_message (this, tr ("Subprocess Error")
                                     , tr ("Subprocess failed with exit code %1")
                                     .arg (exit_code)
                                     , tr ("Running: %1\n%2")
-                                    .arg (process->program () + ' ' + arguments.join (' '))
-                                    .arg (QString {process->readAllStandardError()}));
+                                    .arg (command_line)
+                                    .arg (QString {standard_error}));
       return true;
     }
   return false;
 }
 
-void MainWindow::subProcessError (QProcess * process, QProcess::ProcessError)
+void MainWindow::subProcessError (QString const& command_line, QString const& error_string
+                                  , QProcess::ProcessError)
 {
   if (m_valid)
     {
-      QStringList arguments;
-      for (auto argument: process->arguments ())
-        {
-          if (argument.contains (' ')) argument = '"' + argument + '"';
-          arguments << argument;
-        }
       if (m_splash && m_splash->isVisible ()) m_splash->hide ();
       MessageBox::critical_message (this, tr ("Subprocess error")
                                     , tr ("Running: %1\n%2")
-                                    .arg (process->program () + ' ' + arguments.join (' '))
-                                    .arg (process->errorString ()));
+                                    .arg (command_line)
+                                    .arg (error_string));
       m_valid = false;              // ensures exit if still constructing
       QTimer::singleShot (0, this, SLOT (close ()));
     }
@@ -4524,9 +4527,7 @@ void MainWindow::closeEvent(QCloseEvent * e)
   int nh=100;
   int irow=-99;
   plotsave_(&sw,&nw,&nh,&irow);
-  to_jt9(m_ihsym,999,-1);          //Tell jt9 to terminate
-  if (!proc_jt9.waitForFinished(1000)) proc_jt9.close();
-  mem_jt9->detach();
+  m_jt9->stop ();
   Q_EMIT finished ();
   QMainWindow::closeEvent (e);
 }
@@ -5591,57 +5592,43 @@ void MainWindow::decode()                                       //decode()
   if(!hisCall.isEmpty() && !m_auto && hisCall != m_lastloggedcall) dec_data.params.lenabledxcsearch=true;  //ft8md was && !m_enableTx
   else dec_data.params.lenabledxcsearch=false;
 
-  if (auto * to = reinterpret_cast<char *> (mem_jt9->data()))
-    {
-      char *from = (char*) dec_data.ipc;
-      int size=sizeof(struct dec_data);
-      if(dec_data.params.newdat==0) {
-        int noffset {offsetof (struct dec_data, params.nutc)};
-        to += noffset;
-        from += noffset;
-        size -= noffset;
-      }
-      if(m_mode=="MSK144" or m_bFast9) {
-        float t0=m_t0;
-        float t1=m_t1;
-        qApp->processEvents();                                //Update the waterfall
-        if(m_nPick > 0) {
-          t0=m_t0Pick;
-          t1=m_t1Pick;
-        }
-        static short int d2b[360000];
-        narg[0]=dec_data.params.nutc;
-        if(m_kdone>int(12000.0*m_TRperiod)) {
-          m_kdone=int(12000.0*m_TRperiod);
-        }
-        narg[1]=m_kdone;
-        narg[2]=m_nSubMode;
-        narg[3]=dec_data.params.newdat;
-        narg[4]=dec_data.params.minSync;
-        narg[5]=m_nPick;
-        narg[6]=1000.0*t0;
-        narg[7]=1000.0*t1;
-        narg[8]=2;                                //Max decode lines per decode attempt
-        if(dec_data.params.minSync<0) narg[8]=50;
-        if(m_mode=="JT9") narg[9]=102;            //Fast JT9
-        if(m_mode=="MSK144") narg[9]=104;         //MSK144
-        narg[10]=ui->RxFreqSpinBox->value();
-        narg[11]=ui->sbFtol->value ();
-        narg[12]=0;
-        narg[13]=-1;
-        narg[14]=m_config.aggressive();
-        memcpy(d2b,dec_data.d2,2*360000);
-        watcher3.setFuture (QtConcurrent::run (std::bind (fast_decode_, &d2b[0],
-            &narg[0],&m_TRperiod, &m_msg[0][0], dec_data.params.mycall,
-            dec_data.params.hiscall, (FCL)8000, (FCL)12, (FCL)12)));
-      } else {
-        mem_jt9->lock ();
-        memcpy(to, from, qMin(mem_jt9->size(), size));
-        mem_jt9->unlock ();
-        to_jt9(m_ihsym,1,-1);                //Send m_ihsym to jt9[.exe] and start decoding
-        decodeBusy(true);
-      }
+  if(m_mode=="MSK144" or m_bFast9) {
+    float t0=m_t0;
+    float t1=m_t1;
+    qApp->processEvents();                                //Update the waterfall
+    if(m_nPick > 0) {
+      t0=m_t0Pick;
+      t1=m_t1Pick;
     }
+    static short int d2b[360000];
+    narg[0]=dec_data.params.nutc;
+    if(m_kdone>int(12000.0*m_TRperiod)) {
+      m_kdone=int(12000.0*m_TRperiod);
+    }
+    narg[1]=m_kdone;
+    narg[2]=m_nSubMode;
+    narg[3]=dec_data.params.newdat;
+    narg[4]=dec_data.params.minSync;
+    narg[5]=m_nPick;
+    narg[6]=1000.0*t0;
+    narg[7]=1000.0*t1;
+    narg[8]=2;                                //Max decode lines per decode attempt
+    if(dec_data.params.minSync<0) narg[8]=50;
+    if(m_mode=="JT9") narg[9]=102;            //Fast JT9
+    if(m_mode=="MSK144") narg[9]=104;         //MSK144
+    narg[10]=ui->RxFreqSpinBox->value();
+    narg[11]=ui->sbFtol->value ();
+    narg[12]=0;
+    narg[13]=-1;
+    narg[14]=m_config.aggressive();
+    memcpy(d2b,dec_data.d2,2*360000);
+    watcher3.setFuture (QtConcurrent::run (std::bind (fast_decode_, &d2b[0],
+        &narg[0],&m_TRperiod, &m_msg[0][0], dec_data.params.mycall,
+        dec_data.params.hiscall, (FCL)8000, (FCL)12, (FCL)12)));
+  } else {
+    m_jt9->submit (dec_data, m_ihsym);
+    decodeBusy(true);
+  }
   if((m_mode=="FT4" or (m_mode=="FT8" and m_ihsym==41) or m_diskData) and
      m_ActiveStationsWidget != NULL) {
     if(m_mode!="Q65") m_ActiveStationsWidget->erase();  //TEMP
@@ -5692,18 +5679,6 @@ void::MainWindow::fast_decode_done()
   m_bFastDone=false;
 }
 
-void MainWindow::to_jt9(qint32 n, qint32 istart, qint32 idone)
-{
-  if (auto * dd = reinterpret_cast<dec_data_t *> (mem_jt9->data()))
-    {
-      mem_jt9->lock ();
-      dd->ipc[0]=n;
-      if(istart>=0) dd->ipc[1]=istart;
-      if(idone>=0)  dd->ipc[2]=idone;
-      mem_jt9->unlock ();
-    }
-}
-
 void MainWindow::decodeDone ()
 {
   if(m_mode=="Q65") m_wideGraph->drawRed(0,0);
@@ -5743,7 +5718,7 @@ void MainWindow::decodeDone ()
     houndCallers();
     if(ui->cbWorkDupes->isChecked()) QTimer::singleShot (5000, [=] {band_activity_cleared();});
   }
-  to_jt9(m_ihsym,-1,1);                //Tell jt9 we know it has finished
+  m_jt9->acknowledgeDone(m_ihsym);     //Tell jt9 we know it has finished
 
   m_startAnother=m_loopall;
   if(m_bNoMoreFiles) {
@@ -6140,8 +6115,8 @@ void MainWindow::readFromStdout()                             //readFromStdout
     bDisplayPoints=(m_mode=="FT4" or m_mode=="FT8") and
       (m_specOp==SpecOp::ARRL_DIGI or m_ActiveStationsWidget->isVisible());
   }
-  while(proc_jt9.canReadLine()) {
-    auto line_read = proc_jt9.readLine ();
+  while(m_jt9->canReadLine()) {
+    auto line_read = m_jt9->readLine ();
 
     QString the_line = QString(line_read);
     if(ui->actionEnable_QSY_Popups->isChecked() || m_qsymonitorWidget) showQSYMessage(the_line);
@@ -8283,7 +8258,7 @@ void MainWindow::guiUpdate()
       int s = now.time().toString("ss").toInt();
       if (m_ft8DecoderStart<2 or m_freqNominal>45000000) {
         if ((s == 7 || s == 22 ||s == 37 || s == 52) && m_decoderBusy) {
-        to_jt9(m_ihsym,-1,-1);   //Allow jt9 to bail out early, if necessary
+        m_jt9->requestEarlyExit(m_ihsym);   //Allow jt9 to bail out early, if necessary
         decodeDone();            //We better clear a hung decoder status at this point
         }
         if (s == 10 || s == 25 ||s == 40 || s == 55) earlyDecodes = "";
@@ -10239,7 +10214,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)    // mouse press events
   }
   if(ui->DecodeButton->hasFocus() && (event->button() & Qt::RightButton)) {   // Decode button
     if(m_decoderBusy) {
-      to_jt9(m_ihsym,-1,-1);   //Allow jt9 to bail out early, if necessary
+      m_jt9->requestEarlyExit(m_ihsym);   //Allow jt9 to bail out early, if necessary
       decodeDone();            //Clear a hung decoder status
     }
     ui->DecodeButton->clearFocus();
@@ -14085,7 +14060,7 @@ void MainWindow::on_cbMenus_toggled(bool b)
 
 void MainWindow::on_cbCQonly_toggled(bool)
 {  //Fix this -- no decode here?
-  to_jt9(m_ihsym,1,-1);                //Send m_ihsym to jt9[.exe] and start decoding
+  m_jt9->startDecode(m_ihsym);         //Send m_ihsym to jt9[.exe] and start decoding
   decodeBusy(true);
 }
 

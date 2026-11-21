@@ -28,6 +28,7 @@
 #include <QFuture>
 #include <QFutureWatcher>
 #include <QDateTime>
+#include <memory>
 
 #include "MultiGeometryWidget.hpp"
 #include "NonInheritingProcess.hpp"
@@ -75,7 +76,7 @@ namespace Ui {
 }
 
 class QProcessEnvironment;
-class QSharedMemory;
+class Jt9Process;
 class QSplashScreen;
 class QSettings;
 class QLineEdit;
@@ -119,7 +120,7 @@ public:
   using SpecOp = Configuration::SpecialOperatingActivity;
 
   explicit MainWindow(QDir const& temp_directory, bool multiple, MultiSettings *,
-                      QSharedMemory *shdmem, unsigned downSampleFactor,
+                      unsigned downSampleFactor,
                       QSplashScreen *, QProcessEnvironment const&,
                       QWidget *parent = nullptr);
   ~MainWindow();
@@ -801,7 +802,6 @@ private:
   QFutureWatcher<void> watcher3;
   QFutureWatcher<QString> m_saveWAVWatcher;
 
-  NonInheritingProcess proc_jt9;
   NonInheritingProcess p1;
   NonInheritingProcess p3;
 
@@ -947,7 +947,7 @@ private:
   QDateTime m_dateTimeBestSP;
   QDateTime m_dateTimeSeqStart;        //Nominal start time of Rx sequence about to be decoded
 
-  QSharedMemory *mem_jt9;
+  std::unique_ptr<Jt9Process> m_jt9;
   QString m_QSOText;
   unsigned m_downSampleFactor;
   QThread::Priority m_audioThreadPriority;
@@ -1037,8 +1037,10 @@ private:
   void rm_tb4(QString houndCall);
   void read_wav_file (QString const& fname);
   void decodeDone ();
-  bool subProcessFailed (QProcess *, int exit_code, QProcess::ExitStatus);
-  void subProcessError (QProcess *, QProcess::ProcessError);
+  bool subProcessFailed (QString const& command_line, QByteArray const& standard_error
+                         , int exit_code, QProcess::ExitStatus);
+  void subProcessError (QString const& command_line, QString const& error_string
+                        , QProcess::ProcessError);
   void statusUpdate () const;
   void update_watchdog_label ();
   void invalidate_frequencies_filter ();
@@ -1061,7 +1063,6 @@ private:
   void foxGenWaveform(int i,QString fm);
   void writeFoxQSO (QString const& msg);
   void update_foxLogWindow_rate();
-  void to_jt9(qint32 n, qint32 istart, qint32 idone);
   bool is77BitMode () const;
   void cease_auto_Tx_after_QSO ();
   Q_SLOT void ARRL_Digi_Display();
