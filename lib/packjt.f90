@@ -146,10 +146,8 @@ subroutine packbits(dbits,nsymd,m0,sym)
    psfx='    '
    n=ncall
    iv2=0
-   if(n.ge.262177560) go to 20
-   word='......'
- !  if(n.ge.262177560) go to 999            !Plain text message ...
-   i=mod(n,27)+11
+   if(n.lt.262177560) then
+      i=mod(n,27)+11
    word(6:6)=c(i:i)
    n=n/27
    i=mod(n,27)+11
@@ -166,15 +164,13 @@ subroutine packbits(dbits,nsymd,m0,sym)
    n=n/36
    i=n+1
    word(1:1)=c(i:i)
-   do i=1,4
-      if(word(i:i).ne.' ') go to 10
-   enddo
-   go to 999
- 10 word=word(i:)
-   go to 999
-
- 20 if(n.ge.267796946) go to 999
-
+      do i=1,4
+         if(word(i:i).ne.' ') then
+            word=word(i:)
+            exit
+         endif
+      enddo
+   else if(n.lt.267796946) then
  ! We have a JT65v2 message
    if((n.ge.262178563) .and. (n.le.264002071)) then
  ! CQ with prefix
@@ -268,8 +264,9 @@ subroutine packbits(dbits,nsymd,m0,sym)
       iv2=7
       psfx = '    '
    endif
+   endif
 
-999 if(word(1:3).eq.'3D0') word='3DA0'//word(4:)
+   if(word(1:3).eq.'3D0') word='3DA0'//word(4:)
    if(word(1:1).eq.'Q' .and. word(2:2).ge.'A' .and.                 &
         word(2:2).le.'Z') word='3X'//word(2:)
 
@@ -284,42 +281,50 @@ subroutine packbits(dbits,nsymd,m0,sym)
    logical text
 
    text=.false.
-   if(grid.eq.'    ') go to 90               !Blank grid is OK
+   if(grid.eq.'    ') then
+      ng=NGBASE + 1
+      return
+   endif
 
  ! First, handle signal reports in the original range, -01 to -30 dB
    if(grid(1:1).eq.'-') then
-      read(grid(2:3),*,err=800,end=800) n
+      read(grid(2:3),*,iostat=ios) n
+      if(ios.ne.0) then
+         text=.true.
+         return
+      endif
       if(n.ge.1 .and. n.le.30) then
          ng=NGBASE+1+n
-         go to 900
+         return
       endif
-      go to 10
    else if(grid(1:2).eq.'R-') then
-      read(grid(3:4),*,err=800,end=800) n
+      read(grid(3:4),*,iostat=ios) n
+      if(ios.ne.0) then
+         text=.true.
+         return
+      endif
       if(n.ge.1 .and. n.le.30) then
          ng=NGBASE+31+n
-         go to 900
+         return
       endif
-      go to 10
  ! Now check for RO, RRR, or 73 in the message field normally used for grid
    else if(grid(1:4).eq.'RO  ') then
       ng=NGBASE+62
-      go to 900
+      return
    else if(grid(1:4).eq.'RRR ') then
       ng=NGBASE+63
-      go to 900
+      return
    else if(grid(1:4).eq.'73  ') then
       ng=NGBASE+64
-      go to 900
+      return
    endif
 
  ! Now check for extended-range signal reports: -50 to -31, and 0 to +49.
- 10 n=99
+   n=99
    c1=grid(1:1)
-   read(grid,*,err=20,end=20) n
-   go to 30
- 20 read(grid(2:4),*,err=30,end=30) n
- 30 if(n.ge.-50 .and. n.le.49) then
+   read(grid,*,iostat=ios) n
+   if(ios.ne.0) read(grid(2:4),*,iostat=ios) n
+   if(n.ge.-50 .and. n.le.49) then
       if(c1.eq.'R') then
          write(grid,1002) n+50
  1002    format('LA',i2.2)
@@ -327,28 +332,20 @@ subroutine packbits(dbits,nsymd,m0,sym)
          write(grid,1003) n+50
  1003    format('KA',i2.2)
       endif
-      go to 40
+   else
+ ! Maybe it's free text ?
+      if(grid(1:1).lt.'A' .or. grid(1:1).gt.'R') text=.true.
+      if(grid(2:2).lt.'A' .or. grid(2:2).gt.'R') text=.true.
+      if(grid(3:3).lt.'0' .or. grid(3:3).gt.'9') text=.true.
+      if(grid(4:4).lt.'0' .or. grid(4:4).gt.'9') text=.true.
+      if(text) return
    endif
 
- ! Maybe it's free text ?
-   if(grid(1:1).lt.'A' .or. grid(1:1).gt.'R') text=.true.
-   if(grid(2:2).lt.'A' .or. grid(2:2).gt.'R') text=.true.
-   if(grid(3:3).lt.'0' .or. grid(3:3).gt.'9') text=.true.
-   if(grid(4:4).lt.'0' .or. grid(4:4).gt.'9') text=.true.
-   if(text) go to 900
-
  ! OK, we have a properly formatted grid locator
- 40 call grid2deg(grid//'mm55',dlong,dlat)
+   call grid2deg(grid//'mm55',dlong,dlat)
    long=int(dlong)
    lat=int(dlat+ 90.0)
    ng=((long+180)/2)*180 + lat
-   go to 900
-
- 90 ng=NGBASE + 1
-   go to 900
-
- 800 text=.true.
- 900 continue
 
    return
  end subroutine packgrid
@@ -359,43 +356,43 @@ subroutine packbits(dbits,nsymd,m0,sym)
    character grid*4,grid6*6
 
    grid='    '
-   if(ng.ge.32400) go to 10
-   dlat=mod(ng,180)-90
-   dlong=(ng/180)*2 - 180 + 2
-   call deg2grid(dlong,dlat,grid6)
-   grid=grid6(:4)
-   if(grid(1:2).eq.'KA') then
-      read(grid(3:4),*) n
-      n=n-50
-      write(grid,1001) n
- 1001 format(i3.2)
-      if(grid(1:1).eq.' ') grid(1:1)='+'
-   else if(grid(1:2).eq.'LA') then
-      read(grid(3:4),*) n
-      n=n-50
-      write(grid,1002) n
- 1002 format('R',i3.2)
-      if(grid(2:2).eq.' ') grid(2:2)='+'
+   if(ng.lt.32400) then
+      dlat=mod(ng,180)-90
+      dlong=(ng/180)*2 - 180 + 2
+      call deg2grid(dlong,dlat,grid6)
+      grid=grid6(:4)
+      if(grid(1:2).eq.'KA') then
+         read(grid(3:4),*) n
+         n=n-50
+         write(grid,1001) n
+ 1001    format(i3.2)
+         if(grid(1:1).eq.' ') grid(1:1)='+'
+      else if(grid(1:2).eq.'LA') then
+         read(grid(3:4),*) n
+         n=n-50
+         write(grid,1002) n
+ 1002    format('R',i3.2)
+         if(grid(2:2).eq.' ') grid(2:2)='+'
+      endif
+   else
+      n=ng-NGBASE-1
+      if(n.ge.1 .and.n.le.30) then
+         write(grid,1012) -n
+ 1012    format(i3.2)
+      else if(n.ge.31 .and.n.le.60) then
+         n=n-30
+         write(grid,1022) -n
+ 1022    format('R',i3.2)
+      else if(n.eq.61) then
+         grid='RO'
+      else if(n.eq.62) then
+         grid='RRR'
+      else if(n.eq.63) then
+         grid='73'
+      endif
    endif
-   go to 900
 
- 10 n=ng-NGBASE-1
-   if(n.ge.1 .and.n.le.30) then
-      write(grid,1012) -n
- 1012 format(i3.2)
-   else if(n.ge.31 .and.n.le.60) then
-      n=n-30
-      write(grid,1022) -n
- 1022 format('R',i3.2)
-   else if(n.eq.61) then
-      grid='RO'
-   else if(n.eq.62) then
-      grid='RRR'
-   else if(n.eq.63) then
-      grid='73'
-   endif
-
- 900 return
+   return
  end subroutine unpackgrid
 
  subroutine packmsg(msg0,dat,itype)
@@ -419,7 +416,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
    character*12 c1,c2
    character*4 c3
    character*6 grid6
-   logical text1,text2,text3
+   logical text1,text2,text3,ltext
 
    itype=1
    msg=msg0
@@ -435,79 +432,113 @@ subroutine packbits(dbits,nsymd,m0,sym)
         msg(6:6).eq.' ') msg='E9'//msg(4:)
    
  ! See if it's a CQ message
+   ia=0
+   ib=0
+   ic=0
    if(msg(1:3).eq.'CQ ') then
       i=3
  ! ... and if so, does it have a reply frequency?
       if(msg(4:4).ge.'0' .and. msg(4:4).le.'9' .and.                  &
            msg(5:5).ge.'0' .and. msg(5:5).le.'9' .and.                &
            msg(6:6).ge.'0' .and. msg(6:6).le.'9') i=7
-      go to 1
+      ia=i
+   else
+      do i=1,22
+         if(msg(i:i).eq.' ') then        !Get 1st blank
+            ia=i
+            exit
+         endif
+      enddo
    endif
 
-   do i=1,22
-      if(msg(i:i).eq.' ') go to 1       !Get 1st blank
-   enddo
-   go to 10                             !Consider msg as plain text
+   if(ia.gt.0) then
+      c1=msg(1:ia-1)
+      do i=ia+1,22
+         if(msg(i:i).eq.' ') then        !Get 2nd blank
+            ib=i
+            exit
+         endif
+      enddo
+   endif
 
- 1 ia=i
-   c1=msg(1:ia-1)
-   do i=ia+1,22
-      if(msg(i:i).eq.' ') go to 2       !Get 2nd blank
-   enddo
-   go to 10                             !Consider msg as plain text
+   if(ib.gt.0) then
+      c2=msg(ia+1:ib-1)
+      do i=ib+1,22
+         if(msg(i:i).eq.' ') then        !Get 3rd blank
+            ic=i
+            exit
+         endif
+      enddo
+   endif
 
- 2 ib=i
-   c2=msg(ia+1:ib-1)
-
-   do i=ib+1,22
-      if(msg(i:i).eq.' ') go to 3       !Get 3rd blank
-   enddo
-   go to 10                             !Consider msg as plain text
-
- 3 ic=i
-   c3='    '
-   if(ic.ge.ib+1) c3=msg(ib+1:ic)
-   if(c3.eq.'OOO ') c3='    '           !Strip out the OOO flag
-   call getpfx1(c1,k1,nv2a)
-   if(nv2a.ge.4) go to 10
-   call packcall(c1,nc1,text1)
-   if(text1) go to 10
-   call getpfx1(c2,k2,nv2b)
-   call packcall(c2,nc2,text2)
-   if(text2) go to 10
-   if(nv2a.eq.2 .or. nv2a.eq.3 .or. nv2b.eq.2 .or. nv2b.eq.3) then
-      if(k1.lt.0 .or. k2.lt.0 .or. k1*k2.ne.0) go to 10
-      if(k2.gt.0) k2=k2+450
-      k=max(k1,k2)
-      if(k.gt.0) then
-         call k2grid(k,grid6)
-         c3=grid6(:4)
+   if(ic.gt.0) then
+      c3='    '
+      if(ic.ge.ib+1) c3=msg(ib+1:ic)
+      if(c3.eq.'OOO ') c3='    '        !Strip out the OOO flag
+   endif
+   ltext=.false.
+   packloop: do
+      if(ia.eq.0 .or. ib.eq.0 .or. ic.eq.0) then
+         ltext=.true.
+         exit packloop
       endif
-   endif
-   call packgrid(c3,ng,text3)
 
-   if(nv2a.lt.4 .and. nv2b.lt.4 .and. (.not.text1) .and. (.not.text2) .and.  &
-        (.not.text3)) go to 20
+      call getpfx1(c1,k1,nv2a)
+      if(nv2a.ge.4) then
+         ltext=.true.
+         exit packloop
+      endif
+      call packcall(c1,nc1,text1)
+      if(text1) then
+         ltext=.true.
+         exit packloop
+      endif
+      call getpfx1(c2,k2,nv2b)
+      call packcall(c2,nc2,text2)
+      if(text2) then
+         ltext=.true.
+         exit packloop
+      endif
+      if(nv2a.eq.2 .or. nv2a.eq.3 .or. nv2b.eq.2 .or. nv2b.eq.3) then
+         if(k1.lt.0 .or. k2.lt.0 .or. k1*k2.ne.0) then
+            ltext=.true.
+            exit packloop
+         endif
+         if(k2.gt.0) k2=k2+450
+         k=max(k1,k2)
+         if(k.gt.0) then
+            call k2grid(k,grid6)
+            c3=grid6(:4)
+         endif
+      endif
+      call packgrid(c3,ng,text3)
 
-   nc1=0
-   if(nv2b.eq.4) then
-      if(c1(1:3).eq.'CQ ' .and. (.not.text3))  nc1=262178563 + k2
-      if(c1(1:4).eq.'QRZ ' .and. (.not.text3)) nc1=264002072 + k2
-      if(c1(1:3).eq.'DE ' .and. (.not.text3))  nc1=265825581 + k2
-   else if(nv2b.eq.5) then
-      if(c1(1:3).eq.'CQ ' .and. (.not.text3))  nc1=267649090 + k2
-      if(c1(1:4).eq.'QRZ ' .and. (.not.text3)) nc1=267698375 + k2
-      if(c1(1:3).eq.'DE ' .and. (.not.text3))  nc1=267747660 + k2
-   endif
-   if(nc1.ne.0) go to 20
+      if(nv2a.lt.4 .and. nv2b.lt.4 .and. (.not.text1) .and. (.not.text2) .and.  &
+           (.not.text3)) exit packloop
 
+      nc1=0
+      if(nv2b.eq.4) then
+         if(c1(1:3).eq.'CQ ' .and. (.not.text3))  nc1=262178563 + k2
+         if(c1(1:4).eq.'QRZ ' .and. (.not.text3)) nc1=264002072 + k2
+         if(c1(1:3).eq.'DE ' .and. (.not.text3))  nc1=265825581 + k2
+      else if(nv2b.eq.5) then
+         if(c1(1:3).eq.'CQ ' .and. (.not.text3))  nc1=267649090 + k2
+         if(c1(1:4).eq.'QRZ ' .and. (.not.text3)) nc1=267698375 + k2
+         if(c1(1:3).eq.'DE ' .and. (.not.text3))  nc1=267747660 + k2
+      endif
+      if(nc1.ne.0) exit packloop
+      ltext=.true.
+      exit packloop
+   enddo packloop
+
+   if(ltext) then
  ! The message will be treated as plain text.
- 10 itype=6
-   call packtext(msg,nc1,nc2,ng)
-   ng=ng+32768
+      itype=6
+      call packtext(msg,nc1,nc2,ng)
+      ng=ng+32768
+   endif
 
  ! Encode data into 6-bit words
-20 continue
    if(itype.ne.6) itype=max(nv2a,nv2b)
    jt_itype=itype
    jt_c1=c1(1:6)
@@ -540,7 +571,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
    parameter (NGBASE=180*180)
    integer dat(:)
    character c1*12,c2*12,grid*4,msg*22,grid6*6,psfx*4,junk2*4
-   logical cqnnn
+   logical cqnnn,lblank
 
    cqnnn=.false.
    nc1=ishft(dat(1),22) + ishft(dat(2),16) + ishft(dat(3),10)+         &
@@ -554,100 +585,106 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
    if(ng.ge.32768) then
       call unpacktext(nc1,nc2,ng,msg)
-      go to 100
-   endif
-
-   call unpackcall(nc1,c1,iv2,psfx)
-   if(iv2.eq.0) then
+   else
+      call unpackcall(nc1,c1,iv2,psfx)
+      if(iv2.eq.0) then
  ! This is an "original JT65" message
-      if(nc1.eq.NBASE+1) c1='CQ    '
-      if(nc1.eq.NBASE+2) c1='QRZ   '
-      nfreq=nc1-NBASE-3
-      if(nfreq.ge.0 .and. nfreq.le.999) then
-         write(c1,1002) nfreq
- 1002    format('CQ ',i3.3)
-         cqnnn=.true.
-      endif
-   endif
-
-   call unpackcall(nc2,c2,junk1,junk2)
-   call unpackgrid(ng,grid)
-
-   if(iv2.gt.0) then
- ! This is a JT65v2 message
-      do i=1,4
-         if(ichar(psfx(i:i)).eq.0) psfx(i:i)=' '
-      enddo
-
-      n1=len_trim(psfx)
-      n2=len_trim(c2)
-      if(iv2.eq.1) msg='CQ '//psfx(:n1)//'/'//c2(:n2)//' '//grid
-      if(iv2.eq.2) msg='QRZ '//psfx(:n1)//'/'//c2(:n2)//' '//grid
-      if(iv2.eq.3) msg='DE '//psfx(:n1)//'/'//c2(:n2)//' '//grid
-      if(iv2.eq.4) msg='CQ '//c2(:n2)//'/'//psfx(:n1)//' '//grid
-      if(iv2.eq.5) msg='QRZ '//c2(:n2)//'/'//psfx(:n1)//' '//grid
-      if(iv2.eq.6) msg='DE '//c2(:n2)//'/'//psfx(:n1)//' '//grid
-      if(iv2.eq.7) then
-         grid6=grid//'ma'
-         call grid2k(grid6,k)
-         if(k.ge.451 .and. k.le.900) then
-            call getpfx2(k,c2)
-            n2=len_trim(c2)
-            msg='DE '//c2(:n2)
-         else
-            msg='DE '//c2(:n2)//' '//grid
+         if(nc1.eq.NBASE+1) c1='CQ    '
+         if(nc1.eq.NBASE+2) c1='QRZ   '
+         nfreq=nc1-NBASE-3
+         if(nfreq.ge.0 .and. nfreq.le.999) then
+            write(c1,1002) nfreq
+ 1002       format('CQ ',i3.3)
+            cqnnn=.true.
          endif
       endif
-      if(iv2.eq.8) msg=' '
-      go to 100
-   else
 
+      call unpackcall(nc2,c2,junk1,junk2)
+      call unpackgrid(ng,grid)
+
+      if(iv2.gt.0) then
+ ! This is a JT65v2 message
+         do i=1,4
+            if(ichar(psfx(i:i)).eq.0) psfx(i:i)=' '
+         enddo
+
+         n1=len_trim(psfx)
+         n2=len_trim(c2)
+         if(iv2.eq.1) msg='CQ '//psfx(:n1)//'/'//c2(:n2)//' '//grid
+         if(iv2.eq.2) msg='QRZ '//psfx(:n1)//'/'//c2(:n2)//' '//grid
+         if(iv2.eq.3) msg='DE '//psfx(:n1)//'/'//c2(:n2)//' '//grid
+         if(iv2.eq.4) msg='CQ '//c2(:n2)//'/'//psfx(:n1)//' '//grid
+         if(iv2.eq.5) msg='QRZ '//c2(:n2)//'/'//psfx(:n1)//' '//grid
+         if(iv2.eq.6) msg='DE '//c2(:n2)//'/'//psfx(:n1)//' '//grid
+         if(iv2.eq.7) then
+            grid6=grid//'ma'
+            call grid2k(grid6,k)
+            if(k.ge.451 .and. k.le.900) then
+               call getpfx2(k,c2)
+               n2=len_trim(c2)
+               msg='DE '//c2(:n2)
+            else
+               msg='DE '//c2(:n2)//' '//grid
+            endif
+         endif
+         if(iv2.eq.8) msg=' '
+      else
+         grid6=grid//'ma'
+         call grid2k(grid6,k)
+         if(k.ge.1 .and. k.le.450)   call getpfx2(k,c1)
+         if(k.ge.451 .and. k.le.900) call getpfx2(k,c2)
+
+         i=index(c1,char(0))
+         if(i.ge.3) c1=c1(1:i-1)//'            '
+         i=index(c2,char(0))
+         if(i.ge.3) c2=c2(1:i-1)//'            '
+
+         msg='                      '
+         j=0
+         if(cqnnn) then
+            msg=c1//'          '
+            j=7                                  !### ??? ###
+         else
+            lblank=.false.
+            do i=1,12
+               j=j+1
+               msg(j:j)=c1(i:i)
+               if(c1(i:i).eq.' ') then
+                  lblank=.true.
+                  exit
+               endif
+            enddo
+            if(.not.lblank) then
+               j=j+1
+               msg(j:j)=' '
+            endif
+         endif
+
+         lblank=.false.
+         do i=1,12
+            if(j.le.21) j=j+1
+            msg(j:j)=c2(i:i)
+            if(c2(i:i).eq.' ') then
+               lblank=.true.
+               exit
+            endif
+         enddo
+         if(.not.lblank) then
+            if(j.le.21) j=j+1
+            msg(j:j)=' '
+         endif
+
+         if(k.eq.0) then
+            do i=1,4
+               if(j.le.21) j=j+1
+               msg(j:j)=grid(i:i)
+            enddo
+            if(j.le.21) j=j+1
+            msg(j:j)=' '
+         endif
+      endif
    endif
 
-   grid6=grid//'ma'
-   call grid2k(grid6,k)
-   if(k.ge.1 .and. k.le.450)   call getpfx2(k,c1)
-   if(k.ge.451 .and. k.le.900) call getpfx2(k,c2)
-
-   i=index(c1,char(0))
-   if(i.ge.3) c1=c1(1:i-1)//'            '
-   i=index(c2,char(0))
-   if(i.ge.3) c2=c2(1:i-1)//'            '
-
-   msg='                      '
-   j=0
-   if(cqnnn) then
-      msg=c1//'          '
-      j=7                                  !### ??? ###
-      go to 10
-   endif
-
-   do i=1,12
-      j=j+1
-      msg(j:j)=c1(i:i)
-      if(c1(i:i).eq.' ') go to 10
-   enddo
-   j=j+1
-   msg(j:j)=' '
-
- 10 do i=1,12
-      if(j.le.21) j=j+1
-      msg(j:j)=c2(i:i)
-      if(c2(i:i).eq.' ') go to 20
-   enddo
-   if(j.le.21) j=j+1
-   msg(j:j)=' '
-
- 20 if(k.eq.0) then
-      do i=1,4
-         if(j.le.21) j=j+1
-         msg(j:j)=grid(i:i)
-      enddo
-      if(j.le.21) j=j+1
-      msg(j:j)=' '
-   endif
-
- 100 continue
    if(msg(1:6).eq.'CQ9DX ') msg(3:3)=' '
    if(msg(1:2).eq.'E9' .and.                                          &
         msg(3:3).ge.'A' .and. msg(3:3).le.'Z' .and.                   &
@@ -672,29 +709,35 @@ subroutine packbits(dbits,nsymd,m0,sym)
    nc3=0
 
    do i=1,5                                !First 5 characters in nc1
-      do j=1,42                            !Get character code
-         if(msg(i:i).eq.c(j:j)) go to 10
+      j=36
+      do jj=1,42                           !Get character code
+         if(msg(i:i).eq.c(jj:jj)) then
+            j=jj-1                         !Codes should start at zero
+            exit
+         endif
       enddo
-      j=37
- 10   j=j-1                                !Codes should start at zero
       nc1=42*nc1 + j
    enddo
 
    do i=6,10                               !Characters 6-10 in nc2
-      do j=1,42                            !Get character code
-         if(msg(i:i).eq.c(j:j)) go to 20
+      j=36
+      do jj=1,42                           !Get character code
+         if(msg(i:i).eq.c(jj:jj)) then
+            j=jj-1                         !Codes should start at zero
+            exit
+         endif
       enddo
-      j=37
- 20   j=j-1                                !Codes should start at zero
       nc2=42*nc2 + j
    enddo
 
    do i=11,13                              !Characters 11-13 in nc3
-      do j=1,42                            !Get character code
-         if(msg(i:i).eq.c(j:j)) go to 30
+      j=36
+      do jj=1,42                           !Get character code
+         if(msg(i:i).eq.c(jj:jj)) then
+            j=jj-1                         !Codes should start at zero
+            exit
+         endif
       enddo
-      j=37
- 30   j=j-1                                !Codes should start at zero
       nc3=42*nc3 + j
    enddo
 
@@ -759,7 +802,6 @@ subroutine packbits(dbits,nsymd,m0,sym)
    if(iz.lt.0) iz=12
    islash=index(callsign(1:iz),'/')
    k=0
- !  if(k.eq.0) go to 10     !Tnx to DL9RDZ for reminder:this was for tests only!
    c='   '
    if(islash.gt.0 .and. islash.le.(iz-4)) then
  ! Add-on prefix
@@ -769,13 +811,12 @@ subroutine packbits(dbits,nsymd,m0,sym)
          if(pfx(i)(1:4).eq.c) then
             k=i
             nv2=2
-            go to 10
+            exit
          endif
       enddo
-      if(addpfx.eq.c) then
+      if(k.eq.0 .and. addpfx.eq.c) then
          k=449
          nv2=2
-         go to 10
       endif
 
    else if(islash.eq.(iz-1)) then
@@ -786,12 +827,12 @@ subroutine packbits(dbits,nsymd,m0,sym)
          if(sfx(i).eq.c(1:1)) then
             k=400+i
             nv2=3
-            go to 10
+            exit
          endif
       enddo
    endif
 
- 10 if(islash.ne.0 .and.k.eq.0) then
+   if(islash.ne.0 .and.k.eq.0) then
  ! Original JT65 would force this compound callsign to be treated as
  ! plain text.  In JT65v2, we will encode the prefix or suffix into nc1.
  ! The task here is to compute the proper value of k.
