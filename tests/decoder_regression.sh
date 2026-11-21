@@ -114,6 +114,8 @@ run_case jt9    full -9 "$repo_root/samples/JT9/130418_1742.wav"
 run_case ft8    full -8 "$repo_root/samples/FT8/210703_133430.wav"
 run_case q65    full -3 -p 60 "$repo_root/samples/Q65/60A_EME_6m/210106_1621.wav"
 run_case msk144 full -k "$repo_root/samples/MSK144/181211_120500.wav"
+run_case ft4    full -4 "$repo_root/samples/FT4/000000_000002.wav"
+run_case fst4   full -7 "$repo_root/samples/FST4+FST4W/210115_0058.wav"
 
 # A generated JT65 signal exercises the JT65 decoder path.
 if [[ -x $jt65sim ]]; then
