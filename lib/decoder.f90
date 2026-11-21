@@ -108,10 +108,11 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   integer :: ncandall, numcores, numthreads, nuserthr
   real :: rms, rmsbad, sq, sumxdt, dtmed, forcedt
 
-  if(.not.params%newdat .and. params%ntr.gt.ntr0) go to 800
+main_body: do
+  if(.not.params%newdat .and. params%ntr.gt.ntr0) exit main_body
   ntr0=params%ntr
   rms=sqrt(dot_product(float(id2(1:180000)),float(id2(1:180000)))/180000.0)
-  if(rms.lt.0.5) go to 800
+  if(rms.lt.0.5) exit main_body
 
 ! Cast C character arrays to Fortran character strings
   datetime=transfer(params%datetime, datetime)
@@ -147,12 +148,12 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
         open(39,file='rx_messages.txt',status='old')
         do i=1,9999
            read(39,'(a60)',end=5) line
-           if(line(1:1).eq.' ' .or. line(1:1).eq.'-') go to 800
+           if(line(1:1).eq.' ' .or. line(1:1).eq.'-') exit main_body
            write(*,'(a)') trim(line)
         enddo
 5       close(39)
      endif
-     go to 800
+     exit main_body
   endif
 
   ncontest=iand(params%nexp_decode,7)
@@ -163,19 +164,18 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
   if(params%nranera.eq.0) ntrials=0
 
   nfail=0
-10 if (params%nagain) then
-     open(13,file=trim(temp_dir)//'/decoded.txt',status='unknown',            &
-          position='append',iostat=ios13)
-  else
-     open(13,file=trim(temp_dir)//'/decoded.txt',status='unknown',iostat=ios13)
-  endif
-  if(ios13.ne.0) then
-     nfail=nfail+1
-     if(nfail.le.3) then
-        call sleep_msec(10)
-        go to 10
+  do
+     if (params%nagain) then
+        open(13,file=trim(temp_dir)//'/decoded.txt',status='unknown',         &
+             position='append',iostat=ios13)
+     else
+        open(13,file=trim(temp_dir)//'/decoded.txt',status='unknown',iostat=ios13)
      endif
-  endif
+     if(ios13.eq.0) exit
+     nfail=nfail+1
+     if(nfail.gt.3) exit
+     call sleep_msec(10)
+  end do
 
   if(params%nmode.eq.8) then
     ! We're in FT8 mode
@@ -195,7 +195,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
      endif
 
      if(ncontest.eq.7 .and. params%b_superfox .and. params%b_even_seq) then
-        if(params%nzhsym.lt.50) go to 800
+        if(params%nzhsym.lt.50) exit main_body
         ! Call the superFox decoder
         call sfrx_sub(params%yymmdd,params%nutc,params%nfqso,params%ntol,id2)
      else
@@ -313,7 +313,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
               if(nfqso.lt.nfa .or. nfqso.gt.nfb) then
                  write(*,64) nutc,'nfqso is out of bandwidth','d'
 64               format(i6.6,2x,a25,16x,a1)
-                 go to 800
+                 exit main_body
               endif
               nfa=max(nfa,nfqso-25) ! 50Hz bandwidth for decode via double click
               nfb=min(nfb,nfqso+25)
@@ -1207,7 +1207,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
            flush(19)
         endif
      endif
-     go to 800
+     exit main_body
   endif    ! end of code for FT8 mode
 
   if(params%nmode.eq.5) then
@@ -1216,7 +1216,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
           params%nfa,params%nfb,params%ndepth,                               &
           logical(params%lapcqonly),ncontest,mycall,hiscall)
      call timer('decft4  ',1)
-     go to 800
+     exit main_body
   endif
 
   if(params%nmode.eq.66) then        !NB: JT65 = 65, Q65 = 66.
@@ -1254,7 +1254,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
 
      call timer('dec_q65 ',1)
      close(17)
-     go to 800
+     exit main_body
   endif
 
   if(params%nmode.eq.240) then
@@ -1270,7 +1270,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
           params%ntol,params%emedelay,logical(params%nagain),         &
           logical(params%lapcqonly),mycall,hiscall,iwspr,lprinthash22)
      call timer('dec_fst4',1)
-     go to 800
+     exit main_body
   endif
 
   if(params%nmode.eq.241 .or. params%nmode.eq.242) then
@@ -1286,7 +1286,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
           params%ntol,params%emedelay,logical(params%nagain),         &
           logical(params%lapcqonly),mycall,hiscall,iwspr,lprinthash22)
      call timer('dec_fst4',1)
-     go to 800
+     exit main_body
   endif
 
   ! Zap data at start that might come from T/R switching transient?
@@ -1327,14 +1327,14 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
           params%ndepth,logical(params%nclearave),params%minsync,           &
           params%minw,params%nsubmode,mycall,hiscall,         &
           hisgrid,params%nlist,params%listutc,jt4_average)
-     go to 800
+     exit main_body
   endif
 
   npts65=52*12000
   if(baddata(id2,npts65)) then
      nsynced=0
      ndecoded=0
-     go to 800
+     exit main_body
   endif
   
   ntol65=params%ntol              !### is this OK? ###
@@ -1398,9 +1398,11 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
 
 !$omp end parallel sections
 
+  exit main_body
+end do main_body
 
 ! JT65 is not yet producing info for nsynced, ndecoded.
-800 ndecoded = my_jt4%decoded + my_jt65%decoded + my_jt9%decoded +       &
+ndecoded = my_jt4%decoded + my_jt65%decoded + my_jt9%decoded +          &
          my_ft8%decoded + my_ft8var%decodedvar + my_ft4%decoded +        &
          my_fst4%decoded + my_q65%decoded
   if(params%lmultift8 .and. params%nmode.eq.8) then
