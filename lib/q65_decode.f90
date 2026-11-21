@@ -83,6 +83,7 @@ contains
     integer time
     logical lclearave,lnewdat0,lapcqonly,unpk77_success
     logical single_decode,lagain
+    logical jump_finalize,skip_cand
     complex c00(0:3600000)                !Analytic signal, 6000 Sa/s
     type(q3list) callers(MAX_CALLERS)
     save c00
@@ -205,6 +206,9 @@ contains
     npasses=2
     if(nQSOprogress.eq.5) npasses=3
 
+    jump_finalize=.false.
+    phase_a: block
+
     call timer('q65_dec0',0)
 ! Call top-level routine in q65 module: establish sync and try for a
 ! q3 or q0 decode.
@@ -215,11 +219,15 @@ contains
     if(idec.ge.0) then
        dtdec=xdt                    !We have a q3 or q0 decode at nfqso
        f0dec=f0
-       go to 100
+       jump_finalize=.true.
+       exit phase_a
     endif
 
-    if(ncontest.eq.1 .and. lagain .and. iand(ndepth,16).eq.16) go to 50
-    if(ncontest.eq.1 .and. lagain .and. iand(ndepth,16).eq.0) go to 100
+    if(ncontest.eq.1 .and. lagain .and. iand(ndepth,16).eq.16) exit phase_a
+    if(ncontest.eq.1 .and. lagain .and. iand(ndepth,16).eq.0) then
+       jump_finalize=.true.
+       exit phase_a
+    endif
 
 ! Prepare for a single-period decode with iaptype = 0, 1, 2, or 4
     jpk0=(xdt+1.0)*6000                      !Index of nominal start of signal
@@ -250,14 +258,24 @@ contains
        if(idec.ge.0) then
           dtdec=xdt1
           f0dec=f1
-          go to 100       !Successful decode, we're done
+          jump_finalize=.true.
+          exit phase_a
        endif
     enddo  ! ipass
 
-    if(iand(ndepth,16).eq.0 .or. navg(iseq).lt.2) go to 100
+    if(iand(ndepth,16).eq.0 .or. navg(iseq).lt.2) then
+       jump_finalize=.true.
+       exit phase_a
+    endif
+    end block phase_a
 
+! The average-decode stages and the candidate loop can be re-entered after the
+! candidate list has been searched, so drive them from an outer loop.
+outer: do
+
+    if(.not.jump_finalize) then
 ! There was no single-transmission decode. Try for an average 'q3n' decode.
-50  iavg=1
+    iavg=1
     call timer('list_avg',0)
 ! Call top-level routine in q65 module: establish sync and try for a q3
 ! decode, this time using the cumulative 's1a' symbol spectra.
@@ -269,9 +287,7 @@ contains
        dtdec=xdt               !We have a list-decode result from averaged data
        f0dec=f0
        nused=navg(iseq)
-       go to 100
-    endif
-
+    else
 ! There was no 'q3n' decode.  Try for a 'q[0124]n' decode.
 ! Call top-level routine in q65 module: establish sync and try for a q[012]n
 ! decode, this time using the cumulative 's1a' symbol spectra.
@@ -286,8 +302,11 @@ contains
        f0dec=f0
        nused=navg(iseq)
     endif
+    endif
+    endif
 
-100 if(idec.lt.0 .and. max_drift.eq.50) then
+! label 100
+    if(idec.lt.0 .and. max_drift.eq.50) then
        stageno = 5
        call timer('q65_dec0',0)
        ! Call top-level routine in q65 module: establish sync and try for a
@@ -358,16 +377,21 @@ contains
        endif
     endif
     navg0=1000*navg(0) + navg(1)
-    if(single_decode .or. lagain) go to 900
+    if(single_decode .or. lagain) exit outer
 
     do icand=1,ncand
 ! Prepare for single-period candidate decodes with iaptype = 0, 1, 2, or 4
        snr1=candidates(icand,1)
        xdt= candidates(icand,2)
        f0 = candidates(icand,3)
+       skip_cand=.false.
+       cand_setup: block
        do i=1,ndecodes
           fdiff=f0-f0decodes(i)
-          if(fdiff.gt.-baud*mode_q65 .and. fdiff.lt.65*baud*mode_q65) go to 800
+          if(fdiff.gt.-baud*mode_q65 .and. fdiff.lt.65*baud*mode_q65) then
+             skip_cand=.true.
+             exit cand_setup
+          endif
        enddo
 
 !###  TEST REGION
@@ -381,7 +405,7 @@ contains
           if(idec.ge.0) then
              dtdec=xdt                    !We have a q3 or q0 decode at f0
              f0dec=f0
-             go to 200
+             exit cand_setup
           endif
        endif
 !###
@@ -419,11 +443,13 @@ contains
           if(idec.ge.0) then
              dtdec=xdt1
              f0dec=f1
-             go to 200       !Successful decode, we're done
+             exit cand_setup       !Successful decode, we're done
           endif
        enddo  ! ipass
+       end block cand_setup
 
-200    decoded='                                     '
+       if(.not.skip_cand) then
+       decoded='                                     '
        if(idec.ge.0) then
 ! Unpack decoded message for display to user
           write(c77,1000) dat4(1:12),dat4(13)/2
@@ -471,12 +497,17 @@ contains
              endif
           endif
        endif
-800    continue
+       endif
     enddo  ! icand
-    if(iavg.eq.0 .and.navg(iseq).ge.2 .and. iand(ndepth,16).ne.0) go to 50
+    if(iavg.eq.0 .and.navg(iseq).ge.2 .and. iand(ndepth,16).ne.0) then
+       jump_finalize=.false.
+       cycle outer
+    endif
+    exit outer
+    end do outer
 
-900 if(ncontest.ne.1 .or. lagain) go to 999
-    if(ntrperiod.ne.60 .or. nsubmode.ne.0) go to 999
+    if(ncontest.ne.1 .or. lagain) return
+    if(ntrperiod.ne.60 .or. nsubmode.ne.0) return
 
 ! This is first time here, and we're running Q65-60A in NA VHF Contest mode.
 ! Return a list of potential sync frequencies at which to try q3 decoding.
@@ -488,16 +519,17 @@ contains
 !       snr1=candidates(i,1)
 !       xdt= candidates(i,2)
        f0 = candidates(i,3)
+       freq_seen: block
        do j=1,ndecodes          ! Already decoded one at or near this frequency?
           fj=f0decodes(j)
-          if(f0.gt.fj-5.0 .and. f0.lt.fj+bw+5.0) go to 990
+          if(f0.gt.fj-5.0 .and. f0.lt.fj+bw+5.0) exit freq_seen
        enddo
        k=k+1
        nqf(k)=nint(f0)
-990    continue
+       end block freq_seen
     enddo
 
-999 return
+    return
   end subroutine decode
 
 end module q65_decode
