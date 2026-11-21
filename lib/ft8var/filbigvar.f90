@@ -8,6 +8,7 @@ subroutine filbigvar(f0,newfft,c4a,n4,sq0,c6a,n2)
   use timer_module, only: timer
   use jt65_mod5 !ref(3413)
   use jt65_mod6 !NPTS=624000 dd(NPTS)
+  use decode_globals
 
   parameter (NFFT1=672000,NFFT2=77175,NFFT3=9646,NSZ=3413)
   parameter (NZ2=1000)
@@ -47,7 +48,6 @@ subroutine filbigvar(f0,newfft,c4a,n4,sq0,c6a,n2)
    data halfpulse2/0.124952381, 0.121297716, 0.110774440, 0.094635363, 0.074749989, 0.053318415, &
   0.032545585, 0.014332629, 0.000036722, -0.009663997, -0.014785038, -0.015937306, -0.014143718, &
  -0.010611825, -0.006507996/
-  common/patience/npatience,nthreads
   save first,plan1,plan2,plan3,plan4,plan5,rfilt,cfilt,rfilt2,cfilt2,ca
 
   if(f0.lt.0.) go to 900                    !Clean up at end of program

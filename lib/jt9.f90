@@ -15,6 +15,7 @@ program jt9
 
   use jt9com
   use jt9a_mod
+  use decode_globals
   use decode_msk144_mod
   use symspec_mod
   use decoder_mod
@@ -122,11 +123,7 @@ program jt9
   character(len=20) :: datetime=''
   character(len=12) :: mycall='K1ABC', hiscall='W9XYZ'
   character(len=6) :: mygrid='', hisgrid='EN37'
-  integer :: npatience, nthreads
-  integer :: ntry65a, ntry65b, n65a, n65b, num9, numfano
-  common/patience/npatience,nthreads
-  common/decstats/ntry65a,ntry65b,n65a,n65b,num9,numfano
-  data npatience/1/,nthreads/1/,wisfile/' '/
+  data wisfile/' '/
 
   nsubmode = 0
   ntol = 20

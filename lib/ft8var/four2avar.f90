@@ -19,6 +19,8 @@ subroutine four2avar(a,nfft,ndim,isign,iform)
 ! This version of four2avar makes calls to the FFTW library to do the 
 ! actual computations.
 
+  use decode_globals
+
   parameter (NPMAX=2100)                 !Max numberf of stored plans
   parameter (NSMALL=16385)               !Max size of "small" FFTs
   complex a(nfft)                        !Array to be transformed
@@ -28,7 +30,6 @@ subroutine four2avar(a,nfft,ndim,isign,iform)
   integer*8 plan(NPMAX)                  !Pointers to stored plans
   logical found_plan
   data nplan/0/                          !Number of stored plans
-  common/patience/npatience,nthreads     !Patience and threads for FFTW plans
   include '/lib/fftw3.f90'                    !FFTW definitions
   save plan,nplan,nn,ns,nf,nl
 

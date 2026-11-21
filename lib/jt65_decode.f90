@@ -46,6 +46,7 @@ contains
     use timer_module, only: timer
 
     use constants
+    use decode_globals
 
     class(jt65_decoder), intent(inout) :: this
     procedure(jt65_decode_callback) :: callback
@@ -80,7 +81,6 @@ contains
 
     integer h0(0:11),d0(0:11)
     real r0(0:11)
-    common/decstats/ntry65a,ntry65b,n65a,n65b,num9,numfano
     common/steve/thresh0
     common/sync/ss
 

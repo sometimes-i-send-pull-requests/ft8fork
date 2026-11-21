@@ -20,6 +20,7 @@ subroutine four2a(a,nfft,ndim,isign,iform)
 ! actual computations.
 
   use fftw3
+  use decode_globals
   parameter (NPMAX=2100)                 !Max number of stored plans
   parameter (NSMALL=16385)               !Max half complex size of "small" FFTs
   complex a(nfft)                        !Array to be transformed
@@ -29,7 +30,6 @@ subroutine four2a(a,nfft,ndim,isign,iform)
   integer*8 plan(NPMAX)                  !Pointers to stored plans
   logical found_plan
   data nplan/0/                          !Number of stored plans
-  common/patience/npatience,nthreads     !Patience and threads for FFTW plans
   save plan,nplan,nn,ns,nf,nl
 
   if(nfft.lt.0) go to 999

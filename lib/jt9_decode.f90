@@ -28,6 +28,7 @@ contains
     use timer_module, only: timer
 
     use constants
+    use decode_globals
     class(jt9_decoder), intent(inout) :: this
     procedure(jt9_decode_callback) :: callback
     real ss(184,NSMAX)
@@ -39,7 +40,6 @@ contains
     logical done(NSMAX)
     integer*2 id2(NTMAX*12000)
     integer*1 i1SoftSymbols(207)
-    common/decstats/ntry65a,ntry65b,n65a,n65b,num9,numfano
     save ccfred,red2
 
     if(nexp_decode.eq.-99) stop     !Silence compiler warning

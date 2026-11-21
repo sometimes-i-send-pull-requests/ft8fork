@@ -6,6 +6,7 @@ subroutine filbig(dd,npts,f0,newdat,c4a,n4,sq0)
   use, intrinsic :: iso_c_binding
   use FFTW3
   use timer_module, only: timer
+  use decode_globals
 
   parameter (NSZ=3413)
   parameter (NFFT1=672000,NFFT2=77175,NH2=38587)
@@ -26,7 +27,6 @@ subroutine filbig(dd,npts,f0,newdat,c4a,n4,sq0)
   data halfpulse/114.97547150,36.57879257,-20.93789101,              &
        5.89886379,1.59355187,-2.49138308,0.60910773,-0.04248129/
   common/refspec/dfref,ref(NSZ)
-  common/patience/npatience,nthreads
   save first,plan1,plan2,plan3,rfilt,cfilt,df,ca
 
   if(npts.lt.0) go to 900                    !Clean up at end of program

@@ -388,6 +388,7 @@ set (wsjt_FSRCS
   lib/types.f90
   lib/C_interface_module.f90
   lib/constants.f90
+  lib/decode_globals.f90
   lib/jt9com.f90
   lib/shmem.f90
   lib/crc.f90

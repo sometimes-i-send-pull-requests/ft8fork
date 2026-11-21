@@ -8,6 +8,7 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
   use timer_module, only: timer
 
   use constants
+  use decode_globals
   integer(C_SIZE_T) NMAX1
   parameter (NMAX1=653184)
   parameter (NFFT1=653184,NFFT2=1512)
@@ -19,7 +20,6 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
   complex c2(0:NFFT2-1)
   real s(5000)
   logical first
-  common/patience/npatience,nthreads
   data first/.true./
   save plan,first,c1,s,x1
 
