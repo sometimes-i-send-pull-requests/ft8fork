@@ -13,4 +13,4 @@ export "DYLD_LIBRARY_PATH=$WSJTX_RESOURCES/lib"
 export "PATH=$WSJTX_RESOURCES/bin:$PATH"
 
 #export
-exec "$WSJTX_RESOURCES/bin/wsjtx"
+exec "$WSJTX_RESOURCES/bin/ft8fork"

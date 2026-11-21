@@ -391,7 +391,7 @@ jobs:
 
           cmake --install "${BUILD}" --prefix "${STAGE}"
 
-          APP="${STAGE}/wsjtx.app"
+          APP="${STAGE}/ft8fork.app"
           if [ ! -d "${APP}" ]; then
             echo "::error::CMake install did not create ${APP}"
             exit 1
@@ -405,7 +405,7 @@ jobs:
 
       - name: Verify CMake-installed app resources
         run: |
-          APP="${{ steps.collect.outputs.stage_dir }}/wsjtx.app"
+          APP="${{ steps.collect.outputs.stage_dir }}/ft8fork.app"
           DATADIR="${APP}/Contents/Resources/wsjtx"
           DOCDIR="${APP}/Contents/Resources/doc/wsjtx"
           SOUNDDIR="${APP}/Contents/Resources/sounds"
@@ -458,7 +458,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           STAGE="${{ steps.collect.outputs.stage_dir }}"
-          APP="${STAGE}/wsjtx.app"
+          APP="${STAGE}/ft8fork.app"
           FRAMEWORKS="${APP}/Contents/Frameworks"
           FORTRAN_PREFIX="${{ steps.fc.outputs.prefix }}"
           FORTRAN_ORIGINAL_PREFIX="${{ steps.fc.outputs.original_prefix }}"
@@ -699,7 +699,7 @@ jobs:
       - name: Code sign binaries
         run: |
           STAGE="${{ steps.collect.outputs.stage_dir }}"
-          APP="${STAGE}/wsjtx.app"
+          APP="${STAGE}/ft8fork.app"
           ENTITLEMENTS="${GITHUB_WORKSPACE}/entitlements.plist"
 
           if [ "${{ steps.check_secrets.outputs.signing_enabled }}" = "true" ]; then
@@ -762,7 +762,7 @@ jobs:
         run: |
           STAGE="${{ steps.collect.outputs.stage_dir }}"
           ditto -c -k --sequesterRsrc --keepParent \
-            "${STAGE}/wsjtx.app" \
+            "${STAGE}/ft8fork.app" \
             "ft8fork-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip"
 
       # ALWAYS runs. productbuild signs with the Developer ID Installer
@@ -778,7 +778,7 @@ jobs:
           PAYLOAD="$RUNNER_TEMP/pkg-payload"
           mkdir -p "${PAYLOAD}/Applications"
 
-          cp -R "${STAGE}/wsjtx.app" "${PAYLOAD}/Applications/"
+          cp -R "${STAGE}/ft8fork.app" "${PAYLOAD}/Applications/"
 
           pkgbuild --analyze --root "${PAYLOAD}" "$RUNNER_TEMP/components.plist"
           /usr/libexec/PlistBuddy -c "Set :0:BundleIsRelocatable false" "$RUNNER_TEMP/components.plist" 2>/dev/null || true
@@ -813,7 +813,7 @@ jobs:
           [ "$(/usr/libexec/PlistBuddy -c "Print :0:BundleIsVersionChecked" "$RUNNER_TEMP/components.plist")" = "false" ]
           [ "$(/usr/libexec/PlistBuddy -c "Print :0:BundleOverwriteAction" "$RUNNER_TEMP/components.plist")" = "upgrade" ]
 
-          APP_PAYLOAD="$CHECK_PAYLOAD/wsjtx-component.pkg/Payload/Applications/wsjtx.app"
+          APP_PAYLOAD="$CHECK_PAYLOAD/wsjtx-component.pkg/Payload/Applications/ft8fork.app"
           DATADIR="${APP_PAYLOAD}/Contents/Resources/wsjtx"
           DOCDIR="${APP_PAYLOAD}/Contents/Resources/doc/wsjtx"
           SOUNDDIR="${APP_PAYLOAD}/Contents/Resources/sounds"

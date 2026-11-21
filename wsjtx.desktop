@@ -2,7 +2,7 @@
 Version=1.0
 Name=FT8Fork
 Comment=Amateur Radio Weak Signal Operating (unofficial WSJT-X fork)
-Exec=wsjtx
+Exec=ft8fork
 Terminal=false
 X-MultipleArgs=false
 Type=Application

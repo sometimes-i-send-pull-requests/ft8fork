@@ -201,7 +201,7 @@ jobs:
           rpm -qpR "$RPM"
           rpm -qpl "$RPM" | head -40
           # Confirm the core binaries are in the package.
-          rpm -qpl "$RPM" | grep -qE '/bin/wsjtx$'
+          rpm -qpl "$RPM" | grep -qE '/bin/ft8fork$'
           rpm -qpl "$RPM" | grep -qE '/bin/jt9$'
           rpm -qpl "$RPM" | grep -qE '/bin/map65$'
           rpm -qpR "$RPM" | grep -Eq 'libportaudio|portaudio'
@@ -217,7 +217,7 @@ jobs:
         run: |
           cmake --install wsjtx-build --prefix "${GITHUB_WORKSPACE}/AppDir/usr"
           # linuxdeploy's desktop integration needs this exact path.
-          test -x AppDir/usr/bin/wsjtx
+          test -x AppDir/usr/bin/ft8fork
           test -x AppDir/usr/bin/jt9
           test -x AppDir/usr/bin/map65
           test -x AppDir/usr/bin/ft8code
@@ -267,12 +267,12 @@ jobs:
         run: |
           APPIMAGE="ft8fork-${VERSION}-linux-${ARCH}.AppImage"
           ./"$APPIMAGE" --appimage-extract >/dev/null
-          test -x squashfs-root/usr/bin/wsjtx
+          test -x squashfs-root/usr/bin/ft8fork
           test -x squashfs-root/usr/bin/jt9
           test -x squashfs-root/usr/bin/map65
           test -x squashfs-root/usr/bin/ft8code
           test -x squashfs-root/usr/bin/wsprd
-          file squashfs-root/usr/bin/wsjtx | grep -q "ELF 64-bit"
+          file squashfs-root/usr/bin/ft8fork | grep -q "ELF 64-bit"
           # Qt5 libs should have been bundled by linuxdeploy-plugin-qt.
           ls squashfs-root/usr/lib/ | grep -q "^libQt5Core\.so"
           ls squashfs-root/usr/lib/ | grep -q "^libQt5Widgets\.so"
@@ -310,4 +310,4 @@ jobs:
           path: |
             wsjtx-build/jt9
             wsjtx-build/wsprd
-            wsjtx-build/wsjtx
+            wsjtx-build/ft8fork

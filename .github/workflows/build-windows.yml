@@ -219,13 +219,13 @@ jobs:
           WORKSPACE=$(cygpath "${GITHUB_WORKSPACE}")
           test -f "${WORKSPACE}/stage-main/bin/map65.exe"
           test -f "${WORKSPACE}/stage-main/bin/qmap.exe"
-          test -f "${WORKSPACE}/stage-main/bin/wsjtx.exe"
+          test -f "${WORKSPACE}/stage-main/bin/ft8fork.exe"
           test -f "${WORKSPACE}/stage-main/bin/jt9.exe"
           bash .github/scripts/audit-staged-dll-imports-windows.sh \
             "${WORKSPACE}/stage-main/bin" \
             "${WORKSPACE}/stage-main/bin/map65.exe" \
             "${WORKSPACE}/stage-main/bin/qmap.exe" \
-            "${WORKSPACE}/stage-main/bin/wsjtx.exe" \
+            "${WORKSPACE}/stage-main/bin/ft8fork.exe" \
             "${WORKSPACE}/stage-main/bin/jt9.exe"
 
       # Emit an NSIS installer containing the full CLI tool set
@@ -303,4 +303,4 @@ jobs:
             wsjtx-build/jt9.exe
             wsjtx-build/map65/map65.exe
             wsjtx-build/wsprd.exe
-            wsjtx-build/wsjtx.exe
+            wsjtx-build/ft8fork.exe

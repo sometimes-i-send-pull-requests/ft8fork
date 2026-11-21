@@ -975,13 +975,13 @@ Function .onInit
   ; mess when the user upgrades over a live instance. Uses tasklist+findstr
   ; (built into every supported Windows version) so no NSIS plugin is
   ; required.
-  wsjtx_running_check:
-    nsExec::Exec '"$SYSDIR\cmd.exe" /c tasklist /FI "IMAGENAME eq wsjtx.exe" 2>NUL | $SYSDIR\findstr.exe /I "wsjtx.exe" >NUL'
+  ft8fork_running_check:
+    nsExec::Exec '"$SYSDIR\cmd.exe" /c tasklist /FI "IMAGENAME eq ft8fork.exe" 2>NUL | $SYSDIR\findstr.exe /I "ft8fork.exe" >NUL'
     Pop $0
     ${If} $0 == "0"
       MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION \
         "FT8Fork is currently running. $\n$\nPlease close it before installing or upgrading." \
-        /SD IDCANCEL IDRETRY wsjtx_running_check
+        /SD IDCANCEL IDRETRY ft8fork_running_check
       Abort
     ${EndIf}
   ; --- end WSJT-X running-process check ---
