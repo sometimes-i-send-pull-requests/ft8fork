@@ -27,20 +27,21 @@ subroutine jt9a()
   msdelay=10
   call c_f_pointer(shmem_address(),shared_data)
 
-! Terminate if ipc(2) is 999
-10 ok=shmem_lock()
-  if(.not.ok) call abort
-  if(shared_data%ipc(2).eq.999.0) then
-     ok=shmem_unlock()
-     ok=shmem_detach()
-     go to 999
-  endif! Wait here until GUI has set ipc(2) to 1
-  if(shared_data%ipc(2).ne.1) then
+main_loop: do
+  ! Wait until the GUI sets ipc(2) to 1, unless it sets ipc(2) to 999 to terminate
+  do
+     ok=shmem_lock()
+     if(.not.ok) call abort
+     if(shared_data%ipc(2).eq.999.0) then
+        ok=shmem_unlock()
+        ok=shmem_detach()
+        exit main_loop
+     endif
+     if(shared_data%ipc(2).eq.1) exit
      ok=shmem_unlock()
      if(.not.ok) call abort
      call sleep_msec(msdelay)
-     go to 10
-  endif
+  end do
   shared_data%ipc(2)=0
   nbytes=shmem_size()
   if(nbytes.le.0) then
@@ -48,7 +49,7 @@ subroutine jt9a()
      ok=shmem_detach()
      print*,'jt9a: Shared memory does not exist.'
      print*,"Must start 'jt9 -s <thekey>' from within WSJT-X."
-     go to 999
+     exit main_loop
   endif
   local_params=shared_data%params !save a copy because wsjtx carries on accessing  
   ok=shmem_unlock()
@@ -151,20 +152,20 @@ subroutine jt9a()
 
 !print*,time, ' jt9a before final loop which waits for ipc(3) ==1' !ft8md
 ! Wait here until GUI routine decodeDone() has set ipc(3) to 1
-100 ok=shmem_lock()
-  if(.not.ok) call abort
-  if(shared_data%ipc(3).ne.1) then
+  do
+     ok=shmem_lock()
+     if(.not.ok) call abort
+     if(shared_data%ipc(3).eq.1) exit
      ok=shmem_unlock()
      if(.not.ok) call abort
      call sleep_msec(msdelay)
-     go to 100
-  endif
+  end do
   shared_data%ipc(3)=0
   ok=shmem_unlock()
   if(.not.ok) call abort
-  go to 10
-  
-999 call timer('decoder ',101)
+end do main_loop
+
+call timer('decoder ',101)
 
   return
 end subroutine jt9a
