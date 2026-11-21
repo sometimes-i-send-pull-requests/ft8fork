@@ -16,5 +16,4 @@ Small, self-contained tasks. Do one per commit, keep the build green.
 
 ## Turn `jt9com` consumers into modules with `implicit none`
 
-- Add `implicit none` to the jt9 program and declare implicit locals.
 - Migrate the `common` blocks in lib/jt9.f90 to module variables.

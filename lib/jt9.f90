@@ -19,6 +19,8 @@ program jt9
   use symspec_mod
   use decoder_mod
 
+  implicit none
+
   integer*2 id2a(180000)
   integer(C_INT) iret
   type(wav_header) wav
@@ -38,6 +40,11 @@ program jt9
        have_ntol = .false.,multift8 = .false.,hidedupes = .false.,           &
        lft8lowth = .true.,lft8subpass = .true.,lwidedxcsearch = .true.
   logical(c_bool) :: bLowSidelobes = .false.
+  integer :: i, i1, iarg, iblk, ihsym, ingain, k, kstep, nearly,          &
+       nflatten, nfsample, nhsym, nhsym0, nminw, npts, npts8, nsps,       &
+       nsubmode, ntol, nutc
+  real(c_float) :: df3, pxdb, pxdbmax
+  complex :: a(MAXFFT3)
   type (option) :: long_options(41) = [                                      &
     option ('help', .false., 'h', 'Display this help message', ''),          &
     option ('shmem',.true.,'s','Use shared memory for sample data','KEY'),   &
@@ -115,6 +122,8 @@ program jt9
   character(len=20) :: datetime=''
   character(len=12) :: mycall='K1ABC', hiscall='W9XYZ'
   character(len=6) :: mygrid='', hisgrid='EN37'
+  integer :: npatience, nthreads
+  integer :: ntry65a, ntry65b, n65a, n65b, num9, numfano
   common/patience/npatience,nthreads
   common/decstats/ntry65a,ntry65b,n65a,n65b,num9,numfano
   data npatience/1/,nthreads/1/,wisfile/' '/
