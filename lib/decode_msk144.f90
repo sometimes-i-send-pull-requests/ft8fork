@@ -1,5 +1,11 @@
+module decode_msk144_mod
+
+contains
+
 subroutine decode_msk144(audio_samples, params, data_dir)
   use jt9com
+
+  implicit none
 
   ! constants
   integer, parameter :: SAMPLING_RATE = 12000
@@ -55,3 +61,5 @@ subroutine decode_msk144(audio_samples, params, data_dir)
   end if
 
 end subroutine decode_msk144
+
+end module decode_msk144_mod

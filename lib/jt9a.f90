@@ -13,6 +13,7 @@ subroutine jt9a()
 
   use jt9com
   use decoder_mod
+  use decode_msk144_mod
 
   implicit none
 

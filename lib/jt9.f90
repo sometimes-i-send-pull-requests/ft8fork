@@ -15,6 +15,7 @@ program jt9
 
   use jt9com
   use jt9a_mod
+  use decode_msk144_mod
   use symspec_mod
   use decoder_mod
 
