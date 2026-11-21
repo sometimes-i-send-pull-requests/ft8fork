@@ -32,7 +32,6 @@ Test data (used only by test programs):
 
 ## Add `implicit none` and declare implicit locals
 
-- Add `implicit none` to module packjt77 and type its bare `parameter` statements.
 - Add `implicit none` to lib/softsym.f90 and lib/decode9w.f90.
 - Add `implicit none` to lib/fast9.f90.
 - Add `implicit none` to lib/extract.f90 and lib/sync65.f90 (decoder helpers that share the JT65 commons).
