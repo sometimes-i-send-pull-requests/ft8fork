@@ -18,6 +18,8 @@ subroutine hspec(id2,k,nutc0,ntrpdepth,nrxfreq,ntol,bmsk144,             &
 !  s()       spectrum for horizontal spectrogram
 !  jh        index of most recent data in green(), s()
 
+  use mskrtd_mod
+
   parameter (JZ=703)
   character*(*) line1
   character*80  line0

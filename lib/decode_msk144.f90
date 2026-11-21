@@ -4,6 +4,7 @@ contains
 
 subroutine decode_msk144(audio_samples, params, data_dir)
   use jt9com
+  use mskrtd_mod
 
   implicit none
 
@@ -21,10 +22,10 @@ subroutine decode_msk144(audio_samples, params, data_dir)
   ! parameters of mskrtd
   integer*2 :: buffer(BLOCK_SIZE)
   real :: tsec   
-  logical :: bshmsg = .false. ! enables shorthand messages  
-  logical :: btrain = .false. ! turns on training in MSK144 mode
+  logical*1 :: bshmsg = .false. ! enables shorthand messages  
+  logical*1 :: btrain = .false. ! turns on training in MSK144 mode
   real*8 :: pcoeffs(5) = (/ 0.0, 0.0, 0.0, 0.0, 0.0 /); ! phase equalization
-  logical :: bswl = .false.
+  logical*1 :: bswl = .false.
   character(len = 80) :: line
   character(len = CALL_LENGTH) :: mycall 
   character(len = CALL_LENGTH) :: hiscall
