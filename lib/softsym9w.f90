@@ -1,4 +1,5 @@
 subroutine softsym9w(id2,npts,xdt0,f0,width,nsubmode,xdt1,snrdb,i1softsymbols)
+  use jt9sync_mod
 
   parameter (NFFT=6912,NH=NFFT/2,NQ=NH/2)
   real s(NQ)
@@ -9,7 +10,6 @@ subroutine softsym9w(id2,npts,xdt0,f0,width,nsubmode,xdt1,snrdb,i1softsymbols)
   integer*2 id2(60*12000)
   integer*1 i1SoftSymbolsScrambled(207)
   integer*1 i1softsymbols(207)
-  include 'jt9sync.f90'
   equivalence (x,cx)
 
   if(npts.eq.-99) stop                     !Silence compiler warning

@@ -1,8 +1,8 @@
 subroutine chkss2(ss2,freq,drift,schk)
+  use jt9sync_mod
 
   real ss2(0:8,85)
   real s(0:8,85)
-  include 'jt9sync.f90'
 
   ave=sum(ss2)/(9*85)
   if(freq+drift.eq.-999999.0) ave=0.      !To silence compiler warning

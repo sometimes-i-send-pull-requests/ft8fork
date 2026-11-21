@@ -1,6 +1,7 @@
 subroutine sync9(ss,nzhsym,lag1,lag2,ia,ib,ccfred,red2,ipkbest)
 
   use constants
+  use jt9sync_mod
   real ss(184,NSMAX)
   real ss1(184)
   real ccfred(NSMAX)
@@ -11,7 +12,6 @@ subroutine sync9(ss,nzhsym,lag1,lag2,ia,ib,ccfred,red2,ipkbest)
   real red2(NSMAX)
   character*27 cr
   data cr/'(C) 2016, Joe Taylor - K1JT'/
-  include 'jt9sync.f90'
 
   ipk=0
   ipkbest=0

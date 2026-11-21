@@ -1,5 +1,6 @@
 subroutine symspec2(c5,nz3,nsps8,nspsd,fsample,freq,drift,snrdb,schk,    &
      i1SoftSymbolsScrambled)
+  use jt9sync_mod
 
 ! Compute soft symbols from the final downsampled data
 
@@ -9,7 +10,6 @@ subroutine symspec2(c5,nz3,nsps8,nspsd,fsample,freq,drift,snrdb,schk,    &
   real aa(3)
   real ss2(0:8,85)
   real ss3(0:7,69)
-  include 'jt9sync.f90'
   data scale/10.0/
 
   aa(1)=-1500.0/nsps8

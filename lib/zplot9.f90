@@ -1,9 +1,9 @@
 subroutine zplot9(s,freq,drift)
+  use jt9sync_mod
 
   real s(0:8,85)
   character*1 line(85),mark(0:6)
   data mark/' ',' ','.','-','+','X','$'/
-  include 'jt9sync.f90'
 
   write(32,1000) freq,drift
 1000 format('Freq:',f7.1,'   Drift:',f5.1,'  ',60('-'))

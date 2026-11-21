@@ -1,5 +1,6 @@
 subroutine softsym(id2,npts8,nsps8,newdat,fpk,syncpk,snrdb,xdt,        &
      freq,drift,a3,schk,i1SoftSymbols)
+  use jt9sync_mod
 
 ! Compute the soft symbols
 
@@ -13,7 +14,6 @@ subroutine softsym(id2,npts8,nsps8,newdat,fpk,syncpk,snrdb,xdt,        &
   real a(3)
   integer*1 i1SoftSymbolsScrambled(207)
   integer*1 i1SoftSymbols(207)
-  include 'jt9sync.f90'
 
   nspsd=16
   ndown=nsps8/nspsd

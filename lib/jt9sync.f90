@@ -1,3 +1,6 @@
+module jt9sync_mod
+  implicit none
+
   integer ii(16)                       !Locations of sync symbols
   data ii/ 1,2,5,10,16,23,33,35,51,52,55,60,66,73,83,85/
 
@@ -16,3 +19,5 @@
        0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,   &
        0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,   &
        0,0,1,0,1/
+
+end module jt9sync_mod

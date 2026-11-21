@@ -1,4 +1,5 @@
 subroutine sync9f(s2,nq,nfa,nfb,ss2,ss3,lagpk,ipk,ccfbest)
+  use jt9sync_mod
 
 ! Look for JT9 sync pattern in the folded symbol spectra, s2.
 ! Frequency search extends from nfa to nfb.  Synchronized symbol
@@ -8,7 +9,6 @@ subroutine sync9f(s2,nq,nfa,nfb,ss2,ss3,lagpk,ipk,ccfbest)
   real s2(240,340)
   real ss2(0:8,85)
   real ss3(0:7,69)
-  include 'jt9sync.f90'
 
   ii4=4*ii-3
   ccf=0.

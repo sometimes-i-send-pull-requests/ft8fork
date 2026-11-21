@@ -1,4 +1,5 @@
 program jt9sim
+  use jt9sync_mod
 
 ! Generate simulated data for testing of WSJT-X
 
@@ -17,7 +18,6 @@ program jt9sim
   integer*1 i1ScrambledBits(207)   !Unpacked bits, scrambled order
   integer*1 i1Bits(207)            !Encoded information-carrying bits
   integer*1 i1SoftSymbols(207)
-  include 'jt9sync.f90'
 
   nargs=iargc()
   if(nargs.ne.6) then

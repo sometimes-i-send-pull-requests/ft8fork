@@ -1,4 +1,5 @@
 real function fchisq(c3,npts,fsample,a)
+  use jt9sync_mod
 
   parameter (NMAX=85*16)
   complex c3(npts)
@@ -6,7 +7,6 @@ real function fchisq(c3,npts,fsample,a)
   real a(3)
   complex z
   data a1,a2,a3/99.,99.,99./
-  include 'jt9sync.f90'
   save
 
   if(a(1).ne.a1 .or. a(2).ne.a2 .or. a(3).ne.a3) then

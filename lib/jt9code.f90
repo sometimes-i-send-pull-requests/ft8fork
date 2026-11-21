@@ -1,11 +1,11 @@
 program jt9code
+  use jt9sync_mod
 
 ! Generate simulated data for testing of WSJT-X
 
   character*22 msg,msgchk,msg0,msg1,decoded,cok*3,bad*1,msgtype*10,expected
   integer*4 i4tone(85)                     !Channel symbols (values 0-8)
   include 'testmsg.f90'
-  include 'jt9sync.f90'
 
   nargs=iargc()
   if(nargs.ne.1) then

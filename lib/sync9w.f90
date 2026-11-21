@@ -1,12 +1,12 @@
 subroutine sync9w(ss,nzhsym,lag1,lag2,ia,ib,ccfred,ccfblue,ipkbest,lagpk,nadd)
 
   use constants
+  use jt9sync_mod
   real ss(184,NSMAX)
   real ss1(184),ss1save(184)
   real ccfred(NSMAX)
   real ccfblue(-9:18)
   real sa(NSMAX),sb(NSMAX)
-  include 'jt9sync.f90'
 
 ! Smooth the symbol spectra (by an amount consistent with measured width??)
   do j=1,nzhsym

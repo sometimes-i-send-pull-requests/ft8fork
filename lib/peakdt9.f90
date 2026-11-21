@@ -1,11 +1,11 @@
 subroutine peakdt9(c2,nsps8,nspsd,c3,xdt)
+  use jt9sync_mod
 
   parameter (NZ2=1512,NZ3=1360)
   complex c2(0:NZ2-1)
   complex c3(0:NZ3-1)
   complex z
   real p(0:3300)
-  include 'jt9sync.f90'
 
   p=0.
   i0=5*nspsd 

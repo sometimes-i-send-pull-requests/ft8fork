@@ -1,4 +1,5 @@
 subroutine gen9(msg0,ichk,msgsent,i4tone,itype)
+  use jt9sync_mod
 
 ! Encodes a JT9 message and returns msgsent, the message as it will
 ! be decoded, and an integer array i4tone(85) of 9-FSK tone values 
@@ -15,7 +16,6 @@ subroutine gen9(msg0,ichk,msgsent,i4tone,itype)
   integer*4 i4DataSymbols(69)             !Data symbols (values 0-7)
   integer*4 i4GrayCodedSymbols(69)        !Gray-coded symbols (values 0-7)
   integer*4 i4tone(85)                    !Tone #s, data and sync (values 0-8)
-  include 'jt9sync.f90'
   save
 
   if(msg0(1:1).eq.'@') then
