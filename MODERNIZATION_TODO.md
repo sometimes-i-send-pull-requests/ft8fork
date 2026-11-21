@@ -24,7 +24,6 @@ Procedures:
 ## Replace remaining `go to` flow control
 
 - Replace `go to` in lib/options.f90.
-- Replace `go to` in lib/fast9.f90.
 - Replace `go to` in lib/jt9.f90.
 - Replace `go to` in lib/jt9_decode.f90.
 - Replace `go to` in lib/symspec.f90.

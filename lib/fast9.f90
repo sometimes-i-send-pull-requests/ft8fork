@@ -41,7 +41,7 @@ subroutine fast9(id2,narg,line)
   nutc=narg(0)                         !UTC
   npts=min(narg(1),NMAX)               !Number of samples in id2 (12000 Hz)
   nsubmode=narg(2)                     !0=A 1=B 2=C 3=D 4=E 5=F 6=G 7=H
-  if(nsubmode.lt.4) go to 900
+  if(nsubmode.lt.4) return
   newdat=narg(3)                       !1==> new data, compute symbol spectra
   minsync=narg(4)                      !Lower sync limit
   npick=narg(5)
@@ -138,9 +138,9 @@ subroutine fast9(id2,narg,line)
 
   ccfsave(1:nsaved)=-ccfsave(1:nsaved)
 
-  do iter=1,2
+  iter_loop: do iter=1,2
 !     do isave=1,nsaved
-     do isave=1,50
+     isave_loop: do isave=1,50
         i2=indx(isave)
         if(i2.lt.1 .or. i2.gt.nsaved) cycle      !### Why needed? ###
         t0=t0save(i2)
@@ -181,7 +181,7 @@ subroutine fast9(id2,narg,line)
 
 ! Display multiple decodes only if they differ:
            do n=1,nline
-              if(index(line(n),msg).gt.1) go to 100
+              if(index(line(n),msg).gt.1) cycle isave_loop
            enddo
 !### Might want to use decoded message to get a complete estimate of S/N.
            nline=nline+1
@@ -190,15 +190,10 @@ subroutine fast9(id2,narg,line)
            ntot=ntot+1
 !           write(70,5001) nsaved,isave,nline,maxlines,ntot,nutc,msg
 !5001       format(5i5,i7.6,1x,a22)
-           if(nline.ge.maxlines) go to 900
+           if(nline.ge.maxlines) exit iter_loop
         endif
-100     continue
-     enddo
-  enddo
-
-900 continue
-!  write(*,6001) t,t(6)/sum(t)
-!6001 format(7f10.3)
+     enddo isave_loop
+  enddo iter_loop
 
   return
 end subroutine fast9
