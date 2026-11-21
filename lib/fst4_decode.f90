@@ -150,26 +150,26 @@ contains
          apbits(1)=99
          apbits(30)=99
 
-         if(len(trim(mycall)) .lt. 3) go to 10
+         ap_setup: block
+            if(len(trim(mycall)) .lt. 3) exit ap_setup
 
-         nohiscall=.false.
-         hiscall0=hiscall
-         if(len(trim(hiscall0)).lt.3) then
-            hiscall0=mycall  ! use mycall for dummy hiscall - mycall won't be hashed.
-            nohiscall=.true.
-         endif
-         msg=trim(mycall)//' '//trim(hiscall0)//' RR73'
-         i3=-1
-         n3=-1
-         call pack77(msg,i3,n3,c77)
-         call unpack77(c77,1,msgsent,unpk77_success)
-         if(i3.ne.1 .or. (msg.ne.msgsent) .or. .not.unpk77_success) go to 10
-         read(c77,'(77i1)') message77
-         message77=mod(message77+rvec,2)
-         apbits(1:77)=2*message77-1
-         if(nohiscall) apbits(30)=99
-
-10       continue
+            nohiscall=.false.
+            hiscall0=hiscall
+            if(len(trim(hiscall0)).lt.3) then
+               hiscall0=mycall  ! use mycall for dummy hiscall - mycall won't be hashed.
+               nohiscall=.true.
+            endif
+            msg=trim(mycall)//' '//trim(hiscall0)//' RR73'
+            i3=-1
+            n3=-1
+            call pack77(msg,i3,n3,c77)
+            call unpack77(c77,1,msgsent,unpk77_success)
+            if(i3.ne.1 .or. (msg.ne.msgsent) .or. .not.unpk77_success) exit ap_setup
+            read(c77,'(77i1)') message77
+            message77=mod(message77+rvec,2)
+            apbits(1:77)=2*message77-1
+            if(nohiscall) apbits(30)=99
+         end block ap_setup
          mycall0=mycall
          hiscall0=hiscall
       endif
@@ -384,6 +384,7 @@ contains
 
          xsnr=0.
          do icand=1,ncand
+            candidate_body: block
             sync=candidates(icand,2)
             fc_synced=candidates(icand,3)
             isbest=nint(candidates(icand,4))
@@ -496,7 +497,7 @@ contains
                      call decode240_74(llr,Keff,maxosd,norder,apmask,message74,cw, &
                         ntype,nharderrors,dmin)
                      call timer('d240_74 ',1)
-                     if(nharderrors.lt.0) goto 3465
+                     if(nharderrors.ge.0) then
                      if(count(cw.eq.1).eq.0) then
                         nharderrors=-nharderrors
                         cycle
@@ -535,7 +536,7 @@ contains
                            endif
                         endif
                      endif
-3465                 continue
+                     endif
 
 ! If no decode then try Keff=50
                      iaptype=0
@@ -572,7 +573,7 @@ contains
                      do i=1,ndecodes
                         if(decodes(i).eq.msg) idupe=1
                      enddo
-                     if(idupe.eq.1) goto 800
+                     if(idupe.eq.1) exit candidate_body
                      ndecodes=ndecodes+1
                      decodes(ndecodes)=msg
 
@@ -636,11 +637,12 @@ contains
                      endif
                      call this%callback(nutc,smax1,nsnr,xdt,fsig,msg,    &
                         iaptype,qual,ntrperiod,fmid,w50)
-                     goto 800
+                     exit candidate_body
                   endif
                enddo  ! metrics
             enddo  ! istart jitter
-800      enddo !candidate list
+            end block candidate_body
+         enddo !candidate list
       enddo ! noise blanker loop
 
       if(new_callsign .and. do_k50_decode) then ! re-write the fst4w_calls.txt file
