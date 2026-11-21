@@ -66,7 +66,7 @@ void Jt9Decoder::start (QString const& exe_dir, QString const& data_dir
   m_started = true;
 }
 
-void Jt9Decoder::submit (dec_data const& data, qint32 ihsym)
+void Jt9Decoder::submit (dec_data const& data)
 {
   if (m_busy)
     {
@@ -87,13 +87,11 @@ void Jt9Decoder::submit (dec_data const& data, qint32 ihsym)
                    , sizeof (dec_data) - offset);
     }
 
-  startDecode (ihsym);
+  startDecode ();
 }
 
-void Jt9Decoder::startDecode (qint32 ihsym)
+void Jt9Decoder::startDecode ()
 {
-  (void)ihsym;
-
   if (m_busy)
     {
       return;
@@ -101,18 +99,6 @@ void Jt9Decoder::startDecode (qint32 ihsym)
 
   m_busy = true;
   m_future = QtConcurrent::run ([this] {runDecode ();});
-}
-
-void Jt9Decoder::requestEarlyExit (qint32 ihsym)
-{
-  (void)ihsym;
-  // A running decode cannot be interrupted.
-}
-
-void Jt9Decoder::acknowledgeDone (qint32 ihsym)
-{
-  (void)ihsym;
-  // Decoding has already completed when its output has been consumed.
 }
 
 void Jt9Decoder::stop ()

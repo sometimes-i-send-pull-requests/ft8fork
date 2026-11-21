@@ -35,17 +35,10 @@ public:
               , QString const& temp_dir, QString const& share_dir);
 
   // Decode the interval described by data.
-  void submit (dec_data const& data, qint32 ihsym);
+  void submit (dec_data const& data);
 
   // Decode the most recently submitted interval again.
-  void startDecode (qint32 ihsym);
-
-  // An in-progress decode cannot be abandoned; it always runs to completion.
-  void requestEarlyExit (qint32 ihsym);
-
-  // Decoding has already finished by the time its output has been consumed,
-  // so no acknowledgement is required.
-  void acknowledgeDone (qint32 ihsym);
+  void startDecode ();
 
   // Wait for any in-progress decode and remove the output handler.
   void stop ();

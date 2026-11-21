@@ -2276,7 +2276,6 @@ void MainWindow::dataSink(qint64 frames)
   }
 
   if(m_mode=="FT8") {
-    m_jt9->requestEarlyExit(m_ihsym);     //Allow the decoder to bail out early, if necessary
     if(m_ihsym==40 and m_decoderBusy) {
       qDebug() << "Clearing hung decoder status";
       decodeDone();  //Clear a hung decoder status
@@ -5554,7 +5553,7 @@ void MainWindow::decode()                                       //decode()
         &narg[0],&m_TRperiod, &m_msg[0][0], dec_data.params.mycall,
         dec_data.params.hiscall, (FCL)8000, (FCL)12, (FCL)12)));
   } else {
-    m_jt9->submit (dec_data, m_ihsym);
+    m_jt9->submit (dec_data);
     decodeBusy(true);
   }
   if((m_mode=="FT4" or (m_mode=="FT8" and m_ihsym==41) or m_diskData) and
@@ -5646,7 +5645,6 @@ void MainWindow::decodeDone ()
     houndCallers();
     if(ui->cbWorkDupes->isChecked()) QTimer::singleShot (5000, [=] {band_activity_cleared();});
   }
-  m_jt9->acknowledgeDone(m_ihsym);     //Tell the decoder we know it has finished
 
   m_startAnother=m_loopall;
   if(m_bNoMoreFiles) {
@@ -8186,7 +8184,6 @@ void MainWindow::guiUpdate()
       int s = now.time().toString("ss").toInt();
       if (m_ft8DecoderStart<2 or m_freqNominal>45000000) {
         if ((s == 7 || s == 22 ||s == 37 || s == 52) && m_decoderBusy) {
-        m_jt9->requestEarlyExit(m_ihsym);   //Allow the decoder to bail out early, if necessary
         decodeDone();            //We better clear a hung decoder status at this point
         }
         if (s == 10 || s == 25 ||s == 40 || s == 55) earlyDecodes = "";
@@ -10142,7 +10139,6 @@ void MainWindow::mousePressEvent(QMouseEvent *event)    // mouse press events
   }
   if(ui->DecodeButton->hasFocus() && (event->button() & Qt::RightButton)) {   // Decode button
     if(m_decoderBusy) {
-      m_jt9->requestEarlyExit(m_ihsym);   //Allow the decoder to bail out early, if necessary
       decodeDone();            //Clear a hung decoder status
     }
     ui->DecodeButton->clearFocus();
@@ -13988,7 +13984,7 @@ void MainWindow::on_cbMenus_toggled(bool b)
 
 void MainWindow::on_cbCQonly_toggled(bool)
 {  //Fix this -- no decode here?
-  m_jt9->startDecode(m_ihsym);         //Start decoding
+  m_jt9->startDecode();                //Start decoding
   decodeBusy(true);
 }
 
