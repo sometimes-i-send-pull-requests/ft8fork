@@ -1,7 +1,7 @@
 module jt9com
   use, intrinsic :: iso_c_binding, only: c_int, c_short, c_float, c_char, c_bool
+  use constants
   implicit none
-  include 'constants.f90'
 
   !
   ! these structures must be kept in sync with ../commons.h

@@ -1,6 +1,6 @@
 subroutine sync9w(ss,nzhsym,lag1,lag2,ia,ib,ccfred,ccfblue,ipkbest,lagpk,nadd)
 
-  include 'constants.f90'
+  use constants
   real ss(184,NSMAX)
   real ss1(184),ss1save(184)
   real ccfred(NSMAX)

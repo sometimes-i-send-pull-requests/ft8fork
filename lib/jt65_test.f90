@@ -15,9 +15,9 @@ contains
         nQSOProgress,ljt65apon)
     use timer_module, only: timer
     use jt65_decode
+    use constants
     implicit none
 
-    include 'constants.f90'
     real, intent(in) :: dd(NZMAX)
     integer, intent(in) :: nutc, nflow, nfhigh, nfqso, ntol, nsubmode, n2pass  &
          , ntrials, naggressive, ndepth, nexp_decode, nQSOProgress

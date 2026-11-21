@@ -387,6 +387,7 @@ set (wsjt_FSRCS
   # put module sources first in the hope that they get rebuilt before use
   lib/types.f90
   lib/C_interface_module.f90
+  lib/constants.f90
   lib/jt9com.f90
   lib/shmem.f90
   lib/crc.f90

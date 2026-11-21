@@ -27,7 +27,7 @@ contains
        nfsplit,nfb,ntol,nzhsym,nagain,ndepth,nmode,nsubmode,nexp_decode)
     use timer_module, only: timer
 
-    include 'constants.f90'
+    use constants
     class(jt9_decoder), intent(inout) :: this
     procedure(jt9_decode_callback) :: callback
     real ss(184,NSMAX)

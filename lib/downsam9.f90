@@ -7,7 +7,7 @@ subroutine downsam9(id2,npts8,nsps8,newdat,nspsd,fpk,c2)
   use FFTW3
   use timer_module, only: timer
 
-  include 'constants.f90'
+  use constants
   integer(C_SIZE_T) NMAX1
   parameter (NMAX1=653184)
   parameter (NFFT1=653184,NFFT2=1512)

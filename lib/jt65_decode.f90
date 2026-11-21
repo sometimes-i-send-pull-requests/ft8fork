@@ -45,7 +45,7 @@ contains
     use jt65_mod
     use timer_module, only: timer
 
-    include 'constants.f90'
+    use constants
 
     class(jt65_decoder), intent(inout) :: this
     procedure(jt65_decode_callback) :: callback
