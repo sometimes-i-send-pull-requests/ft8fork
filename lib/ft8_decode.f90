@@ -1,6 +1,8 @@
 module ft8_decode
 
-  parameter (MAXFOX=1000)
+  implicit none
+
+  integer, parameter :: MAXFOX=1000
   character*12 c2fox(MAXFOX)
   character*4  g2fox(MAXFOX)
   integer nsnrfox(MAXFOX)
@@ -35,7 +37,7 @@ contains
   subroutine decode(this,callback,iwave,nQSOProgress,nfqso,nftx,newdat,  &
        nutc,nfa,nfb,nzhsym,ndepth,emedelay,ncontest,nagain,lft8apon,     &
        ltry_a8,lapcqonly,napwid,mycall12,hiscall12,hisgrid,ldiskdat)
-    use iso_c_binding, only: c_bool, c_int
+    use iso_c_binding, only: c_bool, c_int, c_float
     use timer_module, only: timer
     use shmem, only: shmem_lock, shmem_unlock
     use ft8_a7
@@ -44,7 +46,7 @@ contains
 
     class(ft8_decoder), intent(inout) :: this
     procedure(ft8_decode_callback) :: callback
-    parameter (MAXCAND=1000,MAX_EARLY=200,NPTS=15*12000)
+    integer, parameter :: MAXCAND=1000, MAX_EARLY=200, NPTS=15*12000
     real*8 tsec,tseq
     real sbase(NH1)
     real candidate(3,MAXCAND)
@@ -68,6 +70,13 @@ contains
     integer itone_save(NN,MAX_EARLY)
     real f1_save(MAX_EARLY)
     real xdt_save(MAX_EARLY)
+    integer, intent(in) :: nQSOProgress, nfqso, nftx, nutc, nfa, nfb, &
+         nzhsym, ndepth, ncontest, napwid
+    real(c_float), intent(in) :: emedelay
+    integer :: nutc0, ndec_early, ndecodes, iz, npass, imetric, n2, maxc
+    integer :: ncand, icand, id, nsnr, nharderrors, nbadcrc, iappass, iaptype
+    integer :: i, i1, i2, n, ifa, ifb, ipass
+    real :: sync, xdt, f1, xbase, hd, qual, dmin, xsnr, plog, fbest, syncmin
     data nutc0/-1/
 
     save dd,dd1,nutc0,ndec_early,itone_save,f1_save,xdt_save,lsubtracted,  &
@@ -318,7 +327,7 @@ contains
 end subroutine decode
 
 subroutine timestamp(tsec,tseq,ctime)
-  real*8 tsec,tseq
+  real*8 tsec,tseq,sec
   character*12 ctime
   integer itime(8)
   call date_and_time(values=itime)

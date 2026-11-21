@@ -1,5 +1,7 @@
 module fst4_decode
 
+   implicit none
+
    type :: fst4_decoder
       procedure(fst4_decode_callback), pointer :: callback
    contains
@@ -37,7 +39,7 @@ contains
       use packjt77
       use, intrinsic :: iso_c_binding
       include 'fst4/fst4_params.f90'
-      parameter (MAXCAND=100,MAXWCALLS=100)
+      integer, parameter :: MAXCAND=100, MAXWCALLS=100
       class(fst4_decoder), intent(inout) :: this
       procedure(fst4_decode_callback) :: callback
       character*37 decodes(100)
@@ -73,6 +75,19 @@ contains
       logical lprinthash22
 
       integer*2 iwave(30*60*12000)
+
+      integer :: nutc, nQSOProgress, nfa, nfb, nfqso, ndepth, ntrperiod
+      integer :: nexp_decode, ntol, iwspr, nwcalls, l1, i3, n3, Keff
+      integer :: nmax, nsps, ndown, nfft1, nss, nfft2, nh1, nblock, jittermax
+      integer :: ndropmax, nb, npct, inb1, inb2, inb, nhicoh, nsyncoh, ncand
+      integer :: isbest, icand, ic2, isbest2, ic, nclose, k, i, ijitter
+      integer :: ioffset, is0, iend, il, ntmax, itry, maxosd, norder, ntype
+      integer :: nharderrors, n22tmp, i1, i2, ifound, idupe, nsnr, nhp, nspsec
+      integer :: ndecodes, iaptype, npctile, nsync_qual
+      real(c_float) :: emedelay
+      real :: fs, fs2, dt, dt2, tt, baud, sigbw, fc2, fc0, detmet, fa, fb
+      real :: sbest, fcbest, fc_synced, dt_synced, fc, xsnr, sync, xdt, apmag
+      real :: dmin, xsig, base, snr_calfac, arg, qual, fsig, hd, w50, fmid, smax1
 
       data   mcq/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0/
       data  mrrr/0,1,1,1,1,1,1,0,1,0,0,1,0,0,1,0,0,0,1/
@@ -670,6 +685,10 @@ contains
       complex z1,z2,z3,z4,z5
       integer hmod,isyncword1(0:7),isyncword2(0:7)
       real f0save
+      integer :: i0,ncoh,np,nss,ntr,nz,k,i,j,i1,i2,i3,i4,i5,nsec,is
+      integer :: nsub,nps,isub,nss0,ntr0
+      real :: f0,fs,sync,phi1,phi2,dphi1,dphi2,dphi,phi
+      real :: s1,s2,s3,s4,s5,twopi,dt,fac,p
       common/sync240com/csync1(3200),csync2(3200),csynct1(3200),csynct2(3200)
       data isyncword1/0,1,3,2,1,0,2,3/
       data isyncword2/2,3,1,0,3,2,0,1/
@@ -785,6 +804,8 @@ contains
 
       complex c_bigfft(0:nfft1/2)
       complex c1(0:nfft1/ndown-1)
+      integer :: nfft1,ndown,i0,ih,nbw,nfft2,i
+      real :: f0,sigbw,df
 
       df=12000.0/nfft1
       i0=nint(f0/df)
@@ -815,6 +836,9 @@ contains
       real, allocatable :: sbase(:)            !noise baseline estimate
       real xdb(-3:3)                           !Model 4-tone CCF peaks
       real minsync
+      integer :: nfft1,nsps,ncand,nh1,nd,ndh,ia,ib,ina,inb,nnw,i,j0,j,iploc,k,npctile
+      integer :: nfa,nfb
+      real :: fs,fa,fb,df1,baud,df2,pval
       data xdb/0.25,0.50,0.75,1.0,0.75,0.50,0.25/
 
       nh1=nfft1/2
@@ -883,6 +907,8 @@ contains
    subroutine fst4_sync_search(c2,nfft2,hmod,fs2,nss,ntrperiod,nsyncoh,emedelay,sbest,fcbest,isbest)
       complex c2(0:nfft2-1)
       integer hmod
+      integer :: nfft2,nss,ntrperiod,nsyncoh,isbest,nspsec,is0,ishw,if,istart,isst
+      real :: fs2,emedelay,sbest,fcbest,baud,fc1,fc,sync
       nspsec=int(fs2)
       baud=fs2/real(nss)
       fc1=0.0
@@ -939,6 +965,8 @@ contains
       integer itone(160)                     !Tones for this message
       integer*2 iwave(nmax)                  !Raw Rx data
       integer hmod                           !Modulation index
+      integer :: nsps,nmax,ndown,i0,nfft,nwave,ia,i,j,nns,ncall
+      real :: fc,fmid,w50,wave,fsample,fac,df,smax,s,sum1,sum2,avg,xi1,xi2,xi3,sum2z,xdiff,y,f
       data ncall/0/
       save ncall
 

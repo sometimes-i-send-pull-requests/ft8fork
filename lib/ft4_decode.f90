@@ -1,5 +1,7 @@
 module ft4_decode
 
+   implicit none
+
    type :: ft4_decoder
       procedure(ft4_decode_callback), pointer :: callback
    contains
@@ -28,10 +30,10 @@ contains
       use timer_module, only: timer
       use packjt77
       include 'ft4/ft4_params.f90'
-      parameter (MAXCAND=200)
+      integer, parameter :: MAXCAND=200
       class(ft4_decoder), intent(inout) :: this
       procedure(ft4_decode_callback) :: callback
-      parameter (NSS=NSPS/NDOWN,NDMAX=NMAX/NDOWN)
+      integer, parameter :: NSS=NSPS/NDOWN, NDMAX=NMAX/NDOWN
       character message*37,msgsent*37
       character c77*77
       character*37 decodes(100)
@@ -69,6 +71,17 @@ contains
       logical dosubtract,doosd
       logical badsync
       logical, intent(in) :: lapcqonly
+
+      integer :: nQSOProgress, nfqso, nfa, nfb, ndepth, ncontest
+      integer :: nd1, nd2, n3, i3, nsp, isp, icand, ncand, iseg, isync
+      integer :: idfmin, idfmax, idfstp, ibmin, ibmax, ibstp, idf, istart
+      integer :: ibest, idfbest, it, np, ipass, npasses, ndeep, maxosd
+      integer :: Keff, ntype, nharderror, idupe, i, ns1, ns2, ns3, ns4
+      integer :: nsync_qual, ndecodes, iaptype, napwid, max_iterations, l1
+      integer :: nsnr
+      integer :: fa, fb
+      real :: fs, dt, tt, txt, twopi, h, smax1, smax, sync, syncmin, sum2
+      real :: f0, f1, scalefac, apmag, xsnr, xdt, qual, dmin, snr
 
       data first/.true./
       data     mcq/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0/
