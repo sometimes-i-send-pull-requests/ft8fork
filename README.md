@@ -6,6 +6,17 @@
 > official program, its user guide, and its support channels, see
 > <https://wsjt.sourceforge.io/wsjtx.html>.
 
+> **AI usage notice.** Many of the changes made in FT8Fork were done using AI
+> assistance. While the human behind these changes has done a cursory
+> examination of the changes, no representation is made that these changes are
+> without flaws or even beneficial. These changes were made for convenience of
+> one person. No guarantee is made that they will be in any way useful or even
+> beneficial to anyone else, and likewise no guarantees of support are made.
+> You use this software at your own risk.
+
+The remainder of this README is in large part retained from upstream. It may
+not accurately reflect the current state of FT8Fork.
+
 ## Programs
 *WSJT-X*, *MAP65*, and *QMAP* are open-source, multi-platform programs designed for weak-signal digital communication by amateur radio. *WSJT-X* works with a standard SSB transceiver, while *MAP65* and *QMAP* use wideband SDR-style hardware. The programs are open source, free of charge, and licensed under the GNU General Public License.
 
