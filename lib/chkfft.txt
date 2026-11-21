@@ -10,12 +10,12 @@ times under a variety of circumstances.
 
 To compile chkfft in Linux:
 
-$ gfortran -o chkfft chkfft.f90 four2a.f90 f77_wisdom.f90 gran.c -lfftw3f
+$ gfortran -o chkfft decode_globals.f90 chkfft.f90 four2a.f90 f77_wisdom.f90 gran.c -lfftw3f
 
 To compile chkfft in Windows (you may need to customize the hard-coded
 path shown here for libfftw3f-3.dll):
 
-> gfortran -o chkfft chkfft.f90 four2a.f90 f77_wisdom.f90 gran.c \
+> gfortran -o chkfft decode_globals.f90 chkfft.f90 four2a.f90 f77_wisdom.f90 gran.c \
   /JTSDK-QT/appsupport/runtime/libfftw3f-3.dll
 
 To see a brief usage message, type chkfft at the command prompt:

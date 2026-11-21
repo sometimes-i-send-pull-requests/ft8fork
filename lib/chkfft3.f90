@@ -4,6 +4,7 @@ program chkfft
   
   use, intrinsic :: iso_c_binding
   use FFTW3
+  use decode_globals
   parameter (NMAX=8*1024*1024)           !Maximum FFT length
   complex a(NMAX),b(NMAX),c(NMAX)
   real ar(NMAX),br(NMAX),cr(NMAX)
@@ -11,7 +12,6 @@ program chkfft
   type(C_PTR) :: plan1,plan2              !Pointers to FFTW plans
   character infile*12,arg*8
   logical list
-  common/patience/npatience
   equivalence (a,ar),(b,br),(c,cr)
 
   nargs=iargc()

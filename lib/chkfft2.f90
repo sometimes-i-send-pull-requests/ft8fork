@@ -2,6 +2,7 @@ program chkfft
 
 ! Tests and times one-dimensional FFTs computed by FFTW3
   use FFTW3
+  use decode_globals
   parameter (NMAX=8*1024*1024)           !Maximum FFT length
   complex a(NMAX),b(NMAX),c(NMAX)
   real ar(NMAX),br(NMAX),cr(NMAX)
@@ -9,7 +10,6 @@ program chkfft
   integer*8 plan1,plan2                  !Pointers to stored plans
   character infile*12,arg*8
   logical list
-  common/patience/npatience
   equivalence (a,ar),(b,br),(c,cr)
 !  include 'fftw3.f90'                    !FFTW definitions
 

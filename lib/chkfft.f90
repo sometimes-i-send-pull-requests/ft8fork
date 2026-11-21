@@ -1,5 +1,7 @@
 program chkfft
 
+  use decode_globals
+
 ! Tests and times one-dimensional FFTs computed by four2a().
 ! An all-Fortran version of four2a() is available, but the preferred
 ! version uses calls to the FFTW library.
@@ -10,7 +12,6 @@ program chkfft
   real mflops
   character infile*12,arg*8
   logical list
-  common/patience/npatience
   equivalence (a,ar),(b,br)
 
   nargs=iargc()
