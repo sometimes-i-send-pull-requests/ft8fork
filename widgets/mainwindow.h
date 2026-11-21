@@ -76,7 +76,7 @@ namespace Ui {
 }
 
 class QProcessEnvironment;
-class Jt9Process;
+class Jt9Decoder;
 class QSplashScreen;
 class QSettings;
 class QLineEdit;
@@ -947,7 +947,7 @@ private:
   QDateTime m_dateTimeBestSP;
   QDateTime m_dateTimeSeqStart;        //Nominal start time of Rx sequence about to be decoded
 
-  std::unique_ptr<Jt9Process> m_jt9;
+  std::unique_ptr<Jt9Decoder> m_jt9;
   QString m_QSOText;
   unsigned m_downSampleFactor;
   QThread::Priority m_audioThreadPriority;

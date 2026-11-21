@@ -1,6 +1,6 @@
 //---------------------------------------------------------- MainWindow
 #include "mainwindow.h"
-#include "Jt9Process.hpp"
+#include "Jt9Decoder.hpp"
 
 #include <QAudio>
 #include <QAudioOutput>
@@ -544,7 +544,7 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
       "ZK1S", "ZK2", "ZK3", "ZL", "ZL7", "ZL8", "ZL9", "ZP", "ZS", "ZS8"
       },
   m_sfx {"P",  "0",  "1",  "2",  "3",  "4",  "5",  "6",  "7",  "8",  "9",  "A"},
-  m_jt9 {new Jt9Process {QApplication::applicationName ()}},
+  m_jt9 {new Jt9Decoder},
   m_downSampleFactor (downSampleFactor),
   m_audioThreadPriority (QThread::HighPriority),
   m_bandEdited {false},
@@ -863,21 +863,7 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
 
   setWindowTitle (program_title ());
 
-  connect(m_jt9.get(), &Jt9Process::readyRead, this, &MainWindow::readFromStdout);
-  connect(m_jt9.get(), &Jt9Process::errorOccurred,
-          [this] (QProcess::ProcessError error) {
-            subProcessError (m_jt9->commandLine (), m_jt9->errorString (), error);
-          });
-  connect(m_jt9.get(), &Jt9Process::finished,
-          [this] (int exitCode, QProcess::ExitStatus status) {
-            if (subProcessFailed (m_jt9->commandLine (), m_jt9->readAllStandardError ()
-                                  , exitCode, status))
-              {
-                m_valid = false;          // ensures exit if still
-                                          // constructing
-                QTimer::singleShot (0, this, SLOT (close ()));
-              }
-          });
+  connect(m_jt9.get(), &Jt9Decoder::readyRead, this, &MainWindow::readFromStdout);
   connect(&p1, &QProcess::started, [this] () {
                                      showStatusMessage (QString {"Started: %1 \"%2\""}.arg (p1.program ()).arg (p1.arguments ().join ("\" \"")));
                                    });
@@ -1088,68 +1074,10 @@ MainWindow::MainWindow(QDir const& temp_directory, bool multiple,
   }
   m_audioThread.start (m_audioThreadPriority);
 
-#ifdef WIN32
-  if (!m_multiple)
-    {
-      while(true)
-        {
-          int iret=killbyname("jt9.exe");
-          if(iret == 603) break;
-          if(iret != 0)
-            MessageBox::warning_message (this, tr ("Error Killing jt9.exe Process")
-                                         , tr ("KillByName return code: %1")
-                                         .arg (iret));
-        }
-    }
-#endif
-
-  {
-    //delete any .quit file that might have been left lying around
-    //since its presence will cause jt9 to exit a soon as we start it
-    //and decodes will hang
-    QFile quitFile {m_config.temp_dir ().absoluteFilePath (".quit")};
-    while (quitFile.exists ())
-      {
-        if (!quitFile.remove ())
-          {
-            MessageBox::query_message (this, tr ("Error removing \"%1\"").arg (quitFile.fileName ())
-                                       , tr ("Click OK to retry"));
-          }
-      }
-  }
-
-  QStringList jt9_args {
-    "-s", QApplication::applicationName () // shared memory key,
-                                           // includes rig
-#ifdef NDEBUG
-      , "-w", "1"               //FFTW patience - release
-#else
-      , "-w", "1"               //FFTW patience - debug builds for speed
-#endif
-      // The number  of threads for  FFTW specified here is  chosen as
-      // three because  that gives  the best  throughput of  the large
-      // FFTs used  in jt9.  The count  is the minimum of  (the number
-      // available CPU threads less one) and three.  This ensures that
-      // there is always at least one free CPU thread to run the other
-      // mode decoder in parallel.
-      , "-m", QString::number (qMin (qMax (QThread::idealThreadCount () - 1, 1), 3)) //FFTW threads
-
-      , "-e", QDir::toNativeSeparators (m_appDir)
-      , "-a", QDir::toNativeSeparators (m_config.writeable_data_dir ().absolutePath ())
-      , "-t", QDir::toNativeSeparators (m_config.temp_dir ().absolutePath ())
-      // -r: read-only shipped-data dir (cty.dat, ALLCALL7.TXT, ...) for the
-      // Fortran decoder; resolves to Contents/Resources/wsjtx on macOS.
-      , "-r", QDir::toNativeSeparators (m_config.data_dir ().absolutePath ())
-      };
-  QProcessEnvironment new_env {m_env};
-  new_env.insert ("OMP_STACKSIZE", "10M");
-  if (!m_jt9->start (QDir::toNativeSeparators (m_appDir) + QDir::separator () + "jt9"
-                     , jt9_args, new_env))
-    {
-      if (m_splash && m_splash->isVisible ()) m_splash->hide ();
-      MessageBox::critical_message (this, tr ("Sub-process error"), m_jt9->failureReason ());
-      m_valid = false;
-    }
+  m_jt9->start (QDir::toNativeSeparators (m_appDir)
+                , QDir::toNativeSeparators (m_config.writeable_data_dir ().absolutePath ())
+                , QDir::toNativeSeparators (m_config.temp_dir ().absolutePath ())
+                , QDir::toNativeSeparators (m_config.data_dir ().absolutePath ()));
 
   auto fname {QDir::toNativeSeparators(m_config.writeable_data_dir ().absoluteFilePath ("wsjtx_wisdom.dat"))};
   fftwf_import_wisdom_from_filename (fname.toLocal8Bit ());
@@ -2348,7 +2276,7 @@ void MainWindow::dataSink(qint64 frames)
   }
 
   if(m_mode=="FT8") {
-    m_jt9->requestEarlyExit(m_ihsym);     //Allow jt9 to bail out early, if necessary
+    m_jt9->requestEarlyExit(m_ihsym);     //Allow the decoder to bail out early, if necessary
     if(m_ihsym==40 and m_decoderBusy) {
       qDebug() << "Clearing hung decoder status";
       decodeDone();  //Clear a hung decoder status
@@ -5718,7 +5646,7 @@ void MainWindow::decodeDone ()
     houndCallers();
     if(ui->cbWorkDupes->isChecked()) QTimer::singleShot (5000, [=] {band_activity_cleared();});
   }
-  m_jt9->acknowledgeDone(m_ihsym);     //Tell jt9 we know it has finished
+  m_jt9->acknowledgeDone(m_ihsym);     //Tell the decoder we know it has finished
 
   m_startAnother=m_loopall;
   if(m_bNoMoreFiles) {
@@ -8258,7 +8186,7 @@ void MainWindow::guiUpdate()
       int s = now.time().toString("ss").toInt();
       if (m_ft8DecoderStart<2 or m_freqNominal>45000000) {
         if ((s == 7 || s == 22 ||s == 37 || s == 52) && m_decoderBusy) {
-        m_jt9->requestEarlyExit(m_ihsym);   //Allow jt9 to bail out early, if necessary
+        m_jt9->requestEarlyExit(m_ihsym);   //Allow the decoder to bail out early, if necessary
         decodeDone();            //We better clear a hung decoder status at this point
         }
         if (s == 10 || s == 25 ||s == 40 || s == 55) earlyDecodes = "";
@@ -10214,7 +10142,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)    // mouse press events
   }
   if(ui->DecodeButton->hasFocus() && (event->button() & Qt::RightButton)) {   // Decode button
     if(m_decoderBusy) {
-      m_jt9->requestEarlyExit(m_ihsym);   //Allow jt9 to bail out early, if necessary
+      m_jt9->requestEarlyExit(m_ihsym);   //Allow the decoder to bail out early, if necessary
       decodeDone();            //Clear a hung decoder status
     }
     ui->DecodeButton->clearFocus();
@@ -14060,7 +13988,7 @@ void MainWindow::on_cbMenus_toggled(bool b)
 
 void MainWindow::on_cbCQonly_toggled(bool)
 {  //Fix this -- no decode here?
-  m_jt9->startDecode(m_ihsym);         //Send m_ihsym to jt9[.exe] and start decoding
+  m_jt9->startDecode(m_ihsym);         //Start decoding
   decodeBusy(true);
 }
 

@@ -232,7 +232,6 @@ set (wsjt_qt_CXXSRCS
   Radio.cpp
   RadioMetaType.cpp
   NonInheritingProcess.cpp
-  Jt9Process.cpp
   models/IARURegions.cpp
   models/Bands.cpp
   models/Modes.cpp
@@ -314,6 +313,7 @@ set (jt9_FSRCS
 
 set (wsjtx_CXXSRCS
   WSJTXLogging.cpp
+  Jt9Decoder.cpp
   logbook/logbook.cpp
   Network/PSKReporter.cpp
   Network/PSKReporterConfiguration.cpp

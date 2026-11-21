@@ -103,6 +103,11 @@ namespace
 
 int main(int argc, char *argv[])
 {
+  // The in-process decoder runs its OpenMP work on worker threads; give them
+  // enough stack for the decoder's large local arrays.
+  if (qEnvironmentVariableIsEmpty ("OMP_STACKSIZE"))
+    qputenv ("OMP_STACKSIZE", "10M");
+
   init_random_seed ();
 
   // make the Qt type magic happen
