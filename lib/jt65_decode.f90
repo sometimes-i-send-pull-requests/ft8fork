@@ -1,5 +1,7 @@
 module jt65_decode
 
+  implicit none
+
   integer, parameter :: NSZ=3413, NZMAX=60*12000
 
   type :: jt65_decoder
@@ -78,6 +80,15 @@ contains
     end type accepted_decode
     type(accepted_decode) dec(50)
     logical :: first_time,prtavg,single_decode,bVHF,clear_avg65
+
+    integer :: nfreq0,nsave,nutc0,ndecoded,ndecoded0,nvec,npass,ipass
+    integer :: nsubtract,nrob,nqsym,nfa,nfb,ia,ib,nz,ncand,mode65,nflip
+    integer :: nqd,nsum,icand,nft,nspecial,qual,nhist,nsmo,ibad
+    integer :: nhard_min,nrtt1000,ntotal_min,nfreq,ndrift,nsnr,nftt,neme
+    integer :: ndeepave,nqave,n,ndupe,i,nqual
+    real :: thresh0,df,baseline,amp,f0,freq0,sync1,dtx,freq,flip,sync2
+    real :: xtmp,s2db,rtt,qave
+    real, external :: db
 
     integer h0(0:11),d0(0:11)
     real r0(0:11)
@@ -343,7 +354,7 @@ contains
 ! Decodes averaged JT65 data
 
     use jt65_mod
-    parameter (MAXAVE=64)
+    integer, parameter :: MAXAVE=64
     character*22 avemsg,deepave,deepbest
     character mycall*12,hiscall*12,hisgrid*6
     character*1 csync,cused(64)
@@ -362,6 +373,13 @@ contains
     real dtsave(MAXAVE)
     real syncsave(MAXAVE)
     logical first,clear_avg65,ljt65apon
+    integer :: nutc,nsave,nflip,nfreq,mode65,ntol,ndepth,ntrials
+    integer :: naggressive,neme,nftt,nsum,ndeepave,nQSOProgress
+    real :: snrsync,dtxx,qave
+    integer :: i,nfttbest,nfsum,minsmo,maxsmo,nn,ismo,j,jj,k,nadd
+    integer :: ncount,nhist,qual,nsmo,nnbest,nsmobest
+    real :: dtdiff,syncsum,dtsum,syncave,dtave,fave,df,qualbest,ff
+    logical :: ltext
     data first/.true./
     save
 
