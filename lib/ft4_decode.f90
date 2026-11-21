@@ -155,29 +155,29 @@ contains
          apmy_ru=0
          aphis_fd=0
 
-         if(len(trim(mycall)) .lt. 3) go to 10
+         ap_setup: block
+            if(len(trim(mycall)) .lt. 3) exit ap_setup
 
-         nohiscall=.false.
-         hiscall0=hiscall
-         if(len(trim(hiscall0)).lt.3) then
-            hiscall0=mycall  ! use mycall for dummy hiscall - mycall won't be hashed.
-            nohiscall=.true.
-         endif
-         message=trim(mycall)//' '//trim(hiscall0)//' RR73'
-         i3=-1
-         n3=-1
-         call pack77(message,i3,n3,c77)
-         call unpack77(c77,1,msgsent,unpk77_success)
-         if(i3.ne.1 .or. (message.ne.msgsent) .or. .not.unpk77_success) go to 10
-         read(c77,'(77i1)') message77
-         apmy_ru=2*mod(message77(1:28)+rvec(2:29),2)-1
-         aphis_fd=2*mod(message77(30:57)+rvec(29:56),2)-1
-         message77=mod(message77+rvec,2)
-         call encode174_91(message77,cw)
-         apbits=2*cw-1
-         if(nohiscall) apbits(30)=99
-
-10       continue
+            nohiscall=.false.
+            hiscall0=hiscall
+            if(len(trim(hiscall0)).lt.3) then
+               hiscall0=mycall  ! use mycall for dummy hiscall - mycall won't be hashed.
+               nohiscall=.true.
+            endif
+            message=trim(mycall)//' '//trim(hiscall0)//' RR73'
+            i3=-1
+            n3=-1
+            call pack77(message,i3,n3,c77)
+            call unpack77(c77,1,msgsent,unpk77_success)
+            if(i3.ne.1 .or. (message.ne.msgsent) .or. .not.unpk77_success) exit ap_setup
+            read(c77,'(77i1)') message77
+            apmy_ru=2*mod(message77(1:28)+rvec(2:29),2)-1
+            aphis_fd=2*mod(message77(30:57)+rvec(29:56),2)-1
+            message77=mod(message77+rvec,2)
+            call encode174_91(message77,cw)
+            apbits=2*cw-1
+            if(nohiscall) apbits(30)=99
+         end block ap_setup
          mycall0=mycall
          hiscall0=hiscall
       endif
