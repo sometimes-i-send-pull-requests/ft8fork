@@ -1,5 +1,7 @@
 # Trademark Policy
 
+To the best of my knowledge, there is no trademark for "FT8Fork". If you fork FT8Fork, please do not feel any obligation to change the name. However, other names inherited from the upstream project are trademarked; please see the below policy retained from upstream.
+
 **WSJT™**, **WSJT-X™**, **MAP65™**, and **QMAP™** are trademarks of the WSJT Development Team, asserted under common law through our long-standing, continuous public distribution of software with these names. The program icons are covered by the same assertion.
 
 This policy is separate from, and independent of, our software license. The source code is licensed under the GNU General Public License v3.0 (see [COPYING](COPYING)), and nothing here changes or restricts your rights under that license. You may use, study, modify, and redistribute our code freely. What this policy restricts is use of our *names and program icons*. Trademark law, not copyright law, governs such use, and the GPL does not restrict or otherwise affect trademark rights.
