@@ -80,6 +80,7 @@ contains
     integer dgen(13)
     integer nqf(20)
     integer stageno                       !Added by W3SZ
+    integer ios
     integer time
     logical lclearave,lnewdat0,lapcqonly,unpk77_success
     logical single_decode,lagain
@@ -117,21 +118,25 @@ contains
 ! NA VHF, WW-Digi, or ARRL Digi Contest
        open(24,file=trim(data_dir)//'/tsil.3q',status='unknown',     &
             form='unformatted')
-       read(24,end=2) nhist2
-       if(nhist2.ge.1 .and. nhist2.le.40) then
-          read(24,end=2) callers(1:nhist2)
-          now=time()
-          do i=1,nhist2
-             hours=(now - callers(i)%nsec)/3600.0
-             if(hours.gt.24.0) then
-                callers(i:nhist2-1)=callers(i+1:nhist2)
-                nhist2=nhist2-1
+       read(24,iostat=ios) nhist2
+       if(ios.eq.0) then
+          if(nhist2.ge.1 .and. nhist2.le.40) then
+             read(24,iostat=ios) callers(1:nhist2)
+             if(ios.eq.0) then
+                now=time()
+                do i=1,nhist2
+                   hours=(now - callers(i)%nsec)/3600.0
+                   if(hours.gt.24.0) then
+                      callers(i:nhist2-1)=callers(i+1:nhist2)
+                      nhist2=nhist2-1
+                   endif
+                enddo
              endif
-          enddo
-       else
-          nhist2=0
+          else
+             nhist2=0
+          endif
        endif
-2      close(24)
+       close(24)
     endif
 
 ! Determine the T/R sequence: iseq=0 (even), or iseq=1 (odd)

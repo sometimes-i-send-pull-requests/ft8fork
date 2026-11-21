@@ -95,7 +95,7 @@ subroutine multimode_decoder(ss,id2,params,nfsample)
 
   ! Locals that were previously typed by the implicit rules.
   integer :: nfsample
-  integer :: i, j, k, m, n, jz, ios13, iwspr
+  integer :: i, j, k, m, n, jz, ios, ios13, iwspr
   integer :: nfa, nfb, nfqso, ntol, ntol65, nf1, nf2
   integer :: nfail, ntrials, ncontest, nsec, nadd, nage, navg0
   integer :: n30, nwrap, nz, kbad, nindex, nintcount, nsamplesdel
@@ -150,11 +150,12 @@ main_body: do
      if(params%nzhsym.eq.41) then
         open(39,file='rx_messages.txt',status='old')
         do i=1,9999
-           read(39,'(a60)',end=5) line
+           read(39,'(a60)',iostat=ios) line
+           if(ios.ne.0) exit
            if(line(1:1).eq.' ' .or. line(1:1).eq.'-') exit main_body
            write(*,'(a)') trim(line)
         enddo
-5       close(39)
+        close(39)
      endif
      exit main_body
   endif
@@ -1842,6 +1843,7 @@ contains
     real, intent(in) :: qual 
     character*2 annot
     character*37 decoded0
+    integer :: ios
 
     decoded0=decoded
 
@@ -1855,12 +1857,12 @@ contains
 1001 format(i6.6,i4,f5.1,i5,' + ',1x,a37,1x,a2)
 
     if(ios13.eq.0) then
-       write(13,1002,err=10) params%nutc,nint(sync),snr,dt,freq,0,decoded0
+       write(13,1002,iostat=ios) params%nutc,nint(sync),snr,dt,freq,0,decoded0
 1002   format(i6.6,i4,i5,f6.1,f8.0,i4,3x,a37,' FT4')
-       flush(13)
+       if(ios.eq.0) flush(13)
     endif
 
-10  call flush(6)
+    call flush(6)
 
     select type(this)
     type is (counting_ft4_decoder)

@@ -57,6 +57,7 @@ contains
       logical lagain,lapcqonly
       integer itone(NN)
       integer hmod
+      integer ios
       integer*1 apmask(240),cw(240),hdec(240)
       integer*1 message101(101),message74(74),message77(77)
       integer*1 rvec(77)
@@ -99,11 +100,12 @@ contains
             open(42,file=trim(data_dir)//'/fst4w_calls.txt',status='unknown')
             do i=1,MAXWCALLS
                wcalls(i)=''
-               read(42,fmt='(a)',end=2867) wcalls(i)
+               read(42,fmt='(a)',iostat=ios) wcalls(i)
+               if(ios.ne.0) exit
                wcalls(i)=adjustl(wcalls(i))
                if(len(trim(wcalls(i))).eq.0) exit
             enddo
-2867        nwcalls=i-1
+            nwcalls=i-1
             close(42)
          endif
 
