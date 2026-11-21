@@ -2,7 +2,7 @@ subroutine ft2_decode(cdatetime0,nfqso,iwave,ndecodes,mycall,hiscall,nrx,line)
 
   use crc
   use packjt77
-  include 'ft2_params.f90'
+  use ft2_params
   character message*37,c77*77
   character*61 line
   character*37 decodes(100)
@@ -268,7 +268,7 @@ subroutine ft2_downsample(iwave,f0,c)
 ! Input: i*2 data in iwave() at sample rate 12000 Hz
 ! Output: Complex data in c(), sampled at 1200 Hz
 
-  include 'ft2_params.f90'
+  use ft2_params
   parameter (NFFT2=NMAX/16)
   integer*2 iwave(NMAX)
   complex c(0:NMAX/16-1)

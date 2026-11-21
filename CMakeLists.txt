@@ -404,6 +404,7 @@ set (wsjt_FSRCS
   lib/ft4/ft4_params.f90
   lib/ft4_decode.f90
   lib/fst4/fst4_params.f90
+  lib/ft2/ft2_params.f90
   lib/fst4_decode.f90
   lib/get_q3list.f90
   lib/jt9_decode.f90

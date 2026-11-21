@@ -3,7 +3,7 @@ subroutine ft2_gfsk_iwave(msg37,f0,snrdb,iwave)
 ! Generate waveform for experimental "FT2" mode 
 
   use packjt77
-  include 'ft2_params.f90'               !Set various constants
+  use ft2_params
   parameter (NWAVE=(NN+2)*NSPS)
   character msg37*37,msgsent37*37
   real wave(NWAVE),xnoise(NWAVE)

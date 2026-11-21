@@ -2,7 +2,7 @@ subroutine getcandidates2a(id,fa,fb,maxcand,savg,candidate,ncand)
 
 ! For now, hardwired to find the largest peak in the average spectrum
 
-  include 'ft2_params.f90'
+  use ft2_params
   real s(NH1,NHSYM)
   real savg(NH1),savsm(NH1)
   real x(NFFT1)
