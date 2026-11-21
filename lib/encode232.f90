@@ -1,11 +1,11 @@
 subroutine encode232(dat,nsym,symbol)
+  use conv232_mod
 
 ! Convolutional encoder for a K=32, r=1/2 code.
 
   integer*1 dat(13)                 !User data, packed 8 bits per byte
   integer*1 symbol(206)             !Channel symbols, one bit per byte
   integer*1 i1
-  include 'conv232.f90'
 
   nstate=0
   k=0

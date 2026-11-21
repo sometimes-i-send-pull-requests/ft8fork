@@ -1,8 +1,12 @@
+module conv232_mod
+  implicit none
+
 ! Layland-Lushbaugh polynomials for a K=32, r=1/2 convolutional code,
 ! and 8-bit parity lookup table.
 
-      data npoly1/-221228207/,npoly2/-463389625/
-      integer*1 partab(0:255)
+  integer :: npoly1, npoly2
+  integer*1 partab(0:255)
+  data npoly1/-221228207/,npoly2/-463389625/
       data partab/                &
          0, 1, 1, 0, 1, 0, 0, 1,  &
          1, 0, 0, 1, 0, 1, 1, 0,  &
@@ -36,3 +40,5 @@
          0, 1, 1, 0, 1, 0, 0, 1,  &
          0, 1, 1, 0, 1, 0, 0, 1,  &
          1, 0, 0, 1, 0, 1, 1, 0/
+
+end module conv232_mod

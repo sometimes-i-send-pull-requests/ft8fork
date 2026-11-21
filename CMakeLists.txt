@@ -411,6 +411,7 @@ set (wsjt_FSRCS
   lib/jt9_decode.f90
   lib/options.f90
   lib/pfx.f90
+  lib/conv232.f90
   lib/packjt.f90
   lib/77bit/packjt77.f90
   lib/qra/q65/q65.f90

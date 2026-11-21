@@ -1,5 +1,6 @@
 subroutine fano232(symbol,nbits,mettab,ndelta,maxcycles,dat,     &
      ncycles,metric,ierr)
+  use conv232_mod
 
 ! Sequential decoder for K=32, r=1/2 convolutional code using 
 ! the Fano algorithm.  Translated from C routine for same purpose
@@ -19,7 +20,6 @@ subroutine fano232(symbol,nbits,mettab,ndelta,maxcycles,dat,     &
   integer ii(0:MAXBITS)            !Current branch being tested
 
   logical noback
-  include 'conv232.f90'            !Polynomials defined here
 
   ntail=nbits-31
 
