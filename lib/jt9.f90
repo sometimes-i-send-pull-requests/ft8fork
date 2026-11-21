@@ -15,6 +15,7 @@ program jt9
 
   use jt9com
   use jt9a_mod
+  use symspec_mod
   use decoder_mod
 
   integer*2 id2a(180000)
@@ -22,7 +23,7 @@ program jt9
   type(wav_header) wav
   real*4 s(NSMAX)
   real*8 TRperiod
-  integer npct_unused
+  integer(c_int) npct_unused
 
   character c
   character(len=500) optarg, infile
@@ -32,9 +33,10 @@ program jt9
        fhigh=4000,nrxfreq=1500,ndepth=1,nexp_decode=0,nQSOProg=0,ncycles=3,  &
        nft8rxfsens=3,nmt=0,nmtft8decsens=3,ndecoderstart=3
   logical :: read_files = .true., tx9 = .false., display_help = .false.,     &
-       bLowSidelobes = .false., nexp_decode_set = .false.,                   &
+       nexp_decode_set = .false.,                                            &
        have_ntol = .false.,multift8 = .false.,hidedupes = .false.,           &
        lft8lowth = .true.,lft8subpass = .true.,lwidedxcsearch = .true.
+  logical(c_bool) :: bLowSidelobes = .false.
   type (option) :: long_options(41) = [                                      &
     option ('help', .false., 'h', 'Display this help message', ''),          &
     option ('shmem',.true.,'s','Use shared memory for sample data','KEY'),   &

@@ -1,5 +1,9 @@
+module symspec_mod
+
+contains
+
 subroutine symspec(shared_data,k,nsps,ingain,bLowSidelobes,    &
-     nminw,pxdb,s,df3,ihsym,npts8,pxdbmax,npct)
+     nminw,pxdb,s,df3,ihsym,npts8,pxdbmax,npct) bind(C, name='symspec_')
 
 ! Input:
 !  k              pointer to the most recent new data
@@ -16,20 +20,27 @@ subroutine symspec(shared_data,k,nsps,ingain,bLowSidelobes,    &
 !  ss()      JT9 symbol spectra at half-symbol steps
 !  savg()    average spectra for waterfall display
 
-  use, intrinsic :: iso_c_binding, only: c_int, c_short, c_float, c_char
+  use, intrinsic :: iso_c_binding, only: c_int, c_short, c_float, c_char, c_bool
   use jt9com
 
+  implicit none
+
   type(dec_data) :: shared_data
+  integer(c_int) :: k, nsps, ingain, nminw, ihsym, npts8, npct
+  real(c_float) :: pxdb, df3, pxdbmax
   real*4 w3(MAXFFT3)
-  real*4 s(NSMAX)
+  real(c_float) s(NSMAX)
   real*4 ssum(NSMAX)
   real*4 xc(0:MAXFFT3-1)
   real*4 tmp(NSMAX)
   complex cx(0:MAXFFT3/2)
   integer nch(7)
-  logical*1 bLowSidelobes
+  logical(c_bool) bLowSidelobes
+  integer :: nfft3, nfft3z, k0, jstep, ja, iz, i, j, mode4, nsmo, ia, ib
+  real*4 :: pi, gain, sq, pxmax, fac0, fac, sx, smin, smax, x1
+  real*4 syellow(NSMAX), ref(0:3456), filter(0:3456)
 
-  common/spectra/syellow(NSMAX),ref(0:3456),filter(0:3456)
+  common/spectra/syellow,ref,filter
   data k0/99999999/,nfft3z/0/
   data nch/1,2,4,9,18,36,72/
   equivalence (xc,cx)
@@ -122,3 +133,5 @@ subroutine symspec(shared_data,k,nsps,ingain,bLowSidelobes,    &
 
   return
 end subroutine symspec
+
+end module symspec_mod
