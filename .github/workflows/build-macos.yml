@@ -758,6 +758,13 @@ jobs:
           fi
           echo "Confirmed disable-library-validation entitlement on $MAIN_BIN"
 
+      - name: Create app bundle zip
+        run: |
+          STAGE="${{ steps.collect.outputs.stage_dir }}"
+          ditto -c -k --sequesterRsrc --keepParent \
+            "${STAGE}/wsjtx.app" \
+            "wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip"
+
       # ALWAYS runs. productbuild signs with the Developer ID Installer
       # cert when secrets are present; produces an unsigned .pkg
       # otherwise. Either way the artifact is named identically and
@@ -883,3 +890,9 @@ jobs:
         with:
           name: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
           path: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.pkg
+
+      - name: Upload app bundle zip
+        uses: actions/upload-artifact@v7
+        with:
+          name: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip
+          path: wsjtx-${{ inputs.version }}-${{ inputs.arch }}-macOS.zip
