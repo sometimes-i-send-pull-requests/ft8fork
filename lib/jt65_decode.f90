@@ -161,8 +161,8 @@ contains
           ia=max(1,nint((nfa-100)/df))
           ib=min(NSZ,nint((nfb+100)/df))
           nz=ib-ia+1
-          if(nz.lt.50) go to 900
-          if(isnan(sum(savg(ia:ia+nz-1)))) go to 900
+          if(nz.lt.50) return
+          if(isnan(sum(savg(ia:ia+nz-1)))) return
           call lorentzian(savg(ia),nz,a)
           baseline=a(1)
           amp=a(2)
@@ -281,12 +281,7 @@ contains
              endif
           endif
 
-          if(nftt.eq.0) go to 5
-!          if(nftt.eq.1) then
-!!             nft=1
-!             decoded=avemsg
-!             go to 5
-!          endif
+          if(nftt.ne.0) then
           n=naggressive
           rtt=0.001*nrtt1000
           if(nft.lt.2 .and. minsync.ge.0 .and. nspecial.eq.0 .and. .not.bVHF) then
@@ -296,7 +291,7 @@ contains
              if(rtt.gt.r0(n)) cycle
           endif
 
-5         continue
+          endif
           if(decoded.eq.decoded0 .and. abs(freq-freq0).lt. 3.0 .and.    &
                minsync.ge.0) cycle                  !Don't display dupes
 !          if(decoded.ne.'                      ' .or. minsync.lt.0) then
@@ -332,13 +327,13 @@ contains
              decoded0=decoded
              freq0=freq
              if(decoded0.eq.'                      ') decoded0='*'
-             if(single_decode .and. ndecoded.gt.0) go to 900
+             if(single_decode .and. ndecoded.gt.0) return
           endif
        enddo   ! icand
        if(ipass.gt.1 .and. ndecoded.eq.ndecoded0) exit
        ndecoded0=ndecoded
     enddo   ! ipass
-900 return
+  return
   end subroutine decode
 
   subroutine avg65(nutc,nsave,snrsync,dtxx,nflip,nfreq,mode65,ntol,ndepth,    &
@@ -383,9 +378,10 @@ contains
        clear_avg65=.false.
     endif
 
+    save_block: block
     do i=1,64
        if(iutc(i).lt.0) exit
-       if(nutc.eq.iutc(i) .and. abs(nfreq-nfsave(i)).le.ntol) go to 10
+       if(nutc.eq.iutc(i) .and. abs(nfreq-nfsave(i)).le.ntol) exit save_block
     enddo
 
 ! Save data for message averaging
@@ -400,7 +396,9 @@ contains
     deepbest='                      '
     nfttbest=0
     
-10  syncsum=0.
+    end block save_block
+
+    syncsum=0.
     dtsum=0.
     nfsum=0
     nsum=0
@@ -444,7 +442,7 @@ contains
        write(14,1000) cused(i),iutc(i),syncsave(i),dtsave(i)-1.0,nfsave(i),csync
 1000   format(a1,i5.4,f6.1,f6.2,i6,1x,a1)
     enddo
-    if(nsum.lt.2) go to 900
+    if(nsum.lt.2) return
 
     df=1378.125/512.0
 
@@ -495,7 +493,7 @@ contains
        if(nftt.eq.1) then
           nsmo=ismo
           param(9)=nsmo
-          go to 900
+          return
        else if(nftt.ge.2) then
           if(qual.gt.qualbest) then
              deepbest=avemsg
@@ -514,8 +512,6 @@ contains
        param(9)=nsmo
        nftt=nfttbest
     endif
-900 continue
-    
     return
   end subroutine avg65
 
