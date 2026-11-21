@@ -9,5 +9,4 @@ Small, self-contained tasks. Do one per commit, keep the build green.
 - Replace `go to` in lib/options.f90.
 - Replace `go to` in lib/q65_decode.f90.
 - Replace `go to` in lib/jt65_decode.f90.
-- Replace `go to` in lib/ft8_decode.f90.
 - Replace `go to` in lib/fst4_decode.f90.

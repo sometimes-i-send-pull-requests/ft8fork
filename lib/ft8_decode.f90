@@ -54,6 +54,7 @@ contains
     logical*1 ldiskdat
     logical lsubtracted(MAX_EARLY)
     logical la8
+    logical skip_ndec_early
     character*12 mycall12,hiscall12,call_1,call_2
     character*6 hisgrid
     character*4 grid4
@@ -121,9 +122,12 @@ contains
        ndecodes=ndec_early
     endif
 
+    skip_ndec_early=.false.
+    body: block
+
     if(nzhsym.eq.47 .and. ndec_early.eq.0) then
        dd1=dd
-       go to 800
+       exit body
     endif
 
     if(nzhsym.eq.47 .and. ndec_early.ge.1) then
@@ -141,12 +145,13 @@ contains
           if(.not.ldiskdat .and. tseq.ge.14.3d0) then !Bail out before done
              call timer('sub_ft8b',1)
              dd1=dd
-             go to 800
+             exit body
           endif
        enddo
        call timer('sub_ft8b',1)
        dd1=dd
-       go to 900
+       skip_ndec_early=.true.
+       exit body
     endif
 
     if(nzhsym.eq.50 .and. ndec_early.ge.1 .and. .not.nagain) then
@@ -239,14 +244,16 @@ contains
         endif
         call timestamp(tsec,tseq,ctime)
         if(.not.ldiskdat .and. nzhsym.eq.41 .and.                        &
-             tseq.ge.13.4d0) go to 800                 !Bail out before done
+             tseq.ge.13.4d0) exit body                 !Bail out before done
       enddo  ! icand
    enddo  ! ipass
 
-800 ndec_early=0
-   if(nzhsym.lt.50) ndec_early=ndecodes
-   
-900 continue
+    end block body
+
+   if(.not.skip_ndec_early) then
+      ndec_early=0
+      if(nzhsym.lt.50) ndec_early=ndecodes
+   endif
 
    if(lft8apon .and. ncontest.ne.6 .and. ncontest.ne.7 .and. nzhsym.eq.50 .and. &
         ndec(jseq,0).ge.1) then
