@@ -4,11 +4,11 @@ program sfrx
 
   use sfox_mod
   use julian
+  use gtag_mod
 
   integer*2 iwave(NMAX)
   integer ihdr(11)
   character*120 fname
-  include 'gtag.f90'
 
   narg=iargc()
 

@@ -426,6 +426,7 @@ set (wsjt_FSRCS
   lib/ft8/ft8_a7.f90
   lib/ft8/ft8_a8d.f90
   lib/superfox/sfox_mod.f90
+  lib/superfox/gtag.f90
   lib/superfox/julian.f90
   lib/superfox/popen_module.f90
   lib/superfox/qpc/qpc_mod.f90

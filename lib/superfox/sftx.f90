@@ -13,6 +13,7 @@ program sftx
 
   use qpc_mod
   use sfox_mod
+  use gtag_mod
   character*120 fname                 !Corrected path for sfox_1.dat
   character*120 line                  !List of SuperFox message pieces
   character*40 cmsg(5)                !Old-style Fox messages
@@ -36,7 +37,6 @@ program sftx
   integer isync(24)                   !Symbol numbers for sync tones
   data isync/1,2,4,7,11,16,22,29,37,39,42,43,45,48,52,57,63,70,78,80,  &
              83,84,86,89/
-  include 'gtag.f90'
 
   narg=iargc()
   if(narg.ne.3) then
