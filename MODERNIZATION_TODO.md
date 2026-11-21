@@ -17,9 +17,14 @@ Test data (used only by test programs):
 
 - Turn testmsg.f90, ft8_testmsg.f90, ft4_testmsg.f90 and msk144_testmsg.f90 into modules.
 
+Procedures:
+
+- Turn lib/fast9.f90 into a module (update callers in lib/fast_decode.f90 and lib/testfast9.f90).
+
 ## Replace remaining `go to` flow control
 
 - Replace `go to` in lib/options.f90.
+- Replace `go to` in lib/fast9.f90.
 - Replace `go to` in lib/jt9.f90.
 - Replace `go to` in lib/jt9_decode.f90.
 - Replace `go to` in lib/symspec.f90.
@@ -32,7 +37,6 @@ Test data (used only by test programs):
 
 ## Add `implicit none` and declare implicit locals
 
-- Add `implicit none` to lib/fast9.f90.
 - Add `implicit none` to lib/extract.f90 and lib/sync65.f90 (decoder helpers that share the JT65 commons).
 
 ## Build hygiene

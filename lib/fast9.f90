@@ -4,7 +4,11 @@ subroutine fast9(id2,narg,line)
 
   use sync9f_mod
 
-  parameter (NMAX=30*12000,NSAVE=500)
+  implicit none
+
+  integer, parameter :: NMAX=30*12000, NSAVE=500
+  real, external :: db
+
   integer*2 id2(0:NMAX)
   integer narg(0:14)
   integer*1 i1SoftSymbols(207)
@@ -23,6 +27,13 @@ subroutine fast9(id2,narg,line)
   real t(6)
   character*22 msg                     !Decoded message
   character*80 line(100)
+
+  integer :: nutc,npts,nsubmode,newdat,minsync,npick,maxlines,nmode
+  integer :: nrxfreq,ntol,nsps,nfft,nh,nq,istep,jz,nfa,nfb,nline
+  integer :: nsubmode0,ntot,limit,nlen0,i1,i2,ilength,nlen,jlen,jstep
+  integer :: ja,jb,lagpk,ipk,nsaved,iter,isave,nlim,i,kz,k,n,nsnr
+  real :: t0,t1,tmid,df,db1,tmsg,db0,ccfbest,smax,sq,x,base,snr,freq
+
   data nsubmode0/-1/,ntot/0/
   save s1,nsubmode0,ntot
 
