@@ -9,7 +9,26 @@ implicitly typed and must be converted to explicit declarations (e.g.
 
 ## Replace `include`s with module usage
 
-- Survey uses of `include` to determine files that should be converted to modules
+Shared parameter blocks:
+
+- Turn lib/ft8/ft8_params.f90 into a module (duplicated in lib/ft8var and lib/superfox).
+- Turn lib/ft4/ft4_params.f90 into a module.
+- Turn lib/ft2/ft2_params.f90 into a module.
+- Turn lib/fst4/fst4_params.f90 into a module.
+- Turn lib/wsprd/wspr_params.f90 into a module.
+- Turn lib/ft2/gcom1.f90 into a module.
+
+Shared data tables:
+
+- Turn lib/jt9sync.f90 into a module.
+- Turn lib/pfx.f90 into a module.
+- Turn lib/conv232.f90 into a module.
+- Turn lib/superfox/gtag.f90 into a module.
+- Turn the ldpc_*_parity, ldpc_*_generator and ldpc_*_params include files into modules.
+
+Test data (used only by test programs):
+
+- Turn testmsg.f90, ft8_testmsg.f90, ft4_testmsg.f90 and msk144_testmsg.f90 into modules.
 
 ## Replace remaining `go to` flow control
 
