@@ -11,10 +11,6 @@ implicitly typed and must be converted to explicit declarations (e.g.
 
 Shared data tables:
 
-- Turn lib/jt9sync.f90 into a module.
-- Turn lib/pfx.f90 into a module.
-- Turn lib/conv232.f90 into a module.
-- Turn lib/superfox/gtag.f90 into a module.
 - Turn the ldpc_*_parity, ldpc_*_generator and ldpc_*_params include files into modules.
 
 Test data (used only by test programs):
@@ -44,6 +40,7 @@ Test data (used only by test programs):
 ## Build hygiene
 
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
+- Decide whether to build or remove the legacy SuperFox programs lib/superfox/sfrx.f90 and lib/superfox/sftx.f90 (not currently in CMake).
 
 ## Other control-flow / robustness cleanups
 
