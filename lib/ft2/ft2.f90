@@ -1,7 +1,7 @@
 program ft2
 
   use packjt77
-  include 'gcom1.f90'
+  use gcom1
   integer ft2audio,ptt
   logical allok
   character*20 pttport
@@ -89,6 +89,7 @@ program ft2
 subroutine update(total_time,ic1,ic2)
 
   use wavhdr
+  use gcom1
   type(hdr) h
   real*8 total_time
   integer*8 count0,count1,clkfreq
@@ -97,7 +98,6 @@ subroutine update(total_time,ic1,ic2)
   logical transmitted,level,ok
   character*70 line
   character cdatetime*17,fname*17,mode*8,band*6
-  include 'gcom1.f90'
   data nt0/-1/,transmitted/.false./,snr/-99.0/
   data level/.false./
   save nt0,transmitted,level,snr,iptt
@@ -250,7 +250,7 @@ character*17 function cdatetime()
 end function cdatetime
 
 subroutine transmit(nfunc,ftx,iptt)
-  include 'gcom1.f90'
+  use gcom1
   character*17 cdatetime
   integer ptt
 

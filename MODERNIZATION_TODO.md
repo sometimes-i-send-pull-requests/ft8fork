@@ -9,11 +9,6 @@ implicitly typed and must be converted to explicit declarations (e.g.
 
 ## Replace `include`s with module usage
 
-Shared parameter blocks:
-
-- Turn lib/wsprd/wspr_params.f90 into a module.
-- Turn lib/ft2/gcom1.f90 into a module.
-
 Shared data tables:
 
 - Turn lib/jt9sync.f90 into a module.
@@ -45,6 +40,10 @@ Test data (used only by test programs):
 - Add `implicit none` to module packjt77 and type its bare `parameter` statements.
 - Add `implicit none` to the jt65_decode module and declare its implicit locals.
 - Turn lib/downsam9.f90, lib/sync9.f90 and lib/sync9w.f90 into modules with `implicit none`.
+
+## Build hygiene
+
+- Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
 
 ## Other control-flow / robustness cleanups
 

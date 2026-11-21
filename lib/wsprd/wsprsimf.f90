@@ -7,7 +7,7 @@
 program wsprsim
 
   use wavhdr
-  include 'wspr_params.f90'
+  use wspr_params
   type(hdr) hwav
   character arg*12,fname14*14,fname15*15
   character*22 msg,msgsent

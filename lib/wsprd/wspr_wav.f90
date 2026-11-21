@@ -2,7 +2,7 @@ subroutine wspr_wav(baud,xdt,h,f0,itone,snrdb,iwave)
 
 ! Generate iwave() from itone().
   
-  include 'wspr_params.f90'
+  use wspr_params
   integer itone(NN)
   integer*2 iwave(NMAX)
   real*8 twopi,dt,dphi0,dphi1,dphi,phi
