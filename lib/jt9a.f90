@@ -7,7 +7,7 @@ subroutine jt9a()
   use ft8_mod1, only : dd8
   use jt65_mod6, only : dd
 
-  include 'jt9com.f90'
+  use jt9com
 
   integer*2 id2a(180000)
 ! Multiple instances:

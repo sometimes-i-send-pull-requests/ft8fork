@@ -17,7 +17,7 @@ subroutine symspec(shared_data,k,nsps,ingain,bLowSidelobes,    &
 !  savg()    average spectra for waterfall display
 
   use, intrinsic :: iso_c_binding, only: c_int, c_short, c_float, c_char
-  include 'jt9com.f90'
+  use jt9com
 
   type(dec_data) :: shared_data
   real*4 w3(MAXFFT3)

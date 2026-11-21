@@ -1,4 +1,6 @@
+module jt9com
   use, intrinsic :: iso_c_binding, only: c_int, c_short, c_float, c_char, c_bool
+  implicit none
   include 'constants.f90'
 
   !
@@ -99,3 +101,5 @@
      integer(c_short) :: id2(NMAX)
      type(params_block) :: params
   end type dec_data
+
+end module jt9com

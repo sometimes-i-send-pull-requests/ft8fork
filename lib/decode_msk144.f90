@@ -1,5 +1,5 @@
 subroutine decode_msk144(audio_samples, params, data_dir)
-  include 'jt9com.f90'
+  use jt9com
 
   ! constants
   integer, parameter :: SAMPLING_RATE = 12000
