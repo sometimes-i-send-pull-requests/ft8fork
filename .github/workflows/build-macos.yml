@@ -406,8 +406,8 @@ jobs:
       - name: Verify CMake-installed app resources
         run: |
           APP="${{ steps.collect.outputs.stage_dir }}/ft8fork.app"
-          DATADIR="${APP}/Contents/Resources/wsjtx"
-          DOCDIR="${APP}/Contents/Resources/doc/wsjtx"
+          DATADIR="${APP}/Contents/Resources/ft8fork"
+          DOCDIR="${APP}/Contents/Resources/doc/ft8fork"
           SOUNDDIR="${APP}/Contents/Resources/sounds"
 
           for file in cty.dat cty.dat_copyright.txt grid.dat sat.dat eclipse.txt ALLCALL7.TXT JPLEPH; do
@@ -749,9 +749,9 @@ jobs:
           # entitlement presence — it only validates the signature
           # itself — so a re-sign that wipes entitlements would still
           # pass verify (that's how rc1 shipped broken).
-          MAIN_BIN="${APP}/Contents/MacOS/wsjtx"
+          MAIN_BIN="${APP}/Contents/MacOS/ft8fork"
           if ! codesign -d --entitlements - "$MAIN_BIN" 2>/dev/null | grep -q "disable-library-validation"; then
-            echo "::error::wsjtx binary is missing com.apple.security.cs.disable-library-validation entitlement."
+            echo "::error::ft8fork binary is missing com.apple.security.cs.disable-library-validation entitlement."
             echo "::error::Bundled Qt frameworks will fail to load under hardened runtime."
             codesign -d --entitlements - "$MAIN_BIN" || true
             exit 1
@@ -814,8 +814,8 @@ jobs:
           [ "$(/usr/libexec/PlistBuddy -c "Print :0:BundleOverwriteAction" "$RUNNER_TEMP/components.plist")" = "upgrade" ]
 
           APP_PAYLOAD="$CHECK_PAYLOAD/wsjtx-component.pkg/Payload/Applications/ft8fork.app"
-          DATADIR="${APP_PAYLOAD}/Contents/Resources/wsjtx"
-          DOCDIR="${APP_PAYLOAD}/Contents/Resources/doc/wsjtx"
+          DATADIR="${APP_PAYLOAD}/Contents/Resources/ft8fork"
+          DOCDIR="${APP_PAYLOAD}/Contents/Resources/doc/ft8fork"
           SOUNDDIR="${APP_PAYLOAD}/Contents/Resources/sounds"
 
           for file in cty.dat cty.dat_copyright.txt grid.dat sat.dat eclipse.txt ALLCALL7.TXT JPLEPH; do

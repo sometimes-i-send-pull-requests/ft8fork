@@ -2021,12 +2021,12 @@ endif (NOT WIN32 AND NOT APPLE)
 
 if (APPLE)
   set (CMAKE_POSTFLIGHT_SCRIPT
-    "${wsjtx_BINARY_DIR}/postflight.sh")
+    "${PROJECT_BINARY_DIR}/postflight.sh")
   set (CMAKE_POSTUPGRADE_SCRIPT
-    "${wsjtx_BINARY_DIR}/postupgrade.sh")
-  configure_file ("${wsjtx_SOURCE_DIR}/Darwin/postflight.sh.in"
+    "${PROJECT_BINARY_DIR}/postupgrade.sh")
+  configure_file ("${PROJECT_SOURCE_DIR}/Darwin/postflight.sh.in"
     "${CMAKE_POSTFLIGHT_SCRIPT}")
-  configure_file ("${wsjtx_SOURCE_DIR}/Darwin/postupgrade.sh.in"
+  configure_file ("${PROJECT_SOURCE_DIR}/Darwin/postupgrade.sh.in"
     "${CMAKE_POSTUPGRADE_SCRIPT}")
 endif ()
 
