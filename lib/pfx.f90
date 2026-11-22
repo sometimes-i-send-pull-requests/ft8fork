@@ -1,4 +1,4 @@
-module pfx_mod
+module pfx_table_mod
   implicit none
 
   integer, parameter :: NZ=339                     !Total number of prefixes
@@ -52,4 +52,4 @@ module pfx_mod
        'ZD9  ','ZF   ','ZK1N ','ZK1S ','ZK2  ','ZK3  ','ZL   ','ZL7  ', &
        'ZL8  ','ZL9  ','ZP   ','ZS   ','ZS8  ','KC4  ','E5   '/
 
-end module pfx_mod
+end module pfx_table_mod

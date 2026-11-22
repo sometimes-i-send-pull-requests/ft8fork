@@ -803,7 +803,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine getpfx1(callsign,k,nv2)
 
-   use pfx_mod
+   use pfx_table_mod
    character*12 callsign0,callsign,lof,rof
    character*8 c
    character addpfx*8,tpfx*4,tsfx*3
@@ -902,7 +902,7 @@ subroutine packbits(dbits,nsymd,m0,sym)
 
  subroutine getpfx2(k0,callsign)
 
-   use pfx_mod
+   use pfx_table_mod
    character callsign*12
    character addpfx*8
    common/pfxcom/addpfx

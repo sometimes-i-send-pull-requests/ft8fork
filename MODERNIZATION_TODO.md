@@ -28,6 +28,8 @@ Test data (used only by test programs):
 
 ## Build hygiene
 
+- Audit for duplicate module names across lib/ and map65/libm65/ (e.g. pfx_mod collided on a clean build).
+- Deduplicate the prefix/suffix table shared by lib/pfx.f90 and map65/libm65/pfx.f90.
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
 - Decide whether to build or remove the legacy SuperFox programs lib/superfox/sfrx.f90 and lib/superfox/sftx.f90 (not currently in CMake).
 - Decide whether to remove the unused ldpc_128_90_b_* tables and ldpc_174_91_c_colorder.f90 (no current consumers).
