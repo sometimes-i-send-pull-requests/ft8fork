@@ -29,6 +29,7 @@ Test data (used only by test programs):
 ## Build hygiene
 
 - Remove the unused map65/libm65/wavhdr.f90 (its module has no users in map65).
+- Resolve the cacb_mod module name duplicated in map65/libm65/ and qmap/libqmap/ (the two sources differ; they only avoid colliding because each target has its own module directory).
 - Deduplicate the prefix/suffix table shared by lib/pfx.f90 and map65/libm65/pfx.f90.
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
 - Decide whether to build or remove the legacy SuperFox programs lib/superfox/sfrx.f90 and lib/superfox/sftx.f90 (not currently in CMake).
