@@ -1,5 +1,5 @@
 module encode65_mod
-  use packjt, only:packmsg
+  use packjt_m65, only:packmsg
   use graycode_mod, only: graycode
   use rs_mod, only: rs_encode_
   use interleave63_mod, only:interleave63

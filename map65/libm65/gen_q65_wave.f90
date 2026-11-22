@@ -6,7 +6,7 @@
 
 subroutine gen_q65_wave(msg,ntxfreq,mode65,msgsent,iwave,nwave)
 
-  use packjt
+  use packjt_m65
   use q65_encoding
   implicit none 
 

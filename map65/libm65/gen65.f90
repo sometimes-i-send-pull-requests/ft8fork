@@ -6,7 +6,7 @@
 
 subroutine gen65_core(message, mode65, samfac, nsendingsh, msgsent, iwave, nwave)
   use iso_c_binding
-  use packjt
+  use packjt_m65
   use chkmsg_mod
   use graycode_mod
   use rs_mod, only: rs_encode_

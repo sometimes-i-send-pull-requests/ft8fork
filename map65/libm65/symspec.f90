@@ -1,4 +1,4 @@
-module symspec_mod
+module map65_symspec_mod
   implicit none
 contains
 
@@ -244,4 +244,4 @@ k0 = k
 end subroutine symspec
 
 
-end module symspec_mod
+end module map65_symspec_mod

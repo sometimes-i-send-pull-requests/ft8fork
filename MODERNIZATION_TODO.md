@@ -28,7 +28,7 @@ Test data (used only by test programs):
 
 ## Build hygiene
 
-- Audit for duplicate module names across lib/ and map65/libm65/ (e.g. pfx_mod collided on a clean build).
+- Remove the unused map65/libm65/wavhdr.f90 (its module has no users in map65).
 - Deduplicate the prefix/suffix table shared by lib/pfx.f90 and map65/libm65/pfx.f90.
 - Decide whether to build or remove the legacy Fortran programs lib/ft2/ft2.f90 and lib/wsprd/wsprsimf.f90 (not currently in CMake).
 - Decide whether to build or remove the legacy SuperFox programs lib/superfox/sfrx.f90 and lib/superfox/sftx.f90 (not currently in CMake).

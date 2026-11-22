@@ -5,7 +5,7 @@ contains
 subroutine cgen65(message,mode65,samfac,nsendingsh,msgsent,cwave,nwave)
 
   use iso_fortran_env, only: int8, real64
-  use packjt
+  use packjt_m65
   use chkmsg_mod
   use graycode_mod
   use rs_mod

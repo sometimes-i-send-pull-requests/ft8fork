@@ -1,4 +1,4 @@
-module packjt
+module packjt_m65
   implicit none 
   contains
 
@@ -926,4 +926,4 @@ subroutine packpfx(call1, n1, ng, nadd)
   return
 end subroutine packpfx
 
-end module packjt
+end module packjt_m65

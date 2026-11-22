@@ -1,4 +1,4 @@
-module wavhdr
+module wavhdr_m65
   use iso_fortran_env, only: int32, int16
   implicit none
 
@@ -122,4 +122,4 @@ contains
     end if
   end subroutine get_wsjtx_wav_params
 
-end module wavhdr
+end module wavhdr_m65

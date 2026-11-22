@@ -1,7 +1,7 @@
 program JT65code
 
   use chkmsg_mod
-  use packjt
+  use packjt_m65
   use interleave63_mod
   use graycode_mod
   implicit none

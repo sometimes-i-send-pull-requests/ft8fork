@@ -5,7 +5,7 @@ contains
 subroutine extract(s3,nadd,ncount,nhist,decoded,ltext,mrs,mrs2)
 
   use iso_c_binding, only: c_int
-  use packjt
+  use packjt_m65
   use timer_module, only: timer
   use pctile_mod
   use demod64a_mod

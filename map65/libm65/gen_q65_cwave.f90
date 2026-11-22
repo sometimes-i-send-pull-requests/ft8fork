@@ -4,7 +4,7 @@ contains
 
 subroutine gen_q65_cwave(msg,ntxfreq,ntone_spacing,msgsent,cwave,nwave)
 
-  use packjt
+  use packjt_m65
   use q65_encoding
   use iso_fortran_env, only: real64
 
