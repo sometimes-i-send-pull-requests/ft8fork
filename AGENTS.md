@@ -1,4 +1,5 @@
-You are working on WSJT-X, a weak-signal communication software.
+You are working on FT8Fork, a fork of WSJT-X, a weak-signal communication
+software.
 
 This project is built with CMake.  There is already a cmake build directory at
 `../wsjtx-build`.  You can build the project with `cmake --build
