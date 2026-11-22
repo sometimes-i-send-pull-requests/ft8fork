@@ -39,7 +39,6 @@ contains
        ltry_a8,lapcqonly,napwid,mycall12,hiscall12,hisgrid,ldiskdat)
     use iso_c_binding, only: c_bool, c_int, c_float
     use timer_module, only: timer
-    use shmem, only: shmem_lock, shmem_unlock
     use ft8_a7
 
   use ft8_params
